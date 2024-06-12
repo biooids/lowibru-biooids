@@ -18,22 +18,36 @@ function SidebarComp() {
         </div>
         <Sidebar.Items className="mt-3 h-screen">
           <Sidebar.ItemGroup>
-            <Sidebar.Item icon={FaUserCircle}>Update Profile</Sidebar.Item>
-            <Sidebar.Item icon={FaHome}>Home</Sidebar.Item>
+            <Sidebar.Item icon={FaUserCircle} as="div">
+              Update Profile
+            </Sidebar.Item>
+            <Sidebar.Item icon={FaHome} as="div">
+              Home
+            </Sidebar.Item>
             <Link to="events">
-              <Sidebar.Item icon={MdOutlineEvent}>Events</Sidebar.Item>
+              <Sidebar.Item icon={MdOutlineEvent} as="div">
+                Events
+              </Sidebar.Item>
             </Link>
             <Link to="talents">
-              <Sidebar.Item icon={MdOutlineEvent}>Talents</Sidebar.Item>
+              <Sidebar.Item icon={MdOutlineEvent} as="div">
+                Talents
+              </Sidebar.Item>
             </Link>
             <Link to="lectures">
-              <Sidebar.Item icon={MdMenuBook}>Lectures</Sidebar.Item>
+              <Sidebar.Item icon={MdMenuBook} as="div">
+                Lectures
+              </Sidebar.Item>
             </Link>
             <Link to="market">
-              <Sidebar.Item icon={FaStoreAlt}>Market</Sidebar.Item>
+              <Sidebar.Item icon={FaStoreAlt} as="div">
+                Market
+              </Sidebar.Item>
             </Link>
             <Link to="media">
-              <Sidebar.Item icon={MdOutlinePermMedia}>Media</Sidebar.Item>
+              <Sidebar.Item icon={MdOutlinePermMedia} as="div">
+                Media
+              </Sidebar.Item>
             </Link>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
