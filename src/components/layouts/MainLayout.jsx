@@ -16,10 +16,14 @@ function MainLayout() {
           <main>
             <Outlet />
           </main>
+          <footer className="md:hidden">
+            <FooterComp />
+          </footer>
         </div>
       </div>
-
-      <FooterComp />
+      <footer className="hidden md:block">
+        <FooterComp />
+      </footer>
     </>
   );
 }
