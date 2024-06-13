@@ -18,8 +18,7 @@ import { Link } from "react-router-dom";
 function SidebarComp() {
   return (
     <>
-      {/* Sidebar for larger screens */}
-      <Sidebar className=" sticky top-0  hidden md:block w-[300px]  z-10  ">
+      <Sidebar className=" sticky top-0  hidden sm:block ">
         <div className=" border-b-2 border-amber-500 pt-5">
           <Avatar img={profilePic} size="lg" rounded bordered />
           <div className="text-center">
@@ -85,7 +84,7 @@ function SidebarComp() {
       </Sidebar>
 
       {/* Bottom navigation for smaller screens */}
-      <div className="fixed bottom-0 left-0 right-0 border-t-2 border-amber-500 md:hidden flex justify-around items-center py-2 z-10">
+      <div className="fixed bottom-0 left-0 right-0 border-t-2 border-amber-500 sm:hidden flex justify-around items-center py-2 z-50">
         <Link to="events">
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>

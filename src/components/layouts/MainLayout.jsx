@@ -13,7 +13,7 @@ function MainLayout() {
           <header>
             <HeaderComp />
           </header>
-          <main>
+          <main className="min-h-screen ">
             <Outlet />
           </main>
           <footer className="md:hidden">
