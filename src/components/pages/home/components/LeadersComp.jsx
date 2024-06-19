@@ -1,7 +1,7 @@
 import { Card } from "flowbite-react";
 import React from "react";
-import "./home.css";
-import leaderPic from "../../../assets/father.jpg";
+
+import leaderPic from "../../../../assets/father.jpg";
 function LeadersComp({ leaderName, title, description }) {
   return (
     <article>

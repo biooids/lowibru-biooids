@@ -20,9 +20,9 @@ import "./home.css";
 import profilePic from "../../../assets/father.jpg";
 
 import { Link } from "react-router-dom";
-import LeadersComp from "./LeadersComp";
-import CommentsComp from "./CommentsComp";
-import CountryComp from "./CountryComp";
+import LeadersComp from "./components/LeadersComp";
+import CommentsComp from "./components/CommentsComp";
+import CountryComp from "./components/CountryComp";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
