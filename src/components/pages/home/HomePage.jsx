@@ -472,7 +472,7 @@ function HomePage() {
             <CommentsComp />
           </section>
         </div>
-        <div className="">
+        <div className=" bg-black h-fit sticky top-0">
           <h3 className="text-xl mb-xl mb-3"> Hello World !</h3>
           <div className="flex gap-3 flex-col">
             <p className="text-sm">
