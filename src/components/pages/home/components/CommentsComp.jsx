@@ -10,14 +10,14 @@ function CommentsComp() {
         bordered
         className="flex justify-start items-start"
       />
-      <div className="flex  flex-col gap-1">
+      <div className="flex  flex-col gap-3">
         <div className=" font-medium dark:text-white flex items-center  gap-3">
           <span>Jese Leos</span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             posted in August 2014
           </span>
         </div>
-        <p className=" text-sm">
+        <p className=" text-sm text-gray-400">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi
           alias, illum tempora officia quos nostrum. Pariatur vero sunt
           eligendi? Rerum tempora numquam consequuntur dolores perferendis

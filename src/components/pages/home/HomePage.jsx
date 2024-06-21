@@ -39,7 +39,7 @@ function HomePage() {
             </div>
           </div>
         </Avatar>
-        <div className=" gap-2 justify-between items-center ">
+        <div className=" gap-3 justify-between flex items-center ">
           <Link to="signin">
             <div className="">
               <p className="mb-3">Have an account ?</p>
@@ -57,8 +57,8 @@ function HomePage() {
       </section>
       <section className=" landing-section">
         <div>
-          <h1 className="text-4xl">Welcome to FFWPU</h1>
-          <ul className="text-sm ">
+          <h1 className="text-4xl mb-4">Welcome to FFWPU</h1>
+          <ul className="text-sm text-gray-400 ">
             <li>F : family</li>
             <li>F : fedearation for </li>
             <li>W : world</li>
@@ -67,8 +67,8 @@ function HomePage() {
           </ul>
         </div>
         <div>
-          <h2 className="text-3xl">OUR MAIN MISSION</h2>
-          <p className="text-sm">
+          <h2 className="text-3xl mb-4">OUR MAIN MISSION</h2>
+          <p className="text-sm text-gray-400">
             Conduct educational and training programs to indivduals with mind
             unity by living for the sake of others and creating a culture of
             service Propagate and promote the vision and phylosophy of peace of
@@ -84,7 +84,7 @@ function HomePage() {
               </ul>
             </div>
 
-            <Button onClick={() => setIsOpen(true)} className="w-full">
+            <Button onClick={() => setIsOpen(true)} className="w-full mt-8">
               Join Us
             </Button>
           </div>
@@ -140,7 +140,7 @@ function HomePage() {
 
                   <fieldset className="flex gap-3 mb-3">
                     <legend className="mb-3">Your gender</legend>
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex items-center gap-3 ">
                       <Radio
                         id="male"
                         name="gender"
@@ -149,11 +149,11 @@ function HomePage() {
                       />
                       <Label htmlFor="male">male</Label>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <Radio id="female" name="gender" value="female" />
                       <Label htmlFor="female">female</Label>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <Radio id="other" name="gender" value="other" />
                       <Label htmlFor="spain">other</Label>
                     </div>
@@ -214,7 +214,7 @@ function HomePage() {
         </Carousel>
       </article>
 
-      <section className="bg-slate-800 mt-10 p-3 m-10">
+      <section className="bg-slate-800  p-3 sm:m-10 ml-2 mr-2 mt-10">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
           About Us
         </h5>
@@ -222,10 +222,10 @@ function HomePage() {
         <div className="explanation-cards  ">
           <Card className="w-full">
             <div className="h-full">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
                 What Motivates Us?
               </h5>
-              <ul className="list-disc">
+              <ul className="list-disc flex flex-col gap-3 text-gray-400">
                 <li>
                   Living for the sake of others. A life that has value, is a
                   life where we abandon our private desires for the public good.
@@ -244,10 +244,10 @@ function HomePage() {
           </Card>
           <Card className="w-full ">
             <div className="h-full">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
                 What do we do?
               </h5>
-              <ul className="list-disc">
+              <ul className="list-disc  flex flex-col gap-3 text-gray-400">
                 <li>
                   We mainly teach divine principle a phylosophy of peace of
                   FFWUP, and the way humanity should live together achieve peace
@@ -266,10 +266,10 @@ function HomePage() {
           </Card>
           <Card className="w-full">
             <div className="h-full">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
                 What do we believe in?
               </h5>
-              <ul className="list-disc">
+              <ul className="list-disc  flex flex-col gap-3 text-gray-400">
                 <li>
                   WE bilieve in one and only one God, the creator of heaven and
                   earth, the God that cristians,Islam,Judaism,... belive in
@@ -285,7 +285,7 @@ function HomePage() {
           </Card>
           <Card className="w-full">
             <div className="h-full">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
                 Cult or a new religion?
               </h5>
               <p className="font-normal text-gray-700 dark:text-gray-400">
@@ -304,23 +304,23 @@ function HomePage() {
                 <h6 className="text-lg underline">
                   Go to the real Source below
                 </h6>
-                <ul className="flex flex-col gap-3 lg:flex-row justify-between  ">
-                  <li>
+                <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
+                  <li className="hover:underline">
                     <a href="">Piece Tv</a>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <a href="">UPF Main Site</a>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <a href="">FFWPU World</a>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <a href="">Youtube</a>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <a href="">facebook</a>
                   </li>
-                  <li>
+                  <li className="hover:underline">
                     <a href="">Instagram</a>
                   </li>
                 </ul>
@@ -329,17 +329,17 @@ function HomePage() {
           </Card>
         </div>
       </section>
-      <section className="bg-slate-800 m-10 p-3">
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center">
+      <section className="bg-slate-800 sm:m-10 p-3 ml-2 mr-2">
+        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center mb-4">
           OUR VISSION
         </h5>
-        <p className="text-center text-lg">
+        <p className="text-center text-lg text-gray-400">
           Creating God Centered Ideal famillies Of True Love as Cornerstine for
           World Peace.
         </p>
       </section>
-      <section className="bg-slate-800 m-10 p-3">
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center">
+      <section className="bg-slate-800 sm:m-10 p-3 mt-10 ">
+        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
           OUR MISSIONS
         </h5>
         <div className="mission-cards  ">
@@ -391,7 +391,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="leaders-section m-10 ">
+      <section className="leaders-section sm:m-10 mt-10 mr-2 ml-2 ">
         <h2 className="text-2xl">
           Leaders in Location: <span>Rwanda</span>
         </h2>
@@ -435,12 +435,12 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="m-10 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 p-6 gap-3">
+      <section className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 p-6 gap-3">
         <div className="">
-          <h3 className="text-xl mb-3">
+          <h3 className="text-xl mb-4">
             General blog for Questions and answers
           </h3>
-          <p className="text-sm max-w-md">
+          <p className="text-sm max-w-md text-gray-400">
             We encourage you to actively participate by posting and asking
             thoughtful inquiries. Let's keep the conversation enriching and
             respectful by refraining from posting rude or unrelated questions.
@@ -472,10 +472,10 @@ function HomePage() {
             <CommentsComp />
           </section>
         </div>
-        <div className=" bg-black h-fit sticky top-0">
-          <h3 className="text-xl mb-xl mb-3"> Hello World !</h3>
+        <div className="  h-fit sticky top-0">
+          <h3 className="text-xl mb-xl mb-4"> Hello World !</h3>
           <div className="flex gap-3 flex-col">
-            <p className="text-sm">
+            <p className="text-sm text-gray-400">
               Your support fuels our efforts to continue sharing these vital
               teachings with the world. Together, let's inspire positive change
               and build a brighter future based on love, compassion, and unity.
