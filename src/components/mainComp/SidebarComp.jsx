@@ -44,7 +44,7 @@ function SidebarComp() {
               Chat
             </Sidebar.Item>
 
-            <Link to="events">
+            <Link to="/events">
               <Sidebar.Item
                 icon={MdOutlineEvent}
                 label="2"
