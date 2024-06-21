@@ -12,7 +12,19 @@ function App() {
         {/* <Route path="/" element={<LandingPage />} /> */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="/events" element={<Events />}></Route>
+
+          <Route path="/events" element={<Events />}>
+            {/* <Route index element={<Activities />} /> */}
+            {/* <Route path="live" element={<LiveEvents />} />
+            <Route path="upcomming" element={<UpcommingEvents />} />
+            <Route path="saved" element={<SavedEvents />} /> */}
+            {/* <Route path="post" element={<PostEvents />}>
+              <Route index element={<EventCreate />} />
+              <Route path="golive" element={<EventGolive />} />
+              <Route path="permission" element={<EventPermission />} />
+              <Route path="mypost" element={<EventMyPost />} />
+            </Route> */}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

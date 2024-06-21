@@ -42,14 +42,14 @@ function HomePage() {
         <div className=" gap-3 justify-between flex items-center ">
           <Link to="signin">
             <div className="">
-              <p className="mb-3">Have an account ?</p>
+              <p className="mb-4">Have an account ?</p>
               <Button>Sign in</Button>
             </div>
           </Link>
 
           <Link to="signup">
             <div>
-              <p className="mb-3">don't have an account ?</p>
+              <p className="mb-4">don't have an account ?</p>
               <Button>Create account</Button>
             </div>
           </Link>
@@ -94,8 +94,8 @@ function HomePage() {
               <Drawer.Header title="JOIN US" titleIcon={HiEnvelope} />
               <Drawer.Items>
                 <form>
-                  <div className="mb-3 mt-3">
-                    <Label htmlFor="email" className="mb-2 block">
+                  <div className="mb-4 mt-3">
+                    <Label htmlFor="email" className="mb-4 block">
                       Your email (optional)
                     </Label>
                     <TextInput
@@ -106,8 +106,8 @@ function HomePage() {
                       placeholder="name@company.com"
                     />
                   </div>
-                  <div className="mb-3">
-                    <Label htmlFor="subject" className="mb-2 block">
+                  <div className="mb-4">
+                    <Label htmlFor="subject" className="mb-4 block">
                       Number
                     </Label>
                     <TextInput
@@ -119,15 +119,15 @@ function HomePage() {
                       required
                     />
                   </div>
-                  <div className="max-w-md mb-3">
-                    <div className="mb-2 block">
+                  <div className="max-w-md mb-4">
+                    <div className="mb-4 block">
                       <Label htmlFor="region" value=" Your Region " />
                     </div>
 
                     <CountryComp />
                   </div>
                   <div className="mb-4">
-                    <Label htmlFor="message" className="mb-2 block">
+                    <Label htmlFor="message" className="mb-4 block">
                       Leave a message (optional)
                     </Label>
                     <Textarea
@@ -138,8 +138,8 @@ function HomePage() {
                     />
                   </div>
 
-                  <fieldset className="flex gap-3 mb-3">
-                    <legend className="mb-3">Your gender</legend>
+                  <fieldset className="flex gap-3 mb-4">
+                    <legend className="mb-4">Your gender</legend>
                     <div className="flex items-center gap-3 ">
                       <Radio
                         id="male"
@@ -158,7 +158,7 @@ function HomePage() {
                       <Label htmlFor="spain">other</Label>
                     </div>
                   </fieldset>
-                  <div className="mb-6">
+                  <div className="mb-4">
                     <Button type="submit" className="w-full">
                       Submit the Form
                     </Button>
@@ -448,7 +448,7 @@ function HomePage() {
           </p>
           <form className="mt-3 flex gap-3 flex-col">
             <div className="max-w-md">
-              <div className="mb-2 block">
+              <div className="mb-4 block">
                 <Label htmlFor="comment" value="Add Comment" />
               </div>
               <Textarea
