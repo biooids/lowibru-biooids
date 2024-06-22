@@ -5,6 +5,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import HomePage from "./components/pages/home/HomePage";
 import Events from "./components/pages/events/Events";
 import Activities from "./components/pages/events/components/Activities";
+import LiveEvents from "./components/pages/events/components/LiveEvents";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
 
           <Route path="/events" element={<Events />}>
             <Route index element={<Activities />} />
-            {/* <Route path="live" element={<LiveEvents />} />
+            <Route path="live" element={<LiveEvents />} />
+            {/*
             <Route path="upcomming" element={<UpcommingEvents />} />
             <Route path="saved" element={<SavedEvents />} /> */}
             {/* <Route path="post" element={<PostEvents />}>
