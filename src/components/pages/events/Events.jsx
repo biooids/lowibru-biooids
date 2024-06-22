@@ -23,51 +23,49 @@ function Events() {
         <p>you can change the country above</p>
       </div>
       <Navbar className="sticky top-0 z-50 ">
-        <div className="flex bg-black  ">
-          <Link
-            to="."
-            relative="path"
-            className="hover:bg-amber-900 border-2 rounded-l-md p-1 border-amber-500   flex justify-center items-center"
-          >
-            <HiUserCircle />
-            Activities
-          </Link>
+        {/* <div className="flex mb-4 w-full gap-2 "> */}
+        <Link
+          to="."
+          relative="path"
+          className="hover:bg-amber-900 border-2 rounded-l-md p-1 border-amber-500  flex flex-col justify-center items-center"
+        >
+          <HiUserCircle />
+          Activities
+        </Link>
 
-          <Link
-            to="live"
-            className="hover:bg-amber-900 border-2 p-1 border-amber-500   flex justify-center items-center"
-          >
-            <HiAdjustments />
-            Live
-          </Link>
-          <Link
-            to="upcomming"
-            className="hover:bg-amber-900 border-2 p-1 border-amber-500 rounded-r-md  flex justify-center items-center"
-          >
-            <HiAdjustments />
-            Upcomming
-          </Link>
-        </div>
-
-        <div className="flex bg-black">
-          <Link
-            to="post"
-            className="hover:bg-amber-900 border-2 p-1 border-amber-500 rounded-md  flex justify-center items-center"
-          >
-            <HiCloudDownload />
-            Post
-          </Link>
-
-          <Link
-            to="saved"
-            className="hover:bg-amber-900 border-2 p-1 border-amber-500 rounded-md  flex justify-center items-center"
-          >
-            <HiCloudDownload />
-            Saved
-          </Link>
-        </div>
+        <Link
+          to="live"
+          className="hover:bg-amber-900 border-2 p-1 border-amber-500 flex flex-col    justify-center items-center"
+        >
+          <HiAdjustments />
+          Live
+        </Link>
+        <Link
+          to="upcomming"
+          className="hover:bg-amber-900 border-2 p-1 border-amber-500  flex flex-col justify-center items-center"
+        >
+          <HiAdjustments />
+          Upcomming
+        </Link>
+        {/* </div> */}
+        {/* <div className="flex gap-2 "> */}
+        <Link
+          to="saved"
+          className="hover:bg-amber-900 border-2 p-1 border-amber-500  flex flex-col  justify-center items-center"
+        >
+          <HiCloudDownload />
+          Saved
+        </Link>
+        <Link
+          to="post"
+          className="hover:bg-amber-900 border-2 p-1 border-amber-500 rounded-r-md  flex flex-col justify-center items-center"
+        >
+          <HiCloudDownload />
+          Post
+        </Link>
+        {/* </div> */}
       </Navbar>
-      <section className="p-10 bg-slate-900">
+      <section className="sm:p-10  bg-slate-900">
         <Outlet />
       </section>
     </section>

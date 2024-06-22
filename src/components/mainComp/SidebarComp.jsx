@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 function SidebarComp() {
   return (
     <>
-      <Sidebar className=" sticky top-0  hidden sm:block ">
+      <Sidebar className=" sticky top-0  hidden md:block ">
         <div className=" border-b-2 border-amber-500  pb-5">
           <div>
             <Avatar img={profilePic} size="lg" rounded bordered />

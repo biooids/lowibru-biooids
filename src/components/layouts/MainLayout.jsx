@@ -7,7 +7,7 @@ import FooterComp from "../mainComp/FooterComp";
 function MainLayout() {
   return (
     <>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen max-w-[1440px] m-auto">
         <SidebarComp />
         <div className="w-full ">
           <header>

@@ -4,6 +4,7 @@ import LandingPage from "./components/mainComp/LandingPage";
 import MainLayout from "./components/layouts/MainLayout";
 import HomePage from "./components/pages/home/HomePage";
 import Events from "./components/pages/events/Events";
+import Activities from "./components/pages/events/components/Activities";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route index element={<HomePage />}></Route>
 
           <Route path="/events" element={<Events />}>
-            {/* <Route index element={<Activities />} /> */}
+            <Route index element={<Activities />} />
             {/* <Route path="live" element={<LiveEvents />} />
             <Route path="upcomming" element={<UpcommingEvents />} />
             <Route path="saved" element={<SavedEvents />} /> */}
