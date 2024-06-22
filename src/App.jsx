@@ -6,6 +6,7 @@ import HomePage from "./components/pages/home/HomePage";
 import Events from "./components/pages/events/Events";
 import Activities from "./components/pages/events/components/Activities";
 import LiveEvents from "./components/pages/events/components/LiveEvents";
+import UpcomingEvents from "./components/pages/events/components/UpcomingEvents";
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
           <Route path="/events" element={<Events />}>
             <Route index element={<Activities />} />
             <Route path="live" element={<LiveEvents />} />
+            <Route path="upcoming" element={<UpcomingEvents />} />
             {/*
-            <Route path="upcomming" element={<UpcommingEvents />} />
             <Route path="saved" element={<SavedEvents />} /> */}
             {/* <Route path="post" element={<PostEvents />}>
               <Route index element={<EventCreate />} />

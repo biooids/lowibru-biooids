@@ -41,11 +41,11 @@ function Events() {
           Live
         </Link>
         <Link
-          to="upcomming"
+          to="upcoming"
           className="hover:bg-amber-900 border-2 p-1 border-amber-500  flex flex-col justify-center items-center"
         >
           <HiAdjustments />
-          Upcomming
+          Upcoming
         </Link>
         {/* </div> */}
         {/* <div className="flex gap-2 "> */}
