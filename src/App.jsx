@@ -8,6 +8,7 @@ import Activities from "./components/pages/events/components/Activities";
 import LiveEvents from "./components/pages/events/components/LiveEvents";
 import UpcomingEvents from "./components/pages/events/components/UpcomingEvents";
 import SavedEvents from "./components/pages/events/components/SavedEvents";
+import PostEvents from "./components/pages/events/components/post/PostEvents";
 
 function App() {
   return (
@@ -22,13 +23,15 @@ function App() {
             <Route path="live" element={<LiveEvents />} />
             <Route path="upcoming" element={<UpcomingEvents />} />
             <Route path="saved" element={<SavedEvents />} />
-            {/*
-            {/* <Route path="post" element={<PostEvents />}>
+
+            <Route path="post" element={<PostEvents />}>
+              {/* 
               <Route index element={<EventCreate />} />
               <Route path="golive" element={<EventGolive />} />
               <Route path="permission" element={<EventPermission />} />
               <Route path="mypost" element={<EventMyPost />} />
-            </Route> */}
+              */}
+            </Route>
           </Route>
         </Route>
       </Routes>
