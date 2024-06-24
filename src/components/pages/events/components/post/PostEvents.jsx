@@ -18,10 +18,10 @@ function PostEvents() {
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col justify-center items-start">
-              <Avatar img={profilePic} rounded bordered size="lg" />
+              <Avatar img={profilePic} rounded bordered size="sm" />
               <h4 className=" ">Hwapyong Maniragaba</h4>
             </div>
-            <div className=" w-full justify-between gap-3 flex  flex-row text-xs sm:text-lg">
+            <div className=" w-full justify-between gap-3 flex  flex-row text-xs sm:text-sm">
               <div className="flex flex-col">
                 <span>role</span>
                 <span>Leader</span>
@@ -42,32 +42,32 @@ function PostEvents() {
             <Link
               to="."
               relative="path"
-              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-lg text-sm px-1"
+              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
             >
               Create
             </Link>
             <Link
               to="mypost"
-              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-lg text-sm px-1"
+              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
             >
               My Posts
             </Link>
             <Link
               to="golive"
-              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-lg text-sm px-1"
+              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
             >
               Go live
             </Link>
             <Link
               to="permission"
-              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-lg text-sm px-1"
+              className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
             >
               Permissions
             </Link>
           </div>
         </Navbar>
       </section>
-      <section className="bg-slate-700 rounded-md p-3 ">
+      <section className="rounded-md p-3 ">
         <Outlet />
       </section>
     </section>

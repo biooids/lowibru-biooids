@@ -9,6 +9,7 @@ import LiveEvents from "./components/pages/events/components/LiveEvents";
 import UpcomingEvents from "./components/pages/events/components/UpcomingEvents";
 import SavedEvents from "./components/pages/events/components/SavedEvents";
 import PostEvents from "./components/pages/events/components/post/PostEvents";
+import EventCreate from "./components/pages/events/components/post/EventCreate";
 
 function App() {
   return (
@@ -25,8 +26,8 @@ function App() {
             <Route path="saved" element={<SavedEvents />} />
 
             <Route path="post" element={<PostEvents />}>
-              {/* 
               <Route index element={<EventCreate />} />
+              {/* 
               <Route path="golive" element={<EventGolive />} />
               <Route path="permission" element={<EventPermission />} />
               <Route path="mypost" element={<EventMyPost />} />
