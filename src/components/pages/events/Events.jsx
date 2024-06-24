@@ -65,7 +65,7 @@ function Events() {
         </Link>
         {/* </div> */}
       </Navbar>
-      <section className="sm:p-10  bg-slate-900">
+      <section className="sm:p-10 ">
         <Outlet />
       </section>
     </section>
