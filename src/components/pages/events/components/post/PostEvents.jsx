@@ -5,7 +5,7 @@ import profilePic from "../../../../../assets/father.jpg";
 
 function PostEvents() {
   return (
-    <section className="flex flex-col gap-3 p-2">
+    <section className="flex flex-col gap-3 ">
       <section className=" rounded-md">
         <div className="flex flex-col gap-3 ">
           <div className="flex gap-3 ">
@@ -67,7 +67,7 @@ function PostEvents() {
           </div>
         </Navbar>
       </section>
-      <section className="rounded-md p-3 ">
+      <section className="rounded-md  ">
         <Outlet />
       </section>
     </section>

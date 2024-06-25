@@ -5,11 +5,11 @@ import { FileInput, Label } from "flowbite-react";
 
 function EventCreateCard() {
   return (
-    <article className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700">
-      <div className="h-56  sm:h-64 xl:h-80 2xl:h-96 ">
+    <article className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700 ">
+      <div className=" p-3">
         <Label
           htmlFor="dropzone-file"
-          className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          className="flex h-56 p-3   w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-amber-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
         >
           <div className="flex flex-col items-center justify-center pb-6 pt-5">
             <svg
@@ -39,7 +39,7 @@ function EventCreateCard() {
         </Label>
       </div>
 
-      <div className=" flex gap-3 flex-col  rounded-md ">
+      <div className=" flex gap-3 flex-col  rounded-md p-3 ">
         <div className="bg-slate-700  rounded-lg p-3 flex flex-col">
           <h4 className="text-xl w-full mb-1 font-bold">
             Work Shop Lorem ipsum dolor sit amet consectetur,
@@ -50,8 +50,9 @@ function EventCreateCard() {
             minima, eaque laboriosam, facere ex pariatur vel, ea voluptatum quam
             officiis aut?
           </p>
-          <div className="flex flex-col mt-3">
-            <Button>Delete now</Button>
+          <div className="flex justify-between mt-3">
+            <Button>Done</Button>
+            <Button color="red">Reset</Button>
           </div>
         </div>
 

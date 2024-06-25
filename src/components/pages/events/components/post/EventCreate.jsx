@@ -9,7 +9,7 @@ import { FaRegSave } from "react-icons/fa";
 
 function EventCreate() {
   return (
-    <section className=" flex flex-col gap-6 w-[450px]  m-auto sm:w-[400px] lg:w-auto">
+    <section className=" flex flex-col gap-6 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
       <EventCreateCard />
       <article className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700">
         <div className="h-56  sm:h-64 xl:h-80 2xl:h-96 p-3">
@@ -52,7 +52,12 @@ function EventCreate() {
                 </Select>
               </div>
               <span className="text-2xl font-bold">1/3/2024</span>
-              <Button className="mt-3">Post Now</Button>
+              <div>
+                <div className="flex justify-between mt-3">
+                  <Button>Post now</Button>
+                  <Button color="red">Delete</Button>
+                </div>
+              </div>
             </div>
           </div>
 
