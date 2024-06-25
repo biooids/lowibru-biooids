@@ -10,6 +10,7 @@ import UpcomingEvents from "./components/pages/events/components/UpcomingEvents"
 import SavedEvents from "./components/pages/events/components/SavedEvents";
 import PostEvents from "./components/pages/events/components/post/PostEvents";
 import EventCreate from "./components/pages/events/components/post/EventCreate";
+import EventMyPost from "./components/pages/events/components/post/EventMyPost";
 
 function App() {
   return (
@@ -27,10 +28,10 @@ function App() {
 
             <Route path="post" element={<PostEvents />}>
               <Route index element={<EventCreate />} />
+              <Route path="mypost" element={<EventMyPost />} />
               {/* 
               <Route path="golive" element={<EventGolive />} />
               <Route path="permission" element={<EventPermission />} />
-              <Route path="mypost" element={<EventMyPost />} />
               */}
             </Route>
           </Route>
