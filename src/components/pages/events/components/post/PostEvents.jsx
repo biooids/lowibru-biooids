@@ -7,7 +7,7 @@ function PostEvents() {
   return (
     <section className="flex flex-col gap-3 ">
       <section className=" rounded-md">
-        <div className="flex flex-col gap-3 ">
+        <div className="flex flex-col gap-3 p-2 bg-slate-700 rounded-lg mt-4">
           <div className="flex gap-3 ">
             <h3 className="text-xl border-l-4 pl-3 justify-center">
               Your details
