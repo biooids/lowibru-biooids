@@ -23,44 +23,38 @@ function Events() {
         <p>you can change the country above</p>
       </div>
       <Navbar className="sticky top-0 z-50 ">
-        {/* <div className="flex mb-4 w-full gap-2 "> */}
         <Link
           to="."
           relative="path"
-          className="hover:bg-amber-900 border-2 rounded-l-md p-1 border-amber-500  flex flex-col justify-center items-center"
+          className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
-          <HiUserCircle />
           Activities
         </Link>
 
         <Link
           to="live"
-          className="hover:bg-amber-900 border-2 p-1 border-amber-500 flex flex-col    justify-center items-center"
+          className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
-          <HiAdjustments />
           Live
         </Link>
         <Link
           to="upcoming"
-          className="hover:bg-amber-900 border-2 p-1 border-amber-500  flex flex-col justify-center items-center"
+          className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
-          <HiAdjustments />
           Upcoming
         </Link>
         {/* </div> */}
         {/* <div className="flex gap-2 "> */}
         <Link
           to="saved"
-          className="hover:bg-amber-900 border-2 p-1 border-amber-500  flex flex-col  justify-center items-center"
+          className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
-          <HiCloudDownload />
           Saved
         </Link>
         <Link
           to="post"
-          className="hover:bg-amber-900 border-2 p-1 border-amber-500 rounded-r-md  flex flex-col justify-center items-center"
+          className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
-          <HiCloudDownload />
           Post
         </Link>
         {/* </div> */}
