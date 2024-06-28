@@ -11,6 +11,7 @@ import SavedEvents from "./components/pages/events/components/SavedEvents";
 import PostEvents from "./components/pages/events/components/post/PostEvents";
 import EventCreate from "./components/pages/events/components/post/EventCreate";
 import EventMyPost from "./components/pages/events/components/post/EventMyPost";
+import EventPermission from "./components/pages/events/components/post/EventPermission";
 
 function App() {
   return (
@@ -29,9 +30,9 @@ function App() {
             <Route path="post" element={<PostEvents />}>
               <Route index element={<EventCreate />} />
               <Route path="mypost" element={<EventMyPost />} />
+              <Route path="permission" element={<EventPermission />} />
               {/* 
               <Route path="golive" element={<EventGolive />} />
-              <Route path="permission" element={<EventPermission />} />
               */}
             </Route>
           </Route>
