@@ -1,6 +1,7 @@
 import { Avatar, Button, Carousel } from "flowbite-react";
 import React from "react";
 import profilePic from "../../../../../assets/father.jpg";
+import { Link } from "react-router-dom";
 
 import { FaShareAlt } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
@@ -40,9 +41,14 @@ function EventMyPostCard() {
             minima, eaque laboriosam, facere ex pariatur vel, ea voluptatum quam
             officiis aut?
           </p>
-          <p className="text-sm p-1 text-red-300">
-            If the leader hasn't given you the permission, it shows pending
-          </p>
+          <div className="text-xs pt-3">
+            <p className=" text-red-300">
+              If the leader hasn't given you the permission, it shows pending
+            </p>
+            <Link to="/permission" className="underline">
+              ask leader
+            </Link>
+          </div>
           <Button className="mt-3">Pending or posted</Button>
         </div>
 
