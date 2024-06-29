@@ -12,6 +12,7 @@ import PostEvents from "./components/pages/events/components/post/PostEvents";
 import EventCreate from "./components/pages/events/components/post/EventCreate";
 import EventMyPost from "./components/pages/events/components/post/EventMyPost";
 import EventPermission from "./components/pages/events/components/post/EventPermission";
+import Lectures from "./components/pages/lectures/Lectures";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
               */}
             </Route>
           </Route>
+
+          <Route path="/lectures" element={<Lectures />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

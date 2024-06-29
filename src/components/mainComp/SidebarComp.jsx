@@ -64,7 +64,7 @@ function SidebarComp() {
                 Talents
               </Sidebar.Item>
             </Link>
-            <Link to="lectures">
+            <Link to="/lectures">
               <Sidebar.Item icon={MdMenuBook} as={"div"}>
                 Lectures
               </Sidebar.Item>
