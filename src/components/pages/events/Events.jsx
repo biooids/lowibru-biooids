@@ -1,7 +1,5 @@
 import { Dropdown, Navbar } from "flowbite-react";
 import React from "react";
-import { Button } from "flowbite-react";
-import { HiAdjustments, HiCloudDownload, HiUserCircle } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
 function Events() {
   return (
