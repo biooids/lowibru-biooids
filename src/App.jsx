@@ -13,6 +13,7 @@ import EventCreate from "./components/pages/events/components/post/EventCreate";
 import EventMyPost from "./components/pages/events/components/post/EventMyPost";
 import EventPermission from "./components/pages/events/components/post/EventPermission";
 import Lectures from "./components/pages/lectures/Lectures";
+import Discover from "./components/pages/lectures/components/Discover";
 
 function App() {
   return (
@@ -38,7 +39,12 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/lectures" element={<Lectures />}></Route>
+          <Route path="/lectures" element={<Lectures />}>
+            <Route index element={<Discover />} />
+            {/* <Route path="mylectures" element={<MyLectures />} />
+            <Route path="mylectures/:id" element={<Lesson />} />
+            <Route path="upload" element={<Upload />} /> */}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

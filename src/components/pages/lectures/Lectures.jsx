@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "flowbite-react";
 import { HiAdjustments, HiUserCircle } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
+import "./lectures.css";
 function Lectures() {
   return (
     <section className="">
@@ -35,7 +36,7 @@ function Lectures() {
           Upload
         </Link>
       </Navbar>
-      <section className="sm:p-10">
+      <section className="sm:p-10 p-2">
         <Outlet />
       </section>
     </section>
