@@ -14,6 +14,9 @@ import EventMyPost from "./components/pages/events/components/post/EventMyPost";
 import EventPermission from "./components/pages/events/components/post/EventPermission";
 import Lectures from "./components/pages/lectures/Lectures";
 import Discover from "./components/pages/lectures/components/Discover";
+import MyLectures from "./components/pages/lectures/components/MyLectures";
+import UploadLectures from "./components/pages/lectures/components/UploadLectures";
+import Lesson from "./components/pages/lectures/components/Lesson";
 
 function App() {
   return (
@@ -41,9 +44,9 @@ function App() {
 
           <Route path="/lectures" element={<Lectures />}>
             <Route index element={<Discover />} />
-            {/* <Route path="mylectures" element={<MyLectures />} />
+            <Route path="mylectures" element={<MyLectures />} />
             <Route path="mylectures/:id" element={<Lesson />} />
-            <Route path="upload" element={<Upload />} /> */}
+            <Route path="upload" element={<UploadLectures />} />
           </Route>
         </Route>
       </Routes>

@@ -14,6 +14,7 @@ function Lectures() {
           and join us in fostering a community of learning and growth.
         </p>
       </div>
+
       <Navbar className="sticky top-0 z-50">
         <Link
           to="."
