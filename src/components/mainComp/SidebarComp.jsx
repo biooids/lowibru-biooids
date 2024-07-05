@@ -27,10 +27,10 @@ function SidebarComp() {
             </div>
           </div>
           <div className="flex justify-between">
-            <Link to="signin">
+            <Link to="/login">
               <Button>Sign In</Button>
             </Link>
-            <Link to="signup">
+            <Link to="/signup">
               <Button>sign up</Button>
             </Link>
           </div>

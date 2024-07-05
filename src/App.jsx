@@ -22,6 +22,8 @@ import AllItems from "./components/pages/market/components/AllItems";
 import MyCart from "./components/pages/market/components/MyCart";
 import Status from "./components/pages/market/components/Status";
 import UploadItems from "./components/pages/market/components/UploadItems";
+import SignUp from "./components/pages/userForm/SignUp";
+import LogIn from "./components/pages/userForm/LogIn";
 
 function App() {
   return (
@@ -30,6 +32,10 @@ function App() {
         {/* <Route path="/" element={<LandingPage />} /> */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />}></Route>
+
+          {/* from */}
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/login" element={<LogIn />}></Route>
 
           {/* Events */}
           <Route path="/events" element={<Events />}>
