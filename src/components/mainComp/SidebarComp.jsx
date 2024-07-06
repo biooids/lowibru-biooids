@@ -37,7 +37,9 @@ function SidebarComp() {
         </div>
         <Sidebar.Items className="mt-3  h-screen  ">
           <Sidebar.ItemGroup>
-            <Sidebar.Item icon={FaUserCircle}>Update Profile</Sidebar.Item>
+            <Link to="/profile">
+              <Sidebar.Item icon={FaUserCircle}>Update Profile</Sidebar.Item>
+            </Link>
 
             <Sidebar.Item icon={FaHome}>Home</Sidebar.Item>
             <Sidebar.Item icon={MdMessage} label="4" labelColor="dark">
