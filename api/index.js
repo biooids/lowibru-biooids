@@ -1,16 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 
+import testingRoutes from "./routes/testing.routes.js";
+
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
 const PORT = 3000;
-
-app.get("/", () => {
-  console.log("hello");
-});
 
 mongoose
   .connect(process.env.MONGO)
@@ -20,6 +18,8 @@ mongoose
   .catch((error) => {
     console.log(`Failed to connect to mongodb due to : ${error}`);
   });
+
+app.use(testingRoutes);
 
 const server = app.listen(PORT, () => {
   const host = server.address().address;
