@@ -19,7 +19,7 @@ mongoose
     console.log(`Failed to connect to mongodb due to : ${error}`);
   });
 
-app.use(testingRoutes);
+app.use("/api/testing", testingRoutes);
 
 const server = app.listen(PORT, () => {
   const host = server.address().address;
