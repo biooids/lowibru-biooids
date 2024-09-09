@@ -24,7 +24,6 @@ import Status from "./components/pages/market/components/Status";
 import UploadItems from "./components/pages/market/components/UploadItems";
 import SignUp from "./components/pages/userForm/SignUp";
 import LogIn from "./components/pages/userForm/LogIn";
-import Profile from "./components/pages/profile/Profile";
 
 function App() {
   return (
@@ -70,8 +69,10 @@ function App() {
             <Route path="status" element={<Status />} />
             <Route path="uploaditems" element={<UploadItems />} />
           </Route>
+
           {/*Profile page*/}
-          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/profile" element={<UserProfile />} />
+          <Route path="/edit" element={<Edit />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
