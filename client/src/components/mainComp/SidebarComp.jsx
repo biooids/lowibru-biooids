@@ -12,6 +12,9 @@ import {
 } from "react-icons/md";
 
 import { FaCode } from "react-icons/fa6";
+import { RiAdminFill } from "react-icons/ri";
+import { TbAlpha } from "react-icons/tb";
+import { FaRegUserCircle } from "react-icons/fa";
 
 import profilePic from "../../assets/father.jpg";
 import { Link } from "react-router-dom";
@@ -45,13 +48,13 @@ function SidebarComp() {
               <div className="flex justify-center items-center flex-col gap-2 text-center">
                 <div className="flex gap-2 text-xl">
                   {isLeader ? (
-                    <FaCrown />
+                    <TbAlpha />
                   ) : isAdmin ? (
                     <RiAdminFill />
                   ) : isDeveloper ? (
                     <FaCode />
                   ) : (
-                    " "
+                    <FaRegUserCircle />
                   )}
                 </div>
                 <div className="text-xs">
@@ -72,7 +75,7 @@ function SidebarComp() {
           ) : (
             <div className="flex justify-between">
               <Link to="login">
-                <Button>Sign In</Button>
+                <Button>Log In</Button>
               </Link>
               <Link to="signup">
                 <Button>sign up</Button>

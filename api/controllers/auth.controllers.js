@@ -71,3 +71,56 @@ export const signUp = async (req, res, next) => {
     return;
   }
 };
+
+export const logIn = async (req, res, next) => {
+  const { emailOrPhone, password } = req.body;
+  console.log("data from req.body", req.body);
+
+  if (!emailOrPhone || !password || emailOrPhone === "" || password === "") {
+    next(errorHandler(400, "Empty fields. All fields are required"));
+    return;
+  }
+
+  try {
+    const validUser = await User.findOne({ emailOrPhone });
+    if (!validUser) {
+      next(errorHandler(404, "user not found"));
+      return;
+    }
+
+    const validPassword = await argon2.verify(validUser.password, password);
+    if (!validPassword) {
+      next(errorHandler(400, "incorrect password"));
+      return;
+    }
+
+    const token = jwt.sign(
+      {
+        id: validUser._id,
+        isDeveloper: validUser.isDeveloper,
+        isLeader: validUser.isLeader,
+        isAdmin: validUser.isAdmin,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "360d",
+      }
+    );
+
+    const { password: pass, ...rest } = validUser._doc;
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000,
+      })
+      .json({
+        success: true,
+        message: "logged in successfully",
+        user: rest,
+      });
+  } catch (error) {
+    next(error);
+  }
+};

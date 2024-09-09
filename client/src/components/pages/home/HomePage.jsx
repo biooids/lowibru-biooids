@@ -12,12 +12,16 @@ import {
   Avatar,
 } from "flowbite-react";
 import { useState } from "react";
+
 import { HiEnvelope } from "react-icons/hi2";
 import { HiMail } from "react-icons/hi";
 import { FaPhoneAlt } from "react-icons/fa";
+import { FaCode } from "react-icons/fa6";
+import { RiAdminFill } from "react-icons/ri";
+import { TbAlpha } from "react-icons/tb";
+import { FaRegUserCircle } from "react-icons/fa";
 
 import "./home.css";
-import profilePic from "../../../assets/father.jpg";
 
 import { Link } from "react-router-dom";
 import LeadersComp from "./components/LeadersComp";
@@ -54,13 +58,13 @@ function HomePage() {
             <div className="flex justify-center items-center flex-col gap-2 text-center">
               <div className="flex gap-2 text-xl">
                 {isLeader ? (
-                  <FaCrown />
+                  <TbAlpha />
                 ) : isAdmin ? (
                   <RiAdminFill />
                 ) : isDeveloper ? (
                   <FaCode />
                 ) : (
-                  " "
+                  <FaRegUserCircle />
                 )}
               </div>
               <div className="text-xs">
@@ -80,17 +84,17 @@ function HomePage() {
           </div>
         ) : (
           <div className=" gap-3 justify-between flex items-center ">
-            <Link to="signin">
+            <Link to="login">
               <div className="">
                 <p className="mb-4">Have an account ?</p>
-                <Button>Sign in</Button>
+                <Button>Log In</Button>
               </div>
             </Link>
 
             <Link to="signup">
               <div>
                 <p className="mb-4">don't have an account ?</p>
-                <Button>Create account</Button>
+                <Button>Sign up</Button>
               </div>
             </Link>
           </div>
