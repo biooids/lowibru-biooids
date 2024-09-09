@@ -34,11 +34,11 @@ function App() {
           <Route index element={<HomePage />}></Route>
 
           {/* from */}
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/login" element={<LogIn />}></Route>
+          <Route path="signup" element={<SignUp />}></Route>
+          <Route path="login" element={<LogIn />}></Route>
 
           {/* Events */}
-          <Route path="/events" element={<Events />}>
+          <Route path="events" element={<Events />}>
             <Route index element={<Activities />} />
             <Route path="live" element={<LiveEvents />} />
             <Route path="upcoming" element={<UpcomingEvents />} />
@@ -55,7 +55,7 @@ function App() {
           </Route>
 
           {/* Lectures */}
-          <Route path="/lectures" element={<Lectures />}>
+          <Route path="lectures" element={<Lectures />}>
             <Route index element={<Discover />} />
             <Route path="mylectures" element={<MyLectures />} />
             <Route path="mylectures/:id" element={<Lesson />} />
@@ -63,7 +63,7 @@ function App() {
           </Route>
 
           {/* Market */}
-          <Route path="/market" element={<Market />}>
+          <Route path="market" element={<Market />}>
             <Route index element={<AllItems />} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="status" element={<Status />} />

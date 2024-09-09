@@ -23,37 +23,78 @@ import { Link } from "react-router-dom";
 import LeadersComp from "./components/LeadersComp";
 import CommentsComp from "./components/CommentsComp";
 import CountryComp from "./components/CountryComp";
+import { useSelector } from "react-redux";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
 
+  const { currentUser } = useSelector((state) => state.user);
+  const {
+    profilePicture,
+    firstName,
+    lastName,
+    userName,
+    isLeader,
+    isAdmin,
+    isDeveloper,
+  } = currentUser?.user || {};
   return (
     <section>
-      <section className=" border-b-2 border-slate-60 p-3 sm:hidden ">
-        <Avatar img={profilePic} bordered rounded>
-          <div className="space-y-1 font-medium dark:text-white">
-            <div>Jese Leos</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              Joined in August 2014
+      <section className=" border-b-2 border-slate-60 p-3 md:hidden ">
+        {currentUser ? (
+          <div>
+            <Avatar
+              img={profilePicture}
+              size="lg"
+              rounded
+              bordered
+              className="pb-2"
+            />
+            <div className="flex justify-center items-center flex-col gap-2 text-center">
+              <div className="flex gap-2 text-xl">
+                {isLeader ? (
+                  <FaCrown />
+                ) : isAdmin ? (
+                  <RiAdminFill />
+                ) : isDeveloper ? (
+                  <FaCode />
+                ) : (
+                  " "
+                )}
+              </div>
+              <div className="text-xs">
+                <p className="line-clamp-1">
+                  <span className="text-amber-500">First : </span> {firstName}
+                </p>
+                <p className="line-clamp-1">
+                  <span className="text-amber-500">Last : </span>
+                  {lastName}{" "}
+                </p>
+                <p className="line-clamp-1 ">
+                  {" "}
+                  <span className="text-amber-500">User : </span> {userName}{" "}
+                </p>
+              </div>{" "}
             </div>
           </div>
-        </Avatar>
-        <div className=" gap-3 justify-between flex items-center ">
-          <Link to="signin">
-            <div className="">
-              <p className="mb-4">Have an account ?</p>
-              <Button>Sign in</Button>
-            </div>
-          </Link>
+        ) : (
+          <div className=" gap-3 justify-between flex items-center ">
+            <Link to="signin">
+              <div className="">
+                <p className="mb-4">Have an account ?</p>
+                <Button>Sign in</Button>
+              </div>
+            </Link>
 
-          <Link to="signup">
-            <div>
-              <p className="mb-4">don't have an account ?</p>
-              <Button>Create account</Button>
-            </div>
-          </Link>
-        </div>
+            <Link to="signup">
+              <div>
+                <p className="mb-4">don't have an account ?</p>
+                <Button>Create account</Button>
+              </div>
+            </Link>
+          </div>
+        )}
       </section>
       <section className=" landing-section">
         <div>

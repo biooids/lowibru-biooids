@@ -4,7 +4,6 @@ import { Avatar, Button, Sidebar } from "flowbite-react";
 import { FaUserCircle, FaHome, FaStoreAlt } from "react-icons/fa";
 import {
   MdMessage,
-  MdOutlinePublic,
   MdOutlineEvent,
   MdOutlinePermMedia,
   MdNotificationsActive,
@@ -12,28 +11,74 @@ import {
   MdMenuBook,
 } from "react-icons/md";
 
+import { FaCode } from "react-icons/fa6";
+
 import profilePic from "../../assets/father.jpg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function SidebarComp() {
+  const { currentUser } = useSelector((state) => state.user);
+  const {
+    profilePicture,
+    firstName,
+    lastName,
+    userName,
+    isLeader,
+    isAdmin,
+    isDeveloper,
+  } = currentUser?.user || {};
+
   return (
-    <>
+    <div>
       <Sidebar className=" sticky top-0  hidden md:block ">
-        <div className=" border-b-2 border-amber-500  pb-5">
-          <div>
-            <Avatar img={profilePic} size="lg" rounded bordered />
-            <div className="text-center">
-              <h3>John Doe: Leader</h3>
+        <div className=" border-b-2 border-amber-500 pb-2 w-full">
+          {currentUser ? (
+            <div>
+              <Avatar
+                img={profilePicture}
+                size="lg"
+                rounded
+                bordered
+                className="pb-2"
+              />
+              <div className="flex justify-center items-center flex-col gap-2 text-center">
+                <div className="flex gap-2 text-xl">
+                  {isLeader ? (
+                    <FaCrown />
+                  ) : isAdmin ? (
+                    <RiAdminFill />
+                  ) : isDeveloper ? (
+                    <FaCode />
+                  ) : (
+                    " "
+                  )}
+                </div>
+                <div className="text-xs">
+                  <p className="line-clamp-1">
+                    <span className="text-amber-500">First : </span> {firstName}
+                  </p>
+                  <p className="line-clamp-1">
+                    <span className="text-amber-500">Last : </span>
+                    {lastName}{" "}
+                  </p>
+                  <p className="line-clamp-1 ">
+                    {" "}
+                    <span className="text-amber-500">User : </span> {userName}{" "}
+                  </p>
+                </div>{" "}
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between">
-            <Link to="/login">
-              <Button>Sign In</Button>
-            </Link>
-            <Link to="/signup">
-              <Button>sign up</Button>
-            </Link>
-          </div>
+          ) : (
+            <div className="flex justify-between">
+              <Link to="login">
+                <Button>Sign In</Button>
+              </Link>
+              <Link to="signup">
+                <Button>sign up</Button>
+              </Link>
+            </div>
+          )}
         </div>
         <Sidebar.Items className="mt-3  h-screen  ">
           <Sidebar.ItemGroup>
@@ -118,7 +163,7 @@ function SidebarComp() {
           <span className="text-xs">Media</span>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 
