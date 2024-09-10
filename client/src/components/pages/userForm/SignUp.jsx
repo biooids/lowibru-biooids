@@ -119,7 +119,7 @@ function SignUp() {
       <div>
         <p>
           Do you have an account?{" "}
-          <Link to="/log-in" className="text-cyan-500 underline">
+          <Link to="/login" className="text-cyan-500 underline">
             Log In
           </Link>
         </p>

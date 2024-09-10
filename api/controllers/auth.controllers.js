@@ -175,98 +175,107 @@ export const forgotPassword = async (req, res, next) => {
       body {
         margin: 0;
         padding: 20px;
-        background-color: #000;
+        background: linear-gradient(145deg, #0d0d0d, #333);
         color: #fff;
         font-family: "Poppins", sans-serif;
       }
       .email-container {
-        width: 100%;
+        max-width: 600px;
         margin: 0 auto;
-        padding: 20px;
-        background-color: #111;
+        padding: 30px;
+        background-color: #222;
         border: 1px solid #444;
-        border-radius: 8px;
+        border-radius: 12px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
       }
       .email-header {
-        width:100%;
         text-align: center;
         padding-bottom: 20px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        align-items: center;
       }
       .email-header img {
-        max-width: 150px;
+        max-width: 120px;
+        border-radius: 10px;
       }
       h1 {
-        color: gold;
-        font-size: 28px;
-        margin-bottom: 10px;
+        color: #f8d22a;
+        font-size: 32px;
+        margin-bottom: 12px;
+        text-align: center;
       }
       h2 {
-        color: #ccc;
-        font-size: 18px;
+        color: #aaa;
+        font-size: 20px;
         font-weight: 400;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        text-align: center;
       }
       p {
         font-size: 16px;
         line-height: 1.6;
         color: #ddd;
+        margin-bottom: 15px;
       }
       .reset-code {
-        background-color: #333;
-        padding: 10px;
+        background-color: #444;
+        padding: 15px;
         text-align: center;
-        color: gold;
-        font-size: 18px;
-        border-radius: 4px;
-        margin: 20px 0;
+        color: #f8d22a;
+        font-size: 20px;
+        font-weight: 600;
+        border-radius: 6px;
+        margin: 30px 0;
       }
       .button {
-        display: inline-block;
-        background-color: gold;
-        color: black;
-        padding: 12px 24px;
-        font-weight: 600;
+        display: block;
+        width: 180px;
+        background-color: #f8d22a;
+        color: #000;
+        padding: 14px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
         text-decoration: none;
-        border-radius: 4px;
-        margin-top: 20px;
+        border-radius: 8px;
+        margin: 0 auto;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #e6bc1f;
       }
       .email-footer {
         text-align: center;
-        padding-top: 30px;
-        color: #888;
+        padding-top: 40px;
+        color: #aaa;
         font-size: 14px;
       }
       .footer-links {
         margin-top: 30px;
-        color: #aaa;
+        color: #bbb;
         font-size: 14px;
         border-top: 1px solid #333;
         padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
       .footer-links a {
-        color: gold;
+        color: #f8d22a;
         text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap:10px;
-        font-size: 14px;
-
-        text-align: center;
         font-weight: 600;
-        margin: 0 10px;
-
+        margin: 5px 0;
+        transition: color 0.3s ease;
       }
       .footer-links a:hover {
-        text-decoration: underline;
+        color: #e6bc1f;
       }
-
       .biooids {
         color: cyan;
       }
       .lowibru {
-        color: gold;
+        color: #f8d22a;
       }
     </style>
   </head>
@@ -275,11 +284,11 @@ export const forgotPassword = async (req, res, next) => {
       <header class="email-header">
         <img
           src="https://www.tparents.org/library/unification/photos/u-logo/ffwpu-g1.gif"
-          alt="Your Company Logo"
+          alt="Lowibru Logo"
         />
         <img
           src="https://www.tparents.org/library/unification/photos/u-logo/uc-1.gif"
-          alt=""
+          alt="Biooids Logo"
         />
       </header>
 
@@ -287,14 +296,12 @@ export const forgotPassword = async (req, res, next) => {
         <h1>Password Reset Request</h1>
         <h2>Hi there,</h2>
         <p>
-          If you did not request a password reset, please ignore this email.
+          We received a request to reset your password. If you did not make this request, please ignore this email.
         </p>
-        <p>Please use the following code to reset your password:</p>
+        <p>To reset your password, use the following code:</p>
         <div class="reset-code">${newPassword}</div>
-        <p>
-          Click the button below to log in, and reset your password immediately:
-        </p>
-        <a href="#" class="button">Log In</a>
+        <p>Alternatively, click the button below to log in and reset your password immediately:</p>
+        <a href="#" class="button">Reset Password</a>
       </section>
 
       <footer class="email-footer">
@@ -309,14 +316,9 @@ export const forgotPassword = async (req, res, next) => {
 
         <div class="footer-links">
           <p>Contact us:</p>
-          <a href="mailto:intellbiooid@gmail.com"
-            >Email: intellbiooid@gmail.com</a
-          >
-          <a href="https://wa.me/250790931024">WhatsApp: +250790931024</a> 
-        
-          <a href="https://biooids.com"
-            >Tech Team Website: <span class="biooids"> biooids.com</span></a
-          >
+          <a href="mailto:intellbiooid@gmail.com">Email: intellbiooid@gmail.com</a>
+          <a href="https://wa.me/250790931024">WhatsApp: +250790931024</a>
+          <a href="https://biooids.com">Tech Team Website: <span class="biooids"> biooids.com</span></a>
         </div>
       </footer>
     </main>

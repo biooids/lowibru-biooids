@@ -8,7 +8,12 @@ import { Link } from "react-router-dom";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signoutStart,
+  signoutSuccess,
+  signoutFailure,
+} from "../../../app/user/userSlice.js";
 
 function MyProfile() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -17,7 +22,8 @@ function MyProfile() {
     setIsExpanded(!isExpanded);
   };
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const {
     profilePicture,
     firstName,
@@ -27,8 +33,35 @@ function MyProfile() {
     isAdmin,
     isDeveloper,
   } = currentUser?.user || {};
+
+  const handleSignout = async () => {
+    try {
+      dispatch(signoutStart());
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!data.success) {
+        console.log(data.message);
+        dispatch(signoutFailure(data.message));
+        return;
+      } else {
+        dispatch(signoutSuccess());
+        return;
+      }
+    } catch (error) {
+      console.log(error.message);
+      dispatch(
+        signoutFailure(
+          "some thing went wrong check network or " + error.message
+        )
+      );
+      return;
+    }
+  };
   return (
     <section>
+      {error ? <div className="p-3 bg-red-500">{error}</div> : ""}
       <section className="flex flex-col gap-3 p-2 bg-slate-800 rounded-lg mt-4">
         <div className="flex gap-3">
           <h3 className="text-xl border-l-4 pl-3 justify-center">
@@ -56,21 +89,23 @@ function MyProfile() {
               <Link to="/edit">
                 <Button>Edit</Button>
               </Link>
-              <Button>Settings</Button>
+              <Button onClick={handleSignout}>
+                {loading ? "loading" : "sign out"}{" "}
+              </Button>
               <Button>Delete</Button>
             </div>
             <div className="flex gap-3 justify-between ">
               <div className="flex flex-col">
-                <span>Connected :</span>
-                <span>33</span>
+                <span>followers :</span>
+                <span className="text-red-500 text-xs">under construction</span>
               </div>
               <div className="flex flex-col">
-                <span>Interested :</span>
-                <span>1000</span>
+                <span>following :</span>
+                <span className="text-red-500 text-xs">under construction</span>
               </div>
               <div className="flex flex-col">
                 <span>Posts :</span>
-                <span>20</span>
+                <span className="text-red-500 text-xs">under construction</span>
               </div>
             </div>
           </div>

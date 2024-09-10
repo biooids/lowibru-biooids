@@ -59,8 +59,8 @@ function LogIn() {
     <div className=" min-h-screen flex flex-col justify-center items-center gap-3">
       <div>
         <p>
-          Have an account?{" "}
-          <Link to="/sign-up" className="text-cyan-500 underline">
+          Don't Have an account?{" "}
+          <Link to="/signup" className="text-cyan-500 underline">
             Sign Up
           </Link>
         </p>

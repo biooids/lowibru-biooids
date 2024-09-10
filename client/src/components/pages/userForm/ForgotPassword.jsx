@@ -97,6 +97,7 @@ function ForgotPassword() {
             type="submit"
             className="bg-cyan-800"
             gradientDuoTone="purpleToPink"
+            disabled={loading ? true : false}
           >
             {loading ? "verifying" : "Verify"}
           </Button>

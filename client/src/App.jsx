@@ -30,6 +30,7 @@ import MyProfile from "./components/pages/userProfile/MyProfile";
 import Edit from "./components/pages/userProfile/Edit";
 import EditContacts from "./components/pages/userProfile/components/Edit/EditContacts";
 import EditProfile from "./components/pages/userProfile/components/Edit/EditProfile";
+import Authenticated from "./components/mainComp/Authenticated";
 
 function App() {
   return (
@@ -46,10 +47,12 @@ function App() {
 
           {/*Profile page*/}
           <Route path="profile" element={<UserProfile />} />
-          <Route path="myprofile" element={<MyProfile />} />
-          <Route path="edit" element={<Edit />}>
-            <Route index element={<EditProfile />}></Route>
-            <Route path="editContacts" element={<EditContacts />}></Route>
+          <Route element={<Authenticated />}>
+            <Route path="myprofile" element={<MyProfile />} />
+            <Route path="edit" element={<Edit />}>
+              <Route index element={<EditProfile />}></Route>
+              <Route path="editContacts" element={<EditContacts />}></Route>
+            </Route>
           </Route>
 
           {/* Events */}
