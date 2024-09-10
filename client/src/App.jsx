@@ -25,7 +25,11 @@ import UploadItems from "./components/pages/market/components/UploadItems";
 import SignUp from "./components/pages/userForm/SignUp";
 import LogIn from "./components/pages/userForm/LogIn";
 import ForgotPassword from "./components/pages/userForm/ForgotPassword";
-import Profile from "./components/pages/userSettings/Profile";
+import UserProfile from "./components/pages/userProfile/UserProfile";
+import MyProfile from "./components/pages/userProfile/MyProfile";
+import Edit from "./components/pages/userProfile/Edit";
+import EditContacts from "./components/pages/userProfile/components/Edit/EditContacts";
+import EditProfile from "./components/pages/userProfile/components/Edit/EditProfile";
 
 function App() {
   return (
@@ -40,8 +44,13 @@ function App() {
           <Route path="login" element={<LogIn />}></Route>
           <Route path="forgot-password" element={<ForgotPassword />}></Route>
 
-          {/* profile */}
-          <Route path="profile" element={<Profile />}></Route>
+          {/*Profile page*/}
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="myprofile" element={<MyProfile />} />
+          <Route path="edit" element={<Edit />}>
+            <Route index element={<EditProfile />}></Route>
+            <Route path="editContacts" element={<EditContacts />}></Route>
+          </Route>
 
           {/* Events */}
           <Route path="events" element={<Events />}>

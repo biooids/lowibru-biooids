@@ -16,7 +16,6 @@ import { RiAdminFill } from "react-icons/ri";
 import { TbAlpha } from "react-icons/tb";
 import { FaRegUserCircle } from "react-icons/fa";
 
-import profilePic from "../../assets/father.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -85,7 +84,7 @@ function SidebarComp() {
         </div>
         <Sidebar.Items className="mt-3  h-screen  ">
           <Sidebar.ItemGroup>
-            <Link to="/profile">
+            <Link to="myprofile">
               <Sidebar.Item icon={FaUserCircle}>Update Profile</Sidebar.Item>
             </Link>
 
