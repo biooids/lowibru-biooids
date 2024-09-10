@@ -24,6 +24,8 @@ import Status from "./components/pages/market/components/Status";
 import UploadItems from "./components/pages/market/components/UploadItems";
 import SignUp from "./components/pages/userForm/SignUp";
 import LogIn from "./components/pages/userForm/LogIn";
+import ForgotPassword from "./components/pages/userForm/ForgotPassword";
+import Profile from "./components/pages/userSettings/Profile";
 
 function App() {
   return (
@@ -36,6 +38,10 @@ function App() {
           {/* from */}
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="login" element={<LogIn />}></Route>
+          <Route path="forgot-password" element={<ForgotPassword />}></Route>
+
+          {/* profile */}
+          <Route path="profile" element={<Profile />}></Route>
 
           {/* Events */}
           <Route path="events" element={<Events />}>

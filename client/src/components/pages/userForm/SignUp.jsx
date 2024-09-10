@@ -172,8 +172,9 @@ function SignUp() {
             />
           </div>
           <div>
-            <div className="mb-2 block">
+            <div className="mb-2 flex gap-3  items-center">
               <Label htmlFor="emailOrPhone" value="Email*" />
+              <p className="text-xs text-red-500">Please be accurate</p>
             </div>
             <TextInput
               onChange={handleChange}
