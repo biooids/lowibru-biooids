@@ -13,6 +13,9 @@ import {
   signoutStart,
   signoutSuccess,
   signoutFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from "../../../app/user/userSlice.js";
 
 function MyProfile() {
@@ -59,6 +62,26 @@ function MyProfile() {
       return;
     }
   };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser.user._id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      } else {
+        dispatch(deleteUserSuccess());
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+      return;
+    }
+  };
   return (
     <section>
       {error ? <div className="p-3 bg-red-500">{error}</div> : ""}
@@ -92,7 +115,9 @@ function MyProfile() {
               <Button onClick={handleSignout}>
                 {loading ? "loading" : "sign out"}{" "}
               </Button>
-              <Button>Delete</Button>
+              <Button onClick={handleDeleteUser}>
+                {loading ? "deleting" : "delete"}
+              </Button>
             </div>
             <div className="flex gap-3 justify-between ">
               <div className="flex flex-col">

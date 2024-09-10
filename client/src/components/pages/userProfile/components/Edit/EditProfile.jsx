@@ -10,7 +10,14 @@ import {
   Accordion,
 } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from "../../../../../app/user/userSlice.js";
+
 import { FaCamera } from "react-icons/fa";
 
 function EditProfile() {
@@ -37,14 +44,35 @@ function EditProfile() {
     repeatPassword: "",
   });
 
-  const handleChange = (e) => {};
-  const conditionsMet = Object.values(passwordStrength).reduce(
-    (acc, curr) => acc + (curr ? 1 : 0),
-    0
-  );
-  const actualConditionsMet = formData.password === "" ? false : conditionsMet;
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((previous) => {
+      return { ...previous, [id]: value.trim() };
+    });
 
-  const handleSubmit = () => {};
+    if (id === "password") {
+      setPasswordStrength({
+        length: value.length >= 8,
+        number: /\d/.test(value),
+        specialCharacter: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value),
+        matching: formData.repeatPassword === value,
+      });
+    } else if (id === "repeatPassword") {
+      setPasswordStrength((previous) => {
+        return {
+          ...previous,
+          matching: formData.password === value,
+        };
+      });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  const getUser = () => {};
   return (
     <div className="min-h-screen flex flex-col  items-center p-2 gap-7 ">
       {" "}
@@ -191,36 +219,6 @@ function EditProfile() {
                       <p>Show password</p>
                     </div>
                     <div className="mt-2 flex flex-col gap-1">
-                      <div className="grid grid-cols-4 gap-1 bg-slate-800">
-                        <div
-                          className={`h-1 ${
-                            actualConditionsMet >= 1
-                              ? "bg-green-700"
-                              : "bg-red-700"
-                          }`}
-                        ></div>
-                        <div
-                          className={`h-1 ${
-                            actualConditionsMet >= 2
-                              ? "bg-green-700"
-                              : "bg-red-700"
-                          }`}
-                        ></div>
-                        <div
-                          className={`h-1 ${
-                            actualConditionsMet >= 3
-                              ? "bg-green-700"
-                              : "bg-red-700"
-                          }`}
-                        ></div>
-                        <div
-                          className={`h-1 ${
-                            actualConditionsMet >= 4
-                              ? "bg-green-700"
-                              : "bg-red-700"
-                          }`}
-                        ></div>
-                      </div>
                       <p>Password Strength :</p>
 
                       <ul className="text-xs">
@@ -258,16 +256,16 @@ function EditProfile() {
               </Accordion.Content>
             </Accordion.Panel>
           </Accordion>
+          <Button
+            type="submit"
+            className="bg-cyan-800 w-full "
+            gradientDuoTone="purpleToBlue"
+            disabled={loading}
+          >
+            {loading ? "updating" : "update"}
+          </Button>
         </div>
       </form>
-      <Button
-        type="submit"
-        className="bg-cyan-800 w-full sm:w-[300px]"
-        gradientDuoTone="purpleToBlue"
-        disabled={loading}
-      >
-        {loading ? "submitting" : "update"}
-      </Button>
     </div>
   );
 }
