@@ -91,7 +91,7 @@ function MyProfile() {
     }
   };
   return (
-    <section>
+    <section className="p-2 ">
       {error ? <div className="p-3 bg-red-500">{error}</div> : ""}
       <section className="flex flex-col gap-3 p-2 bg-slate-800 rounded-lg mt-4">
         <div className="flex gap-3">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Modal,
   Textarea,
   Accordion,
+  Alert,
 } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -19,6 +20,16 @@ import {
 } from "../../../../../app/user/userSlice.js";
 
 import { FaCamera } from "react-icons/fa";
+
+import { app } from "../../../../../firebase.js";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 function EditProfile() {
   const [openModal, setOpenModal] = useState(false);
@@ -47,6 +58,14 @@ function EditProfile() {
 
   const [isValidLink, setIsValidLink] = useState(true);
   const [isSecureLink, setIsSecureLink] = useState(true);
+
+  const [file, setFile] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState(null);
+  const [imageUploadProgress, setImageUploadProgress] = useState(null);
+  const [imageUploadSuccess, setImageUploadSuccess] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [success, setSuccess] = useState(false);
+  const filePickerRef = useRef();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -152,12 +171,87 @@ function EditProfile() {
       } else {
         console.log(data);
         dispatch(updateSuccess(data));
+        navigate("/myprofile");
       }
     } catch (error) {
       console.log(error.message);
       dispatch(
         updateFailure("some thing went wrong check network or " + error)
       );
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      setImageUploadError("File type should be an image.");
+      setFile(null);
+      setImageUrl(null);
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setImageUploadError("Image should be less than 2MB.");
+      setFile(null);
+      setImageUrl(null);
+      return;
+    }
+
+    setFile(file);
+  };
+  useEffect(() => {
+    if (file) {
+      handleUploadImage();
+    }
+  }, [file]);
+
+  const handleUploadImage = () => {
+    try {
+      if (!file) {
+        setImageUploadError("Please select an image");
+        return;
+      }
+      setImageUploadError(null);
+
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + "-" + file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setImageUploadProgress(progress.toFixed(0));
+        },
+        (error) => {
+          setImageUploadError(
+            "Uploading the image failed due to: " + error.message
+          );
+          setImageUploadProgress(null);
+          return;
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImageUploadSuccess("Image uploaded successfully");
+            setFormData((prevState) => ({
+              ...prevState,
+              profilePicture: downloadURL,
+            }));
+            setImageUrl(downloadURL);
+            setImageUploadProgress(null);
+            setImageUploadError(null);
+          });
+        }
+      );
+    } catch (error) {
+      setImageUploadError("Image upload failed");
+      setImageUploadProgress(null);
     }
   };
 
@@ -169,16 +263,72 @@ function EditProfile() {
         onSubmit={handleSubmit}
       >
         <div className=" h-fit flex flex-col gap-3  sm:w-fit">
+          {/* image upload */}
           <div className="border-2 p-2 border-slate-800 flex flex-col justify-center items-center gap-3">
-            <div className="w-[250px] h-[250px] relative ">
-              <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-                alt=""
-                className="rounded-full object-cover"
+            <div>
+              <input
+                type="file"
+                name=""
+                id=""
+                accept="image/*"
+                onChange={handleImageChange}
+                ref={filePickerRef}
+                hidden
               />
             </div>
-            <FaCamera className=" text-xl " />
+            <div className="relative">
+              <div
+                className="w-[250px] h-[250px] self-center cursor-pointer shadow-md overflow-hidden rounded-full relative"
+                onClick={() => {
+                  filePickerRef.current.click();
+                }}
+              >
+                <FaCamera className="absolute bottom-1   right-[7rem] text-white text-xl" />
+                {imageUploadProgress && (
+                  <CircularProgressbar
+                    value={imageUploadProgress || 0}
+                    text={`${imageUploadProgress}%`}
+                    strokeWidth={5}
+                    styles={{
+                      root: {
+                        width: "100%",
+                        height: "100%",
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                      },
+                      path: {
+                        stroke: `rgba(76, 175, 80, ${
+                          imageUploadProgress / 100
+                        })`,
+                      },
+                    }}
+                  />
+                )}
+                <img
+                  src={imageUrl || currentUser.user.profilePicture}
+                  alt="user"
+                  className={`rounded-full w-full h-full border-8 border-[lightgray] object-cover ${
+                    imageUploadProgress &&
+                    imageUploadProgress < 100 &&
+                    "opacity-10"
+                  }`}
+                />
+              </div>
+            </div>
+            {imageUploadError ? (
+              <Alert color="failure" className="max-w-md">
+                {imageUploadError}
+              </Alert>
+            ) : imageUploadSuccess ? (
+              <Alert color="success" className="max-w-md">
+                {imageUploadSuccess}
+              </Alert>
+            ) : (
+              ""
+            )}
           </div>
+
           <div className="  ">
             <div className="mb-2 block">
               <Label

@@ -50,6 +50,7 @@ export const updateUser = async (req, res, next) => {
     password,
     shortDescription,
     externalLink,
+    profilePicture,
   } = req.body;
   console.log("data from req body", req.body);
 
@@ -72,6 +73,7 @@ export const updateUser = async (req, res, next) => {
       emailOrPhone,
       shortDescription,
       externalLink,
+      profilePicture,
     };
 
     // Only hash password if provided
