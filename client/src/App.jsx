@@ -31,10 +31,13 @@ import Edit from "./components/pages/userProfile/Edit";
 import EditContacts from "./components/pages/userProfile/components/Edit/EditContacts";
 import EditProfile from "./components/pages/userProfile/components/Edit/EditProfile";
 import Authenticated from "./components/mainComp/Authenticated";
+import ScrollToTop from "./components/mainComp/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
+
       <Routes>
         {/* <Route path="/" element={<LandingPage />} /> */}
         <Route path="/" element={<MainLayout />}>

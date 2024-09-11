@@ -91,7 +91,7 @@ function MyProfile() {
     }
   };
   return (
-    <section className="p-2 ">
+    <section className="p-3 flex flex-col gap-3 ">
       {error ? <div className="p-3 bg-red-500">{error}</div> : ""}
       <section className="flex flex-col gap-3 p-2 bg-slate-800 rounded-lg mt-4">
         <div className="flex gap-3">
@@ -183,7 +183,15 @@ function MyProfile() {
         </div>
       </section>
 
-      <section>
+      <section className="flex gap-3 flex-col ">
+        <div className="flex gap-3">
+          <Link to="">
+            <Button>All Posts</Button>
+          </Link>
+          <Link to="">
+            <Button>Talents</Button>
+          </Link>
+        </div>
         <AllOthersPosts />
       </section>
     </section>

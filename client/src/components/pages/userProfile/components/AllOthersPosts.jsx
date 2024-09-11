@@ -37,12 +37,11 @@ function AllOthersPosts() {
 
   return (
     <>
-      <Button
-        onClick={handleReturnToGrid}
-        className="p-2 bg-blue-500 text-white rounded m-4"
-      >
-        Return to Grid
-      </Button>
+      {selectedPost && (
+        <Button outline onClick={handleReturnToGrid}>
+          Return to Grid
+        </Button>
+      )}{" "}
       <div className="flex">
         {selectedPost ? (
           <>

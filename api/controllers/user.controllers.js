@@ -42,7 +42,7 @@ export const getUser = async (req, res, next) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  const {
+  let {
     firstName,
     lastName,
     userName,
@@ -52,7 +52,14 @@ export const updateUser = async (req, res, next) => {
     externalLink,
     profilePicture,
   } = req.body;
+
   console.log("data from req body", req.body);
+
+  // Trim the fields
+  firstName = firstName?.trim();
+  lastName = lastName?.trim();
+  userName = userName?.trim();
+  emailOrPhone = emailOrPhone?.trim();
 
   // Ensure the correct user is updating the profile
   if (req.user.id !== req.params.userId) {
@@ -87,6 +94,7 @@ export const updateUser = async (req, res, next) => {
       { $set: updateData },
       { new: true }
     );
+
     // Exclude password from the response
     const { password: _, ...rest } = updatedUser._doc;
 
