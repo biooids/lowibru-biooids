@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   Button,
@@ -24,7 +24,6 @@ function EditProfile() {
   const [openModal, setOpenModal] = useState(false);
 
   const { currentUser, error, loading } = useSelector((state) => state.user);
-  const errorMessage = String(error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,12 +41,17 @@ function EditProfile() {
     emailOrPhone: "",
     password: "",
     repeatPassword: "",
+    shortDescription: "",
+    externalLink: "",
   });
+
+  const [isValidLink, setIsValidLink] = useState(true);
+  const [isSecureLink, setIsSecureLink] = useState(true);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((previous) => {
-      return { ...previous, [id]: value.trim() };
+      return { ...previous, [id]: value };
     });
 
     if (id === "password") {
@@ -64,18 +68,102 @@ function EditProfile() {
           matching: formData.password === value,
         };
       });
+    } else if (id === "externalLink") {
+      const trimmedValue = value.trim(); // Trim spaces before validation
+      const urlPattern = new RegExp(
+        "^(https?:\\/\\/)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}(\\/.*)?$"
+      );
+
+      if (trimmedValue === "") {
+        setIsValidLink(true); // Accept empty or space-only field
+        setIsSecureLink(true); // No need to check security for an empty field
+      } else {
+        const isValidLink = urlPattern.test(trimmedValue);
+        const isSecure = trimmedValue.startsWith("https://");
+
+        setIsValidLink(isValidLink);
+        setIsSecureLink(isSecure);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+  const getUser = async () => {
+    try {
+      const res = await fetch(`/api/user/getuser/${currentUser.user._id}`);
+      const data = await res.json();
+      if (!data.success) {
+        console.log(data.message);
+        return;
+      } else {
+        setFormData(data.user);
+      }
+    } catch (error) {
+      console.log(error.message);
+      return;
+    }
   };
 
-  const getUser = () => {};
+  useEffect(() => {
+    getUser();
+  }, [currentUser]);
+
+  const conditionsMet = Object.values(passwordStrength).reduce(
+    (acc, curr) => acc + (curr ? 1 : 0),
+    0
+  );
+
+  const actualConditionsMet = formData.password === "" ? false : conditionsMet;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password && formData.password !== formData.repeatPassword) {
+      dispatch(
+        updateFailure("repeated password and password must be the same")
+      );
+      return;
+    } else if (formData.password && formData.password.length < 8) {
+      dispatch(
+        updateFailure(
+          "password must be the greater than or equal to 8 characters"
+        )
+      );
+      return;
+    } else if (
+      (formData.externalLink && !isValidLink) ||
+      (formData.externalLink && !isSecureLink)
+    ) {
+      dispatch(updateFailure("link must be secure and valid"));
+      return;
+    }
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser.user._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        dispatch(updateFailure(data.message));
+        return;
+      } else {
+        console.log(data);
+        dispatch(updateSuccess(data));
+      }
+    } catch (error) {
+      console.log(error.message);
+      dispatch(
+        updateFailure("some thing went wrong check network or " + error)
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col  items-center p-2 gap-7 ">
-      {" "}
+      {error ? <div className="text-red-500 P-3">{error}</div> : ""}{" "}
       <form
         className="flex flex-col items-center sm:flex-row gap-3 justify-around relative w-full "
         onSubmit={handleSubmit}
@@ -93,14 +181,22 @@ function EditProfile() {
           </div>
           <div className="  ">
             <div className="mb-2 block">
-              <Label htmlFor="comment" value="Your message: 0/2000" />
+              <Label
+                htmlFor="shortDescription"
+                value={`Your message: ${
+                  formData.shortDescription?.length || 0
+                }/200`}
+              />
             </div>
             <Textarea
-              id="comment"
-              placeholder="Leave a message..."
-              required
+              id="shortDescription"
+              name="shortDescription"
+              placeholder="Leave a short description"
               className="w-full"
               rows={4}
+              onChange={handleChange}
+              value={formData.shortDescription || " "}
+              maxLength={200}
             />
           </div>
         </div>
@@ -117,8 +213,8 @@ function EditProfile() {
                 name="firstName"
                 type="text"
                 placeholder="First Name*"
-                required
                 shadow
+                value={formData.firstName || " "}
               />
             </div>
 
@@ -132,8 +228,8 @@ function EditProfile() {
                 name="lastName"
                 type="text"
                 placeholder="Last Name*"
-                required
                 shadow
+                value={formData.lastName || " "}
               />
             </div>
           </div>
@@ -148,8 +244,8 @@ function EditProfile() {
               type="text"
               placeholder="User Name*"
               autoComplete="userName"
-              required
               shadow
+              value={formData.userName || " "}
             />
           </div>
           <div>
@@ -162,38 +258,42 @@ function EditProfile() {
               name="emailOrPhone"
               type="email"
               placeholder="Email*"
-              required
               shadow
               autoComplete="email"
+              value={formData.emailOrPhone || " "}
             />
+          </div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="externalLink" value="External Link" />
+            </div>
+            <TextInput
+              onChange={handleChange}
+              id="externalLink"
+              name="externalLink"
+              type="externalLink"
+              placeholder="External Link"
+              shadow
+              value={formData.externalLink || ""}
+            />
+            {/* Show message only if the field is not empty and the link is invalid */}
+            {formData.externalLink.trim() && !isValidLink && (
+              <p className="text-sm text-red-500">
+                Please provide a valid link, e.g., https://resource.com
+              </p>
+            )}
+            {/* Show warning if the link is valid but not secure */}
+            {formData.externalLink.trim() && isValidLink && !isSecureLink && (
+              <p className="text-sm text-yellow-500">
+                Warning: This link is not secure. Use HTTPS instead.
+              </p>
+            )}
           </div>
 
           <Accordion collapseAll>
             <Accordion.Panel>
               <Accordion.Title>Update password</Accordion.Title>
               <Accordion.Content>
-                <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="oldPassword" value="Old password" />
-                  </div>
-                  <TextInput
-                    onChange={handleChange}
-                    id="oldPassword"
-                    name="oldPassword"
-                    type="password"
-                    required
-                    shadow
-                    autoComplete="Old-password"
-                  />
-                  <div className="flex gap-2 justify-start items-center mt-3">
-                    <Checkbox
-                      id="showPassword"
-                      name="showPassword"
-                      onChange={() => setShowPassword(!showPassword)}
-                    />
-                    <p>Show password</p>
-                  </div>
-                </div>
                 <div>
                   <div className="mb-2 block">
                     <Label htmlFor="password" value=" New Password*" />
@@ -203,7 +303,6 @@ function EditProfile() {
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    required
                     shadow
                     placeholder="8 min characters*"
                     autoComplete="new-password"
@@ -219,6 +318,36 @@ function EditProfile() {
                       <p>Show password</p>
                     </div>
                     <div className="mt-2 flex flex-col gap-1">
+                      <div className="grid grid-cols-4 gap-1 bg-slate-800">
+                        <div
+                          className={`h-1 ${
+                            actualConditionsMet >= 1
+                              ? "bg-green-700"
+                              : "bg-red-700"
+                          }`}
+                        ></div>
+                        <div
+                          className={`h-1 ${
+                            actualConditionsMet >= 2
+                              ? "bg-green-700"
+                              : "bg-red-700"
+                          }`}
+                        ></div>
+                        <div
+                          className={`h-1 ${
+                            actualConditionsMet >= 3
+                              ? "bg-green-700"
+                              : "bg-red-700"
+                          }`}
+                        ></div>
+                        <div
+                          className={`h-1 ${
+                            actualConditionsMet >= 4
+                              ? "bg-green-700"
+                              : "bg-red-700"
+                          }`}
+                        ></div>
+                      </div>
                       <p>Password Strength :</p>
 
                       <ul className="text-xs">
@@ -252,6 +381,28 @@ function EditProfile() {
                       </ul>
                     </div>
                   </div>
+                </div>
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="repeatPassword" value="Repeat password" />
+                  </div>
+                  <TextInput
+                    onChange={handleChange}
+                    id="repeatPassword"
+                    name="repeatPassword"
+                    type="password"
+                    shadow
+                    autoComplete="new-password"
+                  />
+                  <p
+                    className={`mt-3 text-sm ${
+                      passwordStrength.matching
+                        ? "text-green-500"
+                        : "text-red-500 text-sm"
+                    }`}
+                  >
+                    Password match
+                  </p>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>

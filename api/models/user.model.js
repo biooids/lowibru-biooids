@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    shortDescription: {
+      type: String,
+      default: "there is nothing to say!",
+    },
+    externalLink: {
+      type: String,
+      default: "https://www.biooids.com/",
+    },
     isAdmin: {
       type: Boolean,
       default: false,
@@ -38,6 +46,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
     profilePicture: {
       type: String,
       default:

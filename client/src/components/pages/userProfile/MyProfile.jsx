@@ -18,6 +18,11 @@ import {
   deleteUserFailure,
 } from "../../../app/user/userSlice.js";
 
+import { FaCode } from "react-icons/fa6";
+import { RiAdminFill } from "react-icons/ri";
+import { TbAlpha } from "react-icons/tb";
+import { FaRegUserCircle } from "react-icons/fa";
+
 function MyProfile() {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -35,6 +40,9 @@ function MyProfile() {
     isLeader,
     isAdmin,
     isDeveloper,
+    shortDescription,
+    emailOrPhone,
+    externalLink,
   } = currentUser?.user || {};
 
   const handleSignout = async () => {
@@ -136,15 +144,11 @@ function MyProfile() {
           </div>
         </div>
         <div className="sm:max-w-72 border-l-4 pl-3 ">
-          <p>
-            how many seasons of one piece and when were they released{" "}
-            {isExpanded && (
-              <span>
-                consequuntur sequi similique dicta ut accusantium tenetur porro
-                voluptatibus asperiores soluta magni eligendi a tempora. Facere,
-                consectetur laborum.
-              </span>
-            )}
+          <p
+            className={` break-words
+              ${isExpanded ? "line-clamp-none" : "line-clamp-2"}`}
+          >
+            {shortDescription}
           </p>
           <span className=" cursor-pointer underline" onClick={handleToggle}>
             {isExpanded ? " read less" : " read more"}
@@ -153,17 +157,28 @@ function MyProfile() {
 
         <div className="w-full justify-around gap-3  flex flex-col sm:flex-row">
           <div className="flex flex-col">
+            <span className="text-amber-500">Links :</span>
+            <a href={externalLink} className="hover:underline" target="_blank">
+              {externalLink || "none"}{" "}
+            </a>
+          </div>
+          <div className="flex flex-col">
             <span className="text-amber-500">Role :</span>
-            <span>Admin-0</span>
+            <div className="flex gap-2 text-xl">
+              {isLeader ? (
+                <TbAlpha />
+              ) : isAdmin ? (
+                <RiAdminFill />
+              ) : isDeveloper ? (
+                <FaCode />
+              ) : (
+                <FaRegUserCircle />
+              )}
+            </div>
           </div>
           <div className="flex flex-col">
             <span className="text-amber-500">Contacts :</span>
-            <span>(+250) 790 931 024</span>
-            <span>ehwapyongm@gmail.com</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-amber-500">Links :</span>
-            <span>none </span>
+            <span>{emailOrPhone}</span>
           </div>
         </div>
       </section>
