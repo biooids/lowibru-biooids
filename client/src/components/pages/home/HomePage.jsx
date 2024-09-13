@@ -25,9 +25,10 @@ import "./home.css";
 
 import { Link } from "react-router-dom";
 import LeadersComp from "./components/LeadersComp";
-import CommentsComp from "./components/CommentsComp";
 import CountryComp from "./components/CountryComp";
 import { useSelector } from "react-redux";
+import Support from "./components/Support";
+import QuestionComp from "./components/HomeQuestions/QuestionComp";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -481,54 +482,12 @@ function HomePage() {
       </section>
 
       <section className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 p-6 gap-3">
-        <div className="">
-          <h3 className="text-xl mb-4">
-            General blog for Questions and answers
-          </h3>
-          <p className="text-sm max-w-md text-gray-400">
-            We encourage you to actively participate by posting and asking
-            thoughtful inquiries. Let's keep the conversation enriching and
-            respectful by refraining from posting rude or unrelated questions.
-            Thank you for being a part of it
-          </p>
-          <form className="mt-3 flex gap-3 flex-col">
-            <div className="max-w-md">
-              <div className="mb-4 block">
-                <Label htmlFor="comment" value="Add Comment" />
-              </div>
-              <Textarea
-                id="comment"
-                name="comment"
-                type="comment"
-                placeholder="Leave a comment..."
-                required
-                rows={4}
-              />
-            </div>
-            <Button type="submit" className="w-fit">
-              Add Comment
-            </Button>
-          </form>
-          <section className="flex gap-3 flex-col mt-3  pt-2">
-            <h5>comments:</h5>
-            <CommentsComp />
-            <CommentsComp />
-            <CommentsComp />
-            <CommentsComp />
-          </section>
-        </div>
-        <div className="  h-fit sticky top-0">
-          <h3 className="text-xl mb-xl mb-4"> Hello World !</h3>
-          <div className="flex gap-3 flex-col">
-            <p className="text-sm text-gray-400">
-              Your support fuels our efforts to continue sharing these vital
-              teachings with the world. Together, let's inspire positive change
-              and build a brighter future based on love, compassion, and unity.
-              Thank you for considering supporting our noble cause.
-            </p>
-            <Button>Support Our Work</Button>
-          </div>
-        </div>
+        <section>
+          <QuestionComp />
+        </section>
+        <section className="  h-fit sticky top-0">
+          <Support />
+        </section>
       </section>
     </section>
   );
