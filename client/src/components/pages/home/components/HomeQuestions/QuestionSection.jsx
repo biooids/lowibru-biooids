@@ -104,7 +104,7 @@ function QuestionSection({
   };
 
   return (
-    <section className="border-b-2 pb-3 pt-1">
+    <section className=" p-3 rounded-lg bg-slate-900 ">
       {isEditing ? (
         <div className="flex flex-col gap-3">
           <p>Characters remaining: {200 - editedContent.length}</p>
@@ -127,65 +127,60 @@ function QuestionSection({
           </form>
         </div>
       ) : (
-        <>
+        <div className="flex flex-col gap-3">
           <div className="flex gap-3 ">
-            <Avatar
-              img={profilePicture}
-              rounded
-              bordered
-              className="flex justify-start items-start"
-            />
-            <div className="flex  flex-col gap-3 w-full">
-              <div className=" font-medium dark:text-white   flex flex-col sm:flex-row justify-between gap-3 bg-black">
-                <p className="line-clamp-1 break-words h-7">{userName}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {createdAt}
+            <div className="w-[40px] h-[40px]  rounded-full overflow-hidden ">
+              <img
+                src={profilePicture}
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <div className="flex  flex-col gap-3 w-[80%] sm:w-[85] ">
+              <div className=" font-medium  text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between gap-1 rounded-lg ">
+                <p className="line-clamp-1 break-words h-7 bg-black pl-1 pr-1">
+                  {userName}
                 </p>
+                <p className="text-sm">{createdAt}</p>
               </div>
 
-              <p>{realContent}</p>
-
-              <div className="flex justify-between ">
-                <div className="flex items-center gap-1">
-                  {liked ? (
-                    <FaHeart onClick={handleLike} className="cursor-pointer" />
-                  ) : (
-                    <FaRegHeart
-                      onClick={handleLike}
-                      className="cursor-pointer"
-                    />
-                  )}
-                  <span>{numberOfLikes}</span>
-                </div>
-
-                <span
-                  className=" hover:underline cursor-pointer"
-                  onClick={() => setShowReplies(!showReplies)}
-                >
-                  Replies : {numberOfReplies}
-                </span>
-                {currentUser && currentUser.user._id === userId ? (
-                  <div className="flex gap-3">
-                    <span
-                      className="hover:underline cursor-pointer"
-                      onClick={() => setIsEditing(true)}
-                    >
-                      Edit
-                    </span>
-                    <span
-                      className="hover:underline cursor-pointer"
-                      onClick={handleDelete}
-                    >
-                      Delete
-                    </span>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
+              <p className="break-words">{realContent}</p>
             </div>
           </div>
+          <div className="grid grid-cols-3 ">
+            <div className="flex items-center gap-1">
+              {liked ? (
+                <FaHeart onClick={handleLike} className="cursor-pointer" />
+              ) : (
+                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
+              )}
+              <span>{numberOfLikes}</span>
+            </div>
 
+            <span
+              className=" hover:underline cursor-pointer"
+              onClick={() => setShowReplies(!showReplies)}
+            >
+              Replies : {numberOfReplies}
+            </span>
+            {currentUser && currentUser.user._id === userId ? (
+              <div className="flex justify-between">
+                <span
+                  className="hover:underline cursor-pointer"
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit
+                </span>
+                <span
+                  className="hover:underline cursor-pointer"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <div>
             {showReplies ? (
               <QuestionReplyComp
@@ -196,7 +191,7 @@ function QuestionSection({
               ""
             )}
           </div>
-        </>
+        </div>
       )}
     </section>
   );

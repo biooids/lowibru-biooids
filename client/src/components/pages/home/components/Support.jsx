@@ -3,7 +3,7 @@ import React from "react";
 
 function Support() {
   return (
-    <div>
+    <div className="p-3">
       <h3 className="text-xl mb-xl mb-4"> Hello World !</h3>
       <div className="flex gap-3 flex-col">
         <p className="text-sm text-gray-400">

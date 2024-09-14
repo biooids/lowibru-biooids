@@ -3,12 +3,14 @@ import { Button, Textarea } from "flowbite-react";
 import { useSelector } from "react-redux";
 import QuestionSection from "./QuestionSection";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 function QuestionComp() {
   const { currentUser } = useSelector((state) => state.user);
 
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
+  const [showMore, setShowMore] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +30,8 @@ function QuestionComp() {
       console.log(data);
 
       if (data.success) {
-        setQuestion(""); // Clear the input field
+        setQuestion("");
 
-        // Add profile picture to the newly created question and update questions state
         modifyAndSetQuestion(
           data.savedQuestion,
           currentUser.user.profilePicture
@@ -45,14 +46,12 @@ function QuestionComp() {
     }
   };
 
-  // Function to modify a specific key (e.g., profilePicture) and update the questions state
   const modifyAndSetQuestion = (savedQuestion, newProfilePicture) => {
     const modifiedQuestion = {
-      ...savedQuestion, // Spread the original object
-      userId: { ...savedQuestion.userId, profilePicture: newProfilePicture }, // Modify the profilePicture inside userId
+      ...savedQuestion,
+      userId: { ...savedQuestion.userId, profilePicture: newProfilePicture },
     };
 
-    // Update the questions array by adding the modified question
     setQuestions((prevQuestions) => [modifiedQuestion, ...prevQuestions]);
   };
 
@@ -64,7 +63,12 @@ function QuestionComp() {
       const data = await res.json();
 
       if (data.success) {
-        setQuestions((prevQuestions) => [...data.questions, ...prevQuestions]); // Append new questions
+        setQuestions((prevQuestions) => [...data.questions, ...prevQuestions]);
+        console.log(data.questions);
+
+        if (data.questions.length < 3) {
+          setShowMore(false);
+        }
       } else {
         console.log(data.message);
       }
@@ -79,7 +83,7 @@ function QuestionComp() {
 
   const loadMoreQuestions = () => {
     const currentCount = questions.length;
-    getQuestions(1, currentCount);
+    getQuestions(3, currentCount);
   };
 
   const handleQuestionDelete = (questionId) => {
@@ -130,7 +134,7 @@ function QuestionComp() {
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 ">
         <div className="flex flex-col gap-3 ">
           {questions.length > 0
             ? questions.map((question) => (
@@ -149,21 +153,13 @@ function QuestionComp() {
                   fetchedNumberOfReplies={question.numberOfReplies}
                   profilePicture={question.userId.profilePicture}
                   userName={question.userId.userName}
-                  createdAt={new Date(question.createdAt).toLocaleDateString(
-                    "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                    }
-                  )}
+                  createdAt={moment(question.createdAt).fromNow()}
                 />
               ))
             : "No questions yet."}
         </div>
-        <Button onClick={loadMoreQuestions}>Load More Questions</Button>
+
+        {showMore && <Button onClick={loadMoreQuestions}>Load more</Button>}
       </div>
     </div>
   );

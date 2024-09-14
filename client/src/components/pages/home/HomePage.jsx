@@ -481,7 +481,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 p-6 gap-3">
+      <section className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 sm:p-6 gap-3">
         <section>
           <QuestionComp />
         </section>

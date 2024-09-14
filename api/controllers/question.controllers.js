@@ -11,16 +11,13 @@ export const createQuestion = async (req, res, next) => {
       );
     }
 
-    // Create a new question document
     const newQuestion = new Question({
       content,
       userId: req.user.id,
     });
 
-    // Save the question document
     const savedQuestion = await newQuestion.save();
 
-    // Populate the userId field of the saved question
     const populatedQuestion = await Question.findById(savedQuestion._id)
       .populate("userId", "userName profilePicture")
       .exec();
@@ -28,7 +25,7 @@ export const createQuestion = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Question created",
-      savedQuestion: populatedQuestion, // Return the populated question
+      savedQuestion: populatedQuestion,
     });
   } catch (error) {
     next(error);

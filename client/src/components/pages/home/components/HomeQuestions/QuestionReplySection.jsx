@@ -26,7 +26,7 @@ function QuestionReplySection({
   const handleLike = async () => {
     try {
       if (!currentUser) {
-        navigate("/sign-up");
+        navigate("/signup");
         return;
       }
 
@@ -136,7 +136,7 @@ function QuestionReplySection({
   };
 
   return (
-    <div>
+    <div className="border-2 border-slate-800 p-1">
       {isEditing ? (
         <div className="flex flex-col gap-3">
           <p>characters remaining: {200 - editedContent.length}</p>
@@ -159,56 +159,65 @@ function QuestionReplySection({
           </form>
         </div>
       ) : (
-        <div className="flex gap-3 ">
-          <Avatar
-            img={profilePicture}
-            rounded
-            bordered
-            className="flex justify-start items-start"
-          />
-          <div className="flex flex-col gap-3 w-full">
-            <div className="font-medium dark:text-white sm:flex-row justify-between  flex flex-col gap-3 bg-black w-full">
-              <p className="line-clamp-1 break-words h-7">{userName}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {createdAt}
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 ">
+            <div
+              className="w-[30px] h-[30px]
+          rounded-full overflow-hidden"
+            >
+              <img
+                src={profilePicture}
+                rounded
+                bordered
+                className="w-full h-full"
+              />
+            </div>
+            <div className="flex flex-col gap-3 w-[80%] sm:[85%]">
+              <div className="text-sm text-gray-500 dark:text-gray-400 sm:flex-row justify-between  flex flex-col gap-1 w-full">
+                <p className="line-clamp-1 break-words h-6  bg-black pl-1 pr-1">
+                  {userName}
+                </p>
+                <p className="text-sm ">{createdAt}</p>
+              </div>
+              <p className="break-words">
+                {renderContentWithMentions(realContent)}
               </p>
             </div>
-            <p>{renderContentWithMentions(realContent)}</p>
+          </div>
 
-            <div className="flex  justify-between">
-              <div className="flex gap-1 items-center">
-                {liked ? (
-                  <FaHeart onClick={handleLike} className="cursor-pointer" />
-                ) : (
-                  <FaRegHeart onClick={handleLike} className="cursor-pointer" />
-                )}
-                <span> {numberOfLikes}</span>
-              </div>
-              <span
-                className=" hover:underline cursor-pointer"
-                onClick={() => replyReply(userName)}
-              >
-                reply
-              </span>
-              {currentUser && currentUser.user._id === userId ? (
-                <div className="flex gap-3">
-                  <span
-                    className=" hover:underline cursor-pointer"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit{" "}
-                  </span>
-                  <span
-                    className=" hover:underline cursor-pointer"
-                    onClick={handleDelete}
-                  >
-                    Delete
-                  </span>
-                </div>
+          <div className="grid grid-cols-3">
+            <div className="flex gap-1 items-center">
+              {liked ? (
+                <FaHeart onClick={handleLike} className="cursor-pointer" />
               ) : (
-                ""
+                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
               )}
+              <span> {numberOfLikes}</span>
             </div>
+            <span
+              className=" hover:underline cursor-pointer"
+              onClick={() => replyReply(`@${userName}`)}
+            >
+              reply
+            </span>
+            {currentUser && currentUser.user._id === userId ? (
+              <div className="flex justify-between gap-3">
+                <span
+                  className=" hover:underline cursor-pointer"
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit{" "}
+                </span>
+                <span
+                  className=" hover:underline cursor-pointer"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       )}
