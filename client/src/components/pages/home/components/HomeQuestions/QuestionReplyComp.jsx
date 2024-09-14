@@ -1,5 +1,5 @@
-import { Label, TextInput, Button } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Button, TextInput } from "flowbite-react";
 import { useSelector } from "react-redux";
 import QuestionReplySection from "./QuestionReplySection";
 
@@ -12,6 +12,7 @@ function QuestionReplyComp({ questionId, setNumberOfReplies }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await fetch(`/api/replyQuestion/createReply/${questionId}`, {
         method: "POST",
@@ -24,38 +25,53 @@ function QuestionReplyComp({ questionId, setNumberOfReplies }) {
         }),
       });
       const data = await res.json();
-      console.log(data);
 
-      if (!data.success) {
-        console.log(data.message);
-        return;
+      if (data.success) {
+        setReplyContent(""); // Clear the input field
+        modifyAndSetReply(
+          data.savedReply,
+          currentUser.user.profilePicture,
+          currentUser.user.userName
+        );
+
+        // Increment the reply count
+        setNumberOfReplies((prev) => prev + 1);
       } else {
-        setReplyContent("");
-        setReplies([...replies, data.savedReply]);
-        setNumberOfReplies((prevNumberOfReplies) => prevNumberOfReplies + 1);
+        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getReplies = async () => {
+  const modifyAndSetReply = (savedReply, profilePicture, userName) => {
+    const modifiedReply = {
+      ...savedReply,
+      userId: { ...savedReply.userId, profilePicture, userName },
+    };
+    setReplies((prevReplies) => [modifiedReply, ...prevReplies]);
+  };
+
+  const getReplies = async (limit = 3, skip = 0) => {
     try {
       const res = await fetch(
-        `/api/replyQuestion/getQuestionReplies/${questionId}`
+        `/api/replyQuestion/getQuestionReplies/${questionId}?limit=${limit}&skip=${skip}`
       );
       const data = await res.json();
 
-      console.log(data);
-      if (!data.success) {
-        console.log(data.message);
-        return;
+      if (data.success) {
+        setReplies((prevReplies) => [...prevReplies, ...data.replies]);
       } else {
-        setReplies(data.replies);
+        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const loadMoreReplies = () => {
+    const currentCount = replies.length;
+    getReplies(3, currentCount);
   };
 
   useEffect(() => {
@@ -66,11 +82,6 @@ function QuestionReplyComp({ questionId, setNumberOfReplies }) {
     setReplies((prevReplies) =>
       prevReplies.filter((reply) => reply._id !== replyId)
     );
-    setNumberOfReplies((prevNumberOfReplies) => prevNumberOfReplies - 1);
-  };
-
-  const replyReply = (userId) => {
-    setReplyContent(`@${userId} `);
   };
 
   return (
@@ -95,21 +106,37 @@ function QuestionReplyComp({ questionId, setNumberOfReplies }) {
           Submit
         </Button>
       </form>
-      <div className="flex flex-col gap-3">
+
+      {/* List of replies */}
+      <div className="flex flex-col gap-5">
         {replies.length > 0
           ? replies.map((reply) => (
               <QuestionReplySection
                 key={reply._id}
                 replyId={reply._id}
-                userId={reply.userId}
+                userId={reply.userId._id}
                 replyContent={reply.replyContent}
                 isLiked={reply.likes.includes(userId)}
                 fetchedLikes={reply.numberOfLikes}
                 onDelete={handleReplyDelete}
-                replyReply={replyReply}
+                replyReply={setReplyContent}
+                profilePicture={reply.userId.profilePicture}
+                userName={reply.userId.userName}
+                createdAt={new Date(reply.createdAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  }
+                )}
               />
             ))
           : "No replies yet."}
+
+        <Button onClick={loadMoreReplies}>Load More Replies</Button>
       </div>
     </div>
   );

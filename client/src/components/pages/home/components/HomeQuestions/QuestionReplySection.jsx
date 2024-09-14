@@ -1,7 +1,8 @@
-import { Button, Textarea } from "flowbite-react";
+import { Avatar, Button, Textarea } from "flowbite-react";
 import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 function QuestionReplySection({
   replyId,
@@ -11,6 +12,9 @@ function QuestionReplySection({
   userId,
   onDelete,
   replyReply,
+  profilePicture,
+  userName,
+  createdAt,
 }) {
   const { currentUser } = useSelector((state) => state.user);
   const [liked, setLiked] = useState(isLiked);
@@ -155,41 +159,56 @@ function QuestionReplySection({
           </form>
         </div>
       ) : (
-        <div>
-          <p>{renderContentWithMentions(realContent)}</p>
-          <div className="flex  gap-3 items-center">
-            <div className="flex gap-1 items-center">
-              {liked ? (
-                <FaHeart onClick={handleLike} className="cursor-pointer" />
-              ) : (
-                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
-              )}
-              <span> {numberOfLikes}</span>
+        <div className="flex gap-3 ">
+          <Avatar
+            img={profilePicture}
+            rounded
+            bordered
+            className="flex justify-start items-start"
+          />
+          <div className="flex flex-col gap-3 w-full">
+            <div className="font-medium dark:text-white sm:flex-row justify-between  flex flex-col gap-3 bg-black w-full">
+              <p className="line-clamp-1 break-words h-7">{userName}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {createdAt}
+              </p>
             </div>
-            <span
-              className=" hover:underline cursor-pointer"
-              onClick={() => replyReply(userId)}
-            >
-              reply
-            </span>
-            {currentUser.user._id === userId ? (
-              <div className="flex gap-3">
-                <span
-                  className=" hover:underline cursor-pointer"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit{" "}
-                </span>
-                <span
-                  className=" hover:underline cursor-pointer"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </span>
+            <p>{renderContentWithMentions(realContent)}</p>
+
+            <div className="flex  justify-between">
+              <div className="flex gap-1 items-center">
+                {liked ? (
+                  <FaHeart onClick={handleLike} className="cursor-pointer" />
+                ) : (
+                  <FaRegHeart onClick={handleLike} className="cursor-pointer" />
+                )}
+                <span> {numberOfLikes}</span>
               </div>
-            ) : (
-              "you can reply"
-            )}
+              <span
+                className=" hover:underline cursor-pointer"
+                onClick={() => replyReply(userName)}
+              >
+                reply
+              </span>
+              {currentUser && currentUser.user._id === userId ? (
+                <div className="flex gap-3">
+                  <span
+                    className=" hover:underline cursor-pointer"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit{" "}
+                  </span>
+                  <span
+                    className=" hover:underline cursor-pointer"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       )}

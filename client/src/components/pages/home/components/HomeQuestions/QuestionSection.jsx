@@ -4,6 +4,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import QuestionReplyComp from "./QuestionReplyComp";
+import moment from "moment";
 
 function QuestionSection({
   content,
@@ -134,8 +135,8 @@ function QuestionSection({
               bordered
               className="flex justify-start items-start"
             />
-            <div className="flex  flex-col gap-3">
-              <div className=" font-medium dark:text-white sm:grid grid-cols-2  flex flex-col gap-3">
+            <div className="flex  flex-col gap-3 w-full">
+              <div className=" font-medium dark:text-white   flex flex-col sm:flex-row justify-between gap-3 bg-black">
                 <p className="line-clamp-1 break-words h-7">{userName}</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {createdAt}

@@ -27,10 +27,15 @@ export const createReply = async (req, res, next) => {
       $inc: { numberOfReplies: 1 },
     });
 
+    // Here, populate the reply, not the question
+    const populatedReply = await QuestionReply.findById(savedReply._id)
+      .populate("userId", "userName profilePicture")
+      .exec();
+
     res.status(200).json({
       success: true,
       message: "QuestionReply created successfully",
-      savedReply,
+      savedReply: populatedReply,
     });
   } catch (error) {
     next(error);
@@ -38,11 +43,22 @@ export const createReply = async (req, res, next) => {
 };
 
 export const getQuestionReplies = async (req, res, next) => {
+  const limit = parseInt(req.query.limit);
+  const skip = parseInt(req.query.skip);
+
   try {
     const { questionId } = req.params;
-    const replies = await QuestionReply.find({ questionId });
 
-    if (!replies.length) {
+    const replies = await QuestionReply.find({ questionId })
+      .populate("userId", "userName profilePicture")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    const totalReplies = await QuestionReply.countDocuments({ questionId });
+
+    if (replies.length === 0) {
       return next(errorHandler(404, "No replies found for this question"));
     }
 
@@ -50,6 +66,7 @@ export const getQuestionReplies = async (req, res, next) => {
       success: true,
       message: "Replies fetched successfully",
       replies,
+      totalReplies,
     });
   } catch (error) {
     next(error);
