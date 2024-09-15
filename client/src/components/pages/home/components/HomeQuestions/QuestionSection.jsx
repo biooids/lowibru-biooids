@@ -104,7 +104,7 @@ function QuestionSection({
   };
 
   return (
-    <section className=" p-3 rounded-lg bg-slate-900 ">
+    <section className=" p-3 rounded-lg bg-slate-900  ">
       {isEditing ? (
         <div className="flex flex-col gap-3">
           <p>Characters remaining: {200 - editedContent.length}</p>
@@ -135,7 +135,7 @@ function QuestionSection({
                 className="w-full h-full object-cover "
               />
             </div>
-            <div className="flex  flex-col gap-3 w-[80%] sm:w-[85] ">
+            <div className="flex  flex-col gap-3 w-[80%] sm:w-[85%] ">
               <div className=" font-medium  text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between gap-1 rounded-lg ">
                 <p className="line-clamp-1 break-words h-7 bg-black pl-1 pr-1">
                   {userName}
@@ -143,7 +143,7 @@ function QuestionSection({
                 <p className="text-sm">{createdAt}</p>
               </div>
 
-              <p className="break-words">{realContent}</p>
+              <p className="break-all w-[85%]">{realContent}</p>
             </div>
           </div>
           <div className="grid grid-cols-3 ">

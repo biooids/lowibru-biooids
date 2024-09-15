@@ -135,7 +135,7 @@ function QuestionComp() {
       )}
 
       <div className="flex flex-col gap-3 ">
-        <div className="flex flex-col gap-3 ">
+        <div className="flex flex-col gap-3 w-full">
           {questions.length > 0
             ? questions.map((question) => (
                 <QuestionSection

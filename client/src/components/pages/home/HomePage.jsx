@@ -29,6 +29,7 @@ import CountryComp from "./components/CountryComp";
 import { useSelector } from "react-redux";
 import Support from "./components/Support";
 import QuestionComp from "./components/HomeQuestions/QuestionComp";
+import father from "../../../assets/father.jpg";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -261,11 +262,11 @@ function HomePage() {
       </article>
 
       <section className="bg-slate-800  p-3 sm:m-10 ml-2 mr-2 mt-10">
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
+        <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
           About Us
         </h5>
 
-        <div className="explanation-cards  ">
+        <div className="sm:grid grid-cols-3 grid-rows-2 gap-3 flex flex-col">
           <Card className="w-full">
             <div className="h-full">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
@@ -287,7 +288,7 @@ function HomePage() {
                 </li>
               </ul>
             </div>
-          </Card>
+          </Card>{" "}
           <Card className="w-full ">
             <div className="h-full">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
@@ -309,7 +310,7 @@ function HomePage() {
                 <li>We promote peace all over every Nation</li>
               </ul>
             </div>
-          </Card>
+          </Card>{" "}
           <Card className="w-full">
             <div className="h-full">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
@@ -328,9 +329,9 @@ function HomePage() {
                 </li>
               </ul>
             </div>
-          </Card>
-          <Card className="w-full">
-            <div className="h-full">
+          </Card>{" "}
+          <div className="col-span-2 row-start-2 flex flex-col justify-between">
+            <div>
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
                 Cult or a new religion?
               </h5>
@@ -345,37 +346,41 @@ function HomePage() {
                 every country that you can reach and we will welcome you as you
                 are.
               </p>
-              <Button className="mt-3">Ask Us Questions</Button>
-              <div className="mt-3 flex flex-col gap-3">
-                <h6 className="text-lg underline">
-                  Go to the real Source below
-                </h6>
-                <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
-                  <li className="hover:underline">
-                    <a href="">Piece Tv</a>
-                  </li>
-                  <li className="hover:underline">
-                    <a href="">UPF Main Site</a>
-                  </li>
-                  <li className="hover:underline">
-                    <a href="">FFWPU World</a>
-                  </li>
-                  <li className="hover:underline">
-                    <a href="">Youtube</a>
-                  </li>
-                  <li className="hover:underline">
-                    <a href="">facebook</a>
-                  </li>
-                  <li className="hover:underline">
-                    <a href="">Instagram</a>
-                  </li>
-                </ul>
-              </div>
+            </div>{" "}
+            <Button className="mt-3">Ask Us Questions</Button>
+            <div className="mt-3 flex flex-col gap-3">
+              <h6 className="text-lg underline">Go to the real Source below</h6>
+              <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
+                <li className="hover:underline">
+                  <a href="">Piece Tv</a>
+                </li>
+                <li className="hover:underline">
+                  <a href="">UPF Main Site</a>
+                </li>
+                <li className="hover:underline">
+                  <a href="">FFWPU World</a>
+                </li>
+                <li className="hover:underline">
+                  <a href="">Youtube</a>
+                </li>
+                <li className="hover:underline">
+                  <a href="">facebook</a>
+                </li>
+                <li className="hover:underline">
+                  <a href="">Instagram</a>
+                </li>
+              </ul>
             </div>
-          </Card>
+          </div>
+          <div className="col-start-3 row-start-2 ">
+            <div className="w-full sm:h-full h-[300px]">
+              <img src={father} alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
         </div>
       </section>
-      <section className="bg-slate-800 sm:m-10 p-3 ml-2 mr-2">
+
+      <section className="bg-slate-800 sm:m-10 p-3 ml-2 mr-2 mt-10">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center mb-4">
           OUR VISSION
         </h5>
@@ -384,6 +389,7 @@ function HomePage() {
           World Peace.
         </p>
       </section>
+
       <section className="bg-slate-800 sm:m-10 p-3 mt-10 ">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
           OUR MISSIONS

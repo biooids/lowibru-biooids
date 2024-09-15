@@ -85,11 +85,20 @@ function SidebarComp() {
         <Sidebar.Items className="mt-3  h-screen  ">
           <Sidebar.ItemGroup>
             <Link to="myprofile">
-              <Sidebar.Item icon={FaUserCircle}>Update Profile</Sidebar.Item>
+              <Sidebar.Item icon={FaUserCircle} as={"div"}>
+                Update Profile
+              </Sidebar.Item>
             </Link>
 
-            <Sidebar.Item icon={FaHome}>Home</Sidebar.Item>
-            <Sidebar.Item icon={MdMessage} label="4" labelColor="dark">
+            <Sidebar.Item icon={FaHome} as={"div"}>
+              Home
+            </Sidebar.Item>
+            <Sidebar.Item
+              icon={MdMessage}
+              label="4"
+              labelColor="dark"
+              as={"div"}
+            >
               Chat
             </Sidebar.Item>
 
@@ -134,10 +143,13 @@ function SidebarComp() {
               icon={MdNotificationsActive}
               label="9+"
               labelColor="dark"
+              as={"div"}
             >
               Notifications
             </Sidebar.Item>
-            <Sidebar.Item icon={MdHelp}>Help</Sidebar.Item>
+            <Sidebar.Item icon={MdHelp} as={"div"}>
+              Help
+            </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>
