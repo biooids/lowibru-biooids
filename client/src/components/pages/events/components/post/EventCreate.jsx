@@ -1,19 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import EventCreateCard from "./EventCreateCard";
-import { Avatar, Button, Carousel, Label, Select } from "flowbite-react";
+import {
+  Avatar,
+  Button,
+  Carousel,
+  Datepicker,
+  FileInput,
+  Label,
+  Select,
+  TextInput,
+} from "flowbite-react";
 import profilePic from "../../../../../assets/father.jpg";
 
 import { FaShareAlt } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { FaRegSave } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+
+import { app } from "../../../../../firebase.js";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
 function EventCreate() {
+  const [file, setFile] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState(null);
+  const [imageUploadProgress, setImageUploadProgress] = useState(null);
+  const [imageUploadSuccess, setImageUploadSuccess] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    schedule: new Date(),
+    category: "happened",
+    externalLink: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <section className=" flex flex-col gap-6 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
-      <EventCreateCard />
-      <article className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700">
-        <div className="h-56  sm:h-64 xl:h-80 2xl:h-96 p-3">
-          <Carousel slideInterval={1000000} as={"div"}>
+      {/* <EventCreateCard /> */}
+      <form className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700 ">
+        <div className=" p-3 flex flex-col justify-between bg-black h-">
+          <Carousel
+            slideInterval={1000000}
+            as={"div"}
+            className="h-56  sm:h-64 xl:h-80 2xl:h-96"
+          >
             <img src={profilePic} alt="..." />
             <img src={profilePic} alt="..." />
             <img
@@ -29,6 +71,35 @@ function EventCreate() {
               alt="..."
             />
           </Carousel>
+          <div className="flex gap-3">
+            <FileInput
+              type="file"
+              accept="image/*"
+              className="w-full"
+              multiple
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <Button
+              type="button"
+              gradientDuoTone="purpleToBlue"
+              size="sm"
+              outline
+              disabled={imageUploadProgress}
+              className=""
+              // onClick={handleUploadImage}
+            >
+              {imageUploadProgress ? (
+                <div className="w-16 h-16">
+                  <CircularProgressbar
+                    value={imageUploadProgress}
+                    text={`${imageUploadProgress || 0}%`}
+                  />
+                </div>
+              ) : (
+                "Upload"
+              )}
+            </Button>
+          </div>
         </div>
         <div className=" flex gap-3 flex-col bg-ambe-800 p-3 rounded-md justify-between">
           <div className="bg-slate-700  rounded-lg p-3 flex flex-col">
@@ -43,18 +114,23 @@ function EventCreate() {
             </p>
             <div className="mt-3 flex gap-3 flex-col">
               <div>
-                <Label htmlFor="message" className="mb-2 block">
-                  Choose Category
-                </Label>
-                <Select id="region" name="country" required>
-                  <option>Casual</option>
-                  <option>Upcomming</option>
-                </Select>
+                {/* {formData.category === "upcoming" ? ( */}
+                <div className="flex gap-3 flex-col">
+                  <p className="text-xl font-bold">Selected date :</p>
+                  <Datepicker
+                    id="schedule"
+                    minDate={new Date()}
+                    // onSelectedDateChanged={handleDateChange}
+                  />
+                </div>
+                {/* ) : (
+              ""
+            )} */}
               </div>
               <span className="text-2xl font-bold">1/3/2024</span>
               <div>
                 <div className="flex justify-between mt-3">
-                  <Button>Post now</Button>
+                  <Button type="submit">Post now</Button>
                   <Button color="red">Delete</Button>
                 </div>
               </div>
@@ -76,7 +152,7 @@ function EventCreate() {
             </div>
           </div>
         </div>
-      </article>
+      </form>
     </section>
   );
 }
