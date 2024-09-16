@@ -17,7 +17,12 @@ const postSchema = new Schema(
       required: true,
       unique: true,
     },
-    image: [],
+    images: {
+      type: Array,
+      default: [
+        "https://firebasestorage.googleapis.com/v0/b/lowibru-biooids.appspot.com/o/1726428547275-post.jpeg?alt=media&token=103317e4-f928-4ca0-822e-08be7ae55985",
+      ],
+    },
     category: {
       type: String,
       default: "happened",
