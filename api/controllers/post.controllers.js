@@ -99,6 +99,35 @@ export const deletePost = async (req, res, next) => {
   }
 };
 
+export const likePost = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const postId = req.params.postId;
+    console.log(postId);
+
+    const post = await Post.findById(postId).select("likes numberOfLikes");
+    if (!post) {
+      return next(errorHandler(404, "Question not found"));
+    }
+
+    const userHasLiked = post.likes.includes(userId);
+
+    const updateQuery = userHasLiked
+      ? { $pull: { likes: userId }, $inc: { numberOfLikes: -1 } }
+      : { $addToSet: { likes: userId }, $inc: { numberOfLikes: 1 } };
+
+    const updatedPost = await Post.findByIdAndUpdate(postId, updateQuery, {
+      new: true,
+    });
+
+    res
+      .status(200)
+      .json({ success: true, message: "Question updated", updatedPost });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updatePost = async (req, res, next) => {
   console.log("data from body", req.body);
   const { title, content, category, image, externalLink, schedule } = req.body;

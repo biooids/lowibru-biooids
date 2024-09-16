@@ -45,6 +45,12 @@ function EventMyPost() {
                 saveCount={post.saveCount}
                 schedule={post.schedule}
                 onDeletePost={handleDeletePost}
+                isLiked={
+                  currentUser
+                    ? post.likes.includes(currentUser.user._id)
+                    : false
+                }
+                fetchedLikes={post.numberOfLikes}
               />
             );
           })

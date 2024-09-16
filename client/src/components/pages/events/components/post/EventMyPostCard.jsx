@@ -1,13 +1,14 @@
+import React, { useState } from "react";
 import { Avatar, Button, Carousel } from "flowbite-react";
-import React from "react";
 import profilePic from "../../../../../assets/father.jpg";
 import { Link } from "react-router-dom";
 
 import { FaShareAlt } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
-
 import { FaRecordVinyl } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+
 import { useSelector } from "react-redux";
 
 function EventMyPostCard({
@@ -24,8 +25,12 @@ function EventMyPostCard({
   saveCount,
   schedule,
   onDeletePost,
+  isLiked,
+  fetchedLikes,
 }) {
   const { currentUser } = useSelector((state) => state.user);
+  const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
+  const [liked, setLiked] = useState(isLiked);
 
   const handleDelete = async () => {
     try {
@@ -47,6 +52,31 @@ function EventMyPostCard({
       console.log(error.message);
     }
   };
+
+  const handleLike = async () => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-up");
+        return;
+      }
+
+      const res = await fetch(`/api/post/likePost/${id}`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success) {
+        const isLiked = data.updatedPost.likes.includes(currentUser.user._id);
+        setNumberOfLikes((prev) => (isLiked ? prev + 1 : prev - 1));
+        setLiked(isLiked);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <article className="  lg:grid lg:grid-cols-2 gap-3 pb-4 border-b-2 border-amber-700">
       <div className="h-56  sm:h-64 xl:h-80 2xl:h-96 p-3">
@@ -102,13 +132,24 @@ function EventMyPostCard({
               <FaRecordVinyl className="" /> Rec
             </span> */}
             <span className="flex justify-center gap-1 items-center cursor-pointer hover:text-amber-400">
-              <BiLike /> 1k
+              {liked ? (
+                <FaHeart onClick={handleLike} className="cursor-pointer" />
+              ) : (
+                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
+              )}
+              <span>{numberOfLikes}</span>
             </span>
             <FaShareAlt className="hover:text-amber-400 cursor-pointer" />
             <MdDeleteForever
               className="hover:text-amber-400 cursor-pointer"
               onClick={handleDelete}
             />
+            <Link
+              to="/events/post/edit"
+              className="hover:text-amber-400 cursor-pointer"
+            >
+              Edit
+            </Link>
           </div>
         </div>
       </div>

@@ -32,6 +32,7 @@ import EditContacts from "./components/pages/userProfile/components/Edit/EditCon
 import EditProfile from "./components/pages/userProfile/components/Edit/EditProfile";
 import Authenticated from "./components/mainComp/Authenticated";
 import ScrollToTop from "./components/mainComp/ScrollToTop";
+import EventMyPostEdit from "./components/pages/events/components/post/EventMyPostEdit";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
             <Route path="post" element={<PostEvents />}>
               <Route index element={<EventCreate />} />
               <Route path="mypost" element={<EventMyPost />} />
+              <Route path="edit" element={<EventMyPostEdit />} />
               <Route path="permission" element={<EventPermission />} />
               {/* 
               <Route path="golive" element={<EventGolive />} />
