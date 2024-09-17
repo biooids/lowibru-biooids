@@ -130,7 +130,7 @@ export const likePost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   console.log("data from body", req.body);
-  const { title, content, category, image, externalLink, schedule } = req.body;
+  const { title, content, category, images, externalLink, schedule } = req.body;
   if (req.user.id !== req.params.userId) {
     return next(
       errorHandler(
@@ -153,7 +153,7 @@ export const updatePost = async (req, res, next) => {
           title,
           content,
           category,
-          image,
+          images,
           externalLink,
           schedule,
           slug,

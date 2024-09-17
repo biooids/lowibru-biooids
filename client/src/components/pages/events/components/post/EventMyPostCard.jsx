@@ -90,6 +90,7 @@ function EventMyPostCard({
           ))}
         </Carousel>
       </div>
+
       <div className=" flex gap-3 flex-col  p-3 rounded-md justify-between">
         <div className="bg-slate-700  rounded-lg p-3 flex flex-col">
           <h4 className="text-xl w-full mb-1 font-bold">{title} </h4>
@@ -145,7 +146,7 @@ function EventMyPostCard({
               onClick={handleDelete}
             />
             <Link
-              to="/events/post/edit"
+              to={`/events/post/updatepost/${id}`}
               className="hover:text-amber-400 cursor-pointer"
             >
               Edit

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventCreateCard from "./EventCreateCard";
 import {
   Alert,
@@ -18,7 +18,7 @@ import { FaShareAlt } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { FaRegSave } from "react-icons/fa";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { app } from "../../../../../firebase.js";
 import {
@@ -30,7 +30,7 @@ import {
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-function EventMyPostEdit() {
+function UpdatePost() {
   const [file, setFile] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -47,6 +47,8 @@ function EventMyPostEdit() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const { postId } = useParams();
+  const [postDataDate, setPostDataDate] = useState("");
 
   const handleUploadImage = () => {
     if (!file || file.length === 0) {
@@ -148,35 +150,60 @@ function EventMyPostEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      setLoading(true);
-      const data = await fetch("/api/post/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const data = await fetch(
+        `/api/post/updatePost/${postId}/${formData.userId._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const res = await data.json();
       console.log(res);
-
-      if (!res.success) {
-        setError(res.message);
-        setLoading(false);
-        return;
-      } else {
-        setSuccess(true);
-        // navigate("/posts");
-        setError(null);
-        setLoading(false);
-      }
     } catch (error) {
-      setError("An error occurred while creating the post");
-      setLoading(false);
-      return;
+      console.log(error);
     }
   };
+
+  const fetchPostData = async () => {
+    try {
+      const data = await fetch(`/api/post/getPosts/?postId=${postId}`);
+      const res = await data.json();
+
+      // Convert schedule to a Date object
+      const postSchedule = new Date(res.posts[0].schedule);
+      const now = new Date();
+      const value = postSchedule < now;
+
+      console.log(value, res.posts[0]);
+
+      setFormData(() => {
+        if (value) {
+          return { ...res.posts[0], schedule: new Date() };
+        } else {
+          return { ...res.posts[0] };
+        }
+      });
+
+      const date = new Date(res.posts[0].schedule);
+      const formattedDate = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+
+      setPostDataDate(formattedDate);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostData();
+  }, [postId]);
 
   return (
     <section className=" flex flex-col gap-6 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
@@ -260,16 +287,23 @@ function EventMyPostEdit() {
                     required
                     id="title"
                     className="flex-1"
+                    value={formData.title || ""}
                     onChange={handleChange}
                   />
-                  <Select id="category" onChange={handleChange}>
+                  <Select
+                    id="category"
+                    onChange={handleChange}
+                    value={formData.category || ""}
+                  >
                     <option value="happened">Happened</option>
                     <option value="upcoming">Upcoming</option>
                   </Select>
                 </div>
                 {formData.category === "upcoming" ? (
                   <div className="flex gap-3 flex-col">
-                    <p className="text-xl font-bold">Selected date :</p>
+                    <p className="text-xl font-bold">
+                      Selected date : {postDataDate}
+                    </p>
                     <Datepicker
                       id="schedule"
                       minDate={new Date()}
@@ -288,6 +322,7 @@ function EventMyPostEdit() {
                     placeholder="Leave a content..."
                     required
                     rows={4}
+                    value={formData.content || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -296,13 +331,29 @@ function EventMyPostEdit() {
                   placeholder="External Link (optional)"
                   id="externalLink"
                   className="flex-1"
+                  value={formData.externalLink || ""}
                   onChange={handleChange}
                 />
               </div>
               <div>
                 <div className="flex justify-between mt-3">
-                  <Button type="submit">Post now</Button>
-                  <Button color="red">Delete</Button>
+                  <Button type="submit">Update now</Button>
+                  <Button
+                    color="red"
+                    size="sm"
+                    onClick={() => {
+                      setFormData({
+                        title: "",
+                        category: "",
+                        content: "",
+                        externalLink: "",
+                        schedule: new Date(),
+                        images: [],
+                      });
+                    }}
+                  >
+                    Discard All
+                  </Button>
                 </div>
               </div>
             </div>
@@ -328,4 +379,4 @@ function EventMyPostEdit() {
   );
 }
 
-export default EventMyPostEdit;
+export default UpdatePost;
