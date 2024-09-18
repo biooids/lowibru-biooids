@@ -13,9 +13,7 @@ function SavedEvents() {
 
   const getSavedPosts = async () => {
     try {
-      const res = await fetch(
-        `/api/post/getUserSavedPosts?userId=${currentUser.user._id}`
-      );
+      const res = await fetch("/api/post/getUserSavedPosts");
       const data = await res.json();
       console.log(data);
       setSavedPosts(data.savedPosts);
@@ -60,8 +58,13 @@ function SavedEvents() {
                     : false
                 }
                 fetchedLikes={post.numberOfLikes}
+                isSaved={
+                  currentUser
+                    ? post.saves.includes(currentUser.user._id)
+                    : false
+                }
+                fetchedSaves={post.numberOfSaves}
                 handleUnSave={handleUnSave}
-                setUnSavePost={setUnSavePost}
               />
             ))
           : "you ain't got no saved posts"}

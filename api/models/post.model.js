@@ -54,10 +54,20 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
-    saveCount: {
+    saves: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    numberOfSaves: {
       type: Number,
       default: 0,
     },
+    // saveCount: {
+    //   type: Number,
+    //   default: 0,
+    // },
   },
   { timestamps: true }
 );

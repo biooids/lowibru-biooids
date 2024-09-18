@@ -107,7 +107,7 @@ export const likePost = async (req, res, next) => {
 
     const post = await Post.findById(postId).select("likes numberOfLikes");
     if (!post) {
-      return next(errorHandler(404, "Question not found"));
+      return next(errorHandler(404, "Post not found"));
     }
 
     const userHasLiked = post.likes.includes(userId);
@@ -122,7 +122,56 @@ export const likePost = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ success: true, message: "Question updated", updatedPost });
+      .json({ success: true, message: "post updated", updatedPost });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const savePost = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const postId = req.params.postId;
+
+    const post = await Post.findById(postId).select("saves numberOfSaves");
+    if (!post) {
+      return next(errorHandler(404, "Post not found"));
+    }
+
+    const userHasSaved = post.saves.includes(userId);
+
+    const updateQuery = userHasSaved
+      ? { $pull: { saves: userId }, $inc: { numberOfSaves: -1 } }
+      : { $addToSet: { saves: userId }, $inc: { numberOfSaves: 1 } };
+
+    const updatedPost = await Post.findByIdAndUpdate(postId, updateQuery, {
+      new: true,
+    });
+
+    res
+      .status(200)
+      .json({ success: true, message: "Post updated", updatedPost });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserSavedPosts = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+
+    if (!userId) {
+      return next(errorHandler(404, "User not found log in or sign up"));
+    }
+
+    // Find all posts where the `saved` array includes the user ID
+    const savedPosts = await Post.find({ saves: userId });
+
+    res.status(200).json({
+      success: true,
+      message: "Saved posts fetched successfully",
+      savedPosts,
+    });
   } catch (error) {
     next(error);
   }
@@ -171,133 +220,132 @@ export const updatePost = async (req, res, next) => {
   }
 };
 
-export const savePost = async (req, res, next) => {
-  const { postId } = req.body;
-  console.log("data from req.body", postId);
+// export const getUserSavedPosts = async (req, res, next) => {
+//   const { userId } = req.query;
+//   console.log(userId);
 
-  if (!req.user.id) {
-    return next(errorHandler(401, "Please log in or sign up first"));
-  }
+//   try {
+//     const user = await User.findById(userId).populate("savedPosts");
 
-  try {
-    const postToSave = await Post.findById(postId); // Find the post to save
-    if (!postToSave) {
-      return next(errorHandler(404, "Post not found"));
-    }
+//     if (!user) {
+//       return next(errorHandler(404, "User not found"));
+//     }
 
-    const validUser = await User.findById(req.user.id); // Find the user
-    if (!validUser) {
-      return next(
-        errorHandler(404, "User not found. Please log in or sign up first")
-      );
-    }
+//     res.status(200).json({
+//       success: true,
+//       message: "Saved posts retrieved successfully",
+//       savedPosts: user.savedPosts,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
-    // Ensure savedPosts is initialized
-    if (!Array.isArray(validUser.savedPosts)) {
-      validUser.savedPosts = [];
-    }
+// export const savePost = async (req, res, next) => {
+//   const { postId } = req.body;
+//   console.log("data from req.body", postId);
 
-    // Check if post is already saved
-    const isPostAlreadySaved = validUser.savedPosts.some(
-      (savedPost) => savedPost.toString() === postId
-    );
+//   if (!req.user.id) {
+//     return next(errorHandler(401, "Please log in or sign up first"));
+//   }
 
-    if (isPostAlreadySaved) {
-      // Post is already saved
-      return next(errorHandler(400, "This post is already saved"));
-    } else {
-      // Post is not saved, so add it
-      validUser.savedPosts.push(postId);
+//   try {
+//     const postToSave = await Post.findById(postId); // Find the post to save
+//     if (!postToSave) {
+//       return next(errorHandler(404, "Post not found"));
+//     }
 
-      // Increment the save count
-      postToSave.saveCount += 1;
-      await postToSave.save();
+//     const validUser = await User.findById(req.user.id); // Find the user
+//     if (!validUser) {
+//       return next(
+//         errorHandler(404, "User not found. Please log in or sign up first")
+//       );
+//     }
 
-      const updatedUser = await validUser.save();
-      res.status(200).json({
-        success: true,
-        message: "Post saved successfully",
-        updatedUser,
-      });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
+//     // Ensure savedPosts is initialized
+//     if (!Array.isArray(validUser.savedPosts)) {
+//       validUser.savedPosts = [];
+//     }
 
-export const getUserSavedPosts = async (req, res, next) => {
-  const { userId } = req.query;
-  console.log(userId);
+//     // Check if post is already saved
+//     const isPostAlreadySaved = validUser.savedPosts.some(
+//       (savedPost) => savedPost.toString() === postId
+//     );
 
-  try {
-    const user = await User.findById(userId).populate("savedPosts");
+//     if (isPostAlreadySaved) {
+//       // Post is already saved
+//       return next(errorHandler(400, "This post is already saved"));
+//     } else {
+//       // Post is not saved, so add it
+//       validUser.savedPosts.push(postId);
 
-    if (!user) {
-      return next(errorHandler(404, "User not found"));
-    }
+//       // Increment the save count
+//       postToSave.saveCount += 1;
+//       await postToSave.save();
 
-    res.status(200).json({
-      success: true,
-      message: "Saved posts retrieved successfully",
-      savedPosts: user.savedPosts,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+//       const updatedUser = await validUser.save();
+//       res.status(200).json({
+//         success: true,
+//         message: "Post saved successfully",
+//         updatedUser,
+//       });
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+// export const unSavePost = async (req, res, next) => {
+//   const { postId } = req.body;
+//   console.log("data from req.body", postId);
 
-export const unSavePost = async (req, res, next) => {
-  const { postId } = req.body;
-  console.log("data from req.body", postId);
+//   if (!req.user.id) {
+//     return next(errorHandler(401, "Please log in or sign up first"));
+//   }
 
-  if (!req.user.id) {
-    return next(errorHandler(401, "Please log in or sign up first"));
-  }
+//   try {
+//     const postToUnsave = await Post.findById(postId); // Find the post to unsave
+//     if (!postToUnsave) {
+//       return next(errorHandler(404, "Post not found"));
+//     }
 
-  try {
-    const postToUnsave = await Post.findById(postId); // Find the post to unsave
-    if (!postToUnsave) {
-      return next(errorHandler(404, "Post not found"));
-    }
+//     const validUser = await User.findById(req.user.id); // Find the user
+//     if (!validUser) {
+//       return next(
+//         errorHandler(404, "User not found. Please log in or sign up first")
+//       );
+//     }
 
-    const validUser = await User.findById(req.user.id); // Find the user
-    if (!validUser) {
-      return next(
-        errorHandler(404, "User not found. Please log in or sign up first")
-      );
-    }
+//     // Ensure savedPosts is initialized
+//     if (!Array.isArray(validUser.savedPosts)) {
+//       validUser.savedPosts = [];
+//     }
 
-    // Ensure savedPosts is initialized
-    if (!Array.isArray(validUser.savedPosts)) {
-      validUser.savedPosts = [];
-    }
+//     // Check if the post is saved
+//     const isPostSaved = validUser.savedPosts.some(
+//       (savedPost) => savedPost.toString() === postId
+//     );
 
-    // Check if the post is saved
-    const isPostSaved = validUser.savedPosts.some(
-      (savedPost) => savedPost.toString() === postId
-    );
+//     if (!isPostSaved) {
+//       // Post is not saved
+//       return next(errorHandler(400, "This post is not saved"));
+//     } else {
+//       // Post is saved, so remove it
+//       validUser.savedPosts = validUser.savedPosts.filter(
+//         (savedPost) => savedPost.toString() !== postId
+//       );
 
-    if (!isPostSaved) {
-      // Post is not saved
-      return next(errorHandler(400, "This post is not saved"));
-    } else {
-      // Post is saved, so remove it
-      validUser.savedPosts = validUser.savedPosts.filter(
-        (savedPost) => savedPost.toString() !== postId
-      );
+//       // Decrement the save count
+//       postToUnsave.saveCount -= 1;
+//       await postToUnsave.save();
 
-      // Decrement the save count
-      postToUnsave.saveCount -= 1;
-      await postToUnsave.save();
-
-      const updatedUser = await validUser.save();
-      res.status(200).json({
-        success: true,
-        message: "Post unsaved successfully",
-        updatedUser,
-      });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
+//       const updatedUser = await validUser.save();
+//       res.status(200).json({
+//         success: true,
+//         message: "Post unsaved successfully",
+//         updatedUser,
+//       });
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };

@@ -34,12 +34,15 @@ function Activities() {
             ended={post.ended}
             slug={post.slug}
             externalLink={post.externalLink}
-            saveCount={post.saveCount}
             schedule={post.schedule}
             isLiked={
               currentUser ? post.likes.includes(currentUser.user._id) : false
             }
             fetchedLikes={post.numberOfLikes}
+            isSaved={
+              currentUser ? post.saves.includes(currentUser.user._id) : false
+            }
+            fetchedSaves={post.numberOfSaves}
           />
         ))
       ) : (

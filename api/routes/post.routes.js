@@ -5,9 +5,9 @@ import {
   getPostBySlug,
   getPosts,
   getUserSavedPosts,
+  // unSavePost,
   likePost,
   savePost,
-  unSavePost,
   updatePost,
 } from "../controllers/post.controllers.js";
 import { verifyToken } from "../utils/verifyUser.js";
@@ -19,10 +19,10 @@ router.get("/getPost/:slug", getPostBySlug);
 router.delete("/deletePost/:postId/:userId", verifyToken, deletePost);
 
 router.put("/likePost/:postId", verifyToken, likePost);
+router.put("/savePost/:postId", verifyToken, savePost);
+router.get("/getUserSavedPosts", verifyToken, getUserSavedPosts);
+// router.delete("/unSavePost", verifyToken, unSavePost);
 
 router.put("/updatePost/:postId/:userId", verifyToken, updatePost);
-router.post("/savePost", verifyToken, savePost);
-router.get("/getUserSavedPosts", verifyToken, getUserSavedPosts);
-router.delete("/unSavePost", verifyToken, unSavePost);
 
 export default router;

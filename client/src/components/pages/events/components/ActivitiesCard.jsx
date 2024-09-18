@@ -17,16 +17,21 @@ function ActivitiesCard({
   ended,
   slug,
   externalLink,
-  saveCount,
   schedule,
+
   isLiked,
   fetchedLikes,
-  isPostSaved, // add this prop to indicate if post is already saved
+
+  isSaved,
+  fetchedSaves,
 }) {
   const { currentUser } = useSelector((state) => state.user);
+
   const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
   const [liked, setLiked] = useState(isLiked);
-  const [isSaved, setIsSaved] = useState(isPostSaved); // Add state for saved status
+
+  const [numberOfSaves, setNumberOfSaves] = useState(fetchedSaves);
+  const [saved, setSaved] = useState(isSaved);
 
   const handleLike = async () => {
     try {
@@ -54,19 +59,17 @@ function ActivitiesCard({
 
   const handleSave = async () => {
     try {
-      const endpoint = isSaved ? "/api/post/unSavePost" : "/api/post/savePost";
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ postId: id }),
+      const res = await fetch(`/api/post/savePost/${id}`, {
+        method: "PUT",
       });
       const data = await res.json();
       console.log(data);
-
       if (data.success) {
-        setIsSaved(!isSaved); // Toggle saved state
+        const isSaved = data.updatedPost.saves.includes(currentUser.user._id);
+        setNumberOfSaves((prev) => (isSaved ? prev + 1 : prev - 1));
+        setSaved(isSaved);
+      } else {
+        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -129,26 +132,38 @@ function ActivitiesCard({
           </div>
         </div>
         <div className="flex">
-          <div className="p-2 w-full flex justify-between items-center text-xl">
-            <div className="flex justify-center gap-1 items-center cursor-pointer hover:text-amber-400">
+          <div className=" p-2 w-full flex justify-between items-center text-xl">
+            {/* <span className="flex justify-center gap-1 items-center text-red-600 cursor-pointer">
+              <FaRecordVinyl className="" /> Rec
+            </span> */}
+            <span className="flex justify-center gap-1 items-center  ">
               {liked ? (
-                <FaHeart onClick={handleLike} className="cursor-pointer" />
+                <FaHeart
+                  onClick={handleLike}
+                  className="cursor-pointer hover:text-amber-400"
+                />
               ) : (
-                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
+                <FaRegHeart
+                  onClick={handleLike}
+                  className="cursor-pointer hover:text-amber-400"
+                />
               )}
               <span>{numberOfLikes}</span>
-            </div>
+            </span>
             <FaShareAlt className="hover:text-amber-400 cursor-pointer" />
-            <div
-              className="flex justify-center gap-1 items-center cursor-pointer hover:text-amber-400"
-              onClick={handleSave}
-            >
-              {isSaved ? (
-                <FaSave className="cursor-pointer" />
+            <div className="flex justify-center gap-1 items-center ">
+              {saved ? (
+                <FaSave
+                  onClick={handleSave}
+                  className="cursor-pointer hover:text-amber-400 "
+                />
               ) : (
-                <FaRegSave className="cursor-pointer" />
+                <FaRegSave
+                  onClick={handleSave}
+                  className="cursor-pointer hover:text-amber-400 "
+                />
               )}
-              <span>{saveCount}</span>
+              <span>{numberOfSaves}</span>
             </div>
           </div>
         </div>

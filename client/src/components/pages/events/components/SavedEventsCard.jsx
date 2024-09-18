@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { Avatar, Button, Carousel } from "flowbite-react";
 import { Link } from "react-router-dom";
 
-import { FaShareAlt } from "react-icons/fa";
+import { FaShareAlt, FaSave, FaRegSave } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRecordVinyl } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { FaRegSave } from "react-icons/fa";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 
 import { useSelector } from "react-redux";
@@ -22,17 +21,22 @@ function SavedEventsCard({
   ended,
   slug,
   externalLink,
-  saveCount,
   schedule,
+
   isLiked,
   fetchedLikes,
 
-  setUnSavePost,
+  isSaved,
+  fetchedSaves,
   handleUnSave,
 }) {
   const { currentUser } = useSelector((state) => state.user);
+
   const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
   const [liked, setLiked] = useState(isLiked);
+
+  const [numberOfSaves, setNumberOfSaves] = useState(fetchedSaves);
+  const [saved, setSaved] = useState(isSaved);
 
   const handleLike = async () => {
     try {
@@ -58,24 +62,26 @@ function SavedEventsCard({
     }
   };
 
-  const unSaveEvent = async () => {
+  const handleSave = async () => {
     try {
-      const res = await fetch("/api/post/unSavePost", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ postId: id }),
+      const res = await fetch(`/api/post/savePost/${id}`, {
+        method: "PUT",
       });
       const data = await res.json();
       console.log(data);
-
-      if (!data.success) {
-        console.log(data.message);
-        return;
+      if (data.success) {
+        const isSaved = data.updatedPost.saves.includes(currentUser.user._id);
+        setNumberOfSaves((prev) => {
+          if (isSaved) {
+            return prev + 1;
+          } else {
+            handleUnSave(data.updatedPost._id);
+            return prev - 1;
+          }
+        });
+        setSaved(isSaved);
       } else {
-        setUnSavePost({ unSaved: true });
-        handleUnSave(id);
+        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -142,19 +148,35 @@ function SavedEventsCard({
             {/* <span className="flex justify-center gap-1 items-center text-red-600 cursor-pointer">
               <FaRecordVinyl className="" /> Rec
             </span> */}
-            <span className="flex justify-center gap-1 items-center cursor-pointer hover:text-amber-400">
+            <span className="flex justify-center gap-1 items-center  ">
               {liked ? (
-                <FaHeart onClick={handleLike} className="cursor-pointer" />
+                <FaHeart
+                  onClick={handleLike}
+                  className="cursor-pointer hover:text-amber-400"
+                />
               ) : (
-                <FaRegHeart onClick={handleLike} className="cursor-pointer" />
+                <FaRegHeart
+                  onClick={handleLike}
+                  className="cursor-pointer hover:text-amber-400"
+                />
               )}
               <span>{numberOfLikes}</span>
             </span>
             <FaShareAlt className="hover:text-amber-400 cursor-pointer" />
-            <RiDeleteBin2Fill
-              className="hover:text-amber-400 cursor-pointer"
-              onClick={unSaveEvent}
-            />
+            <div className="flex justify-center gap-1 items-center ">
+              {saved ? (
+                <FaSave
+                  onClick={handleSave}
+                  className="cursor-pointer hover:text-amber-400 "
+                />
+              ) : (
+                <FaRegSave
+                  onClick={handleSave}
+                  className="cursor-pointer hover:text-amber-400 "
+                />
+              )}
+              <span>{numberOfSaves}</span>
+            </div>
           </div>
         </div>
       </div>
