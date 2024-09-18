@@ -112,14 +112,14 @@ function SidebarComp() {
                 Events
               </Sidebar.Item>
             </Link>
-            <Link to="talents">
+            <Link to="flicks">
               <Sidebar.Item
                 icon={MdOutlineEvent}
                 label="2"
                 labelColor="dark"
                 as={"div"}
               >
-                Talents
+                Flicks
               </Sidebar.Item>
             </Link>
             <Link to="/lectures">

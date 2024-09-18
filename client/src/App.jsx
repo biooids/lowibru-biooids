@@ -33,6 +33,8 @@ import EditProfile from "./components/pages/userProfile/components/Edit/EditProf
 import Authenticated from "./components/mainComp/Authenticated";
 import ScrollToTop from "./components/mainComp/ScrollToTop";
 import UpdatePost from "./components/pages/events/components/post/UpdatePost";
+import AllFlicks from "./components/pages/flicks/components/AllFlicks";
+import FlicksPage from "./components/pages/flicks/FlicksPage";
 
 function App() {
   return (
@@ -93,9 +95,10 @@ function App() {
             <Route path="uploaditems" element={<UploadItems />} />
           </Route>
 
-          {/*Profile page*/}
-          {/* <Route path="/profile" element={<UserProfile />} />
-          <Route path="/edit" element={<Edit />} /> */}
+          {/* flicks */}
+          <Route path="flicks" element={<FlicksPage />}>
+            <Route index element={<AllFlicks />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
