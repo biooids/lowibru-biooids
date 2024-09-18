@@ -6,6 +6,7 @@ import userRoutes from "./routes/user.routes.js";
 import questionRoutes from "./routes/question.routes.js";
 import replyQuestionRoutes from "./routes/reply.question.routes.js";
 import postRoutes from "./routes/post.routes.js";
+import commentRouter from "./routes/comment.routes.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -35,6 +36,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/replyQuestion", replyQuestionRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/comment", commentRouter);
 
 app.use((error, req, res, next) => {
   const statusCode = error.status || 500;

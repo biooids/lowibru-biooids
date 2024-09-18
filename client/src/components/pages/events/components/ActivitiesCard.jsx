@@ -7,6 +7,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { MdInsertComment } from "react-icons/md";
+import CommentComp from "./comments/CommentComp";
 
 function ActivitiesCard({
   id,
@@ -33,6 +34,7 @@ function ActivitiesCard({
 
   const [numberOfSaves, setNumberOfSaves] = useState(fetchedSaves);
   const [saved, setSaved] = useState(isSaved);
+  const [openComments, setOpenComments] = useState(false);
 
   const handleLike = async () => {
     try {
@@ -172,6 +174,7 @@ function ActivitiesCard({
           </div>
         </div>
       </div>
+      <CommentComp postId={id} />
     </article>
   );
 }
