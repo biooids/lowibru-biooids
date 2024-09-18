@@ -6,6 +6,7 @@ import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { MdInsertComment } from "react-icons/md";
 
 function ActivitiesCard({
   id,
@@ -164,6 +165,9 @@ function ActivitiesCard({
                 />
               )}
               <span>{numberOfSaves}</span>
+            </div>
+            <div className="flex justify-center gap-1 items-center ">
+              <MdInsertComment className="cursor-pointer hover:text-amber-400 " />
             </div>
           </div>
         </div>
