@@ -5,37 +5,43 @@ import { errorHandler } from "../utils/error.js";
 // Create a new reply
 // Create a new reply or reply to a reply
 export const createReply = async (req, res, next) => {
-  const { replyContent, commentId, userId, originalReplyId, originalUserId } =
-    req.body;
-
   try {
+    const { replyContent, commentId } = req.body;
+
+    // Ensure the user is authenticated
     if (!req.user.id) {
       return next(errorHandler(403, "You must be logged in to create a reply"));
     }
 
+    // Create a new reply
     const newReply = new Reply({
       replyContent,
       commentId,
-      userId,
-      originalReplyId: originalReplyId || null,
-      originalUserId: originalUserId || null,
+      userId: req.user.id, // Use the authenticated user's ID
     });
 
+    // Save the reply
     const savedReply = await newReply.save();
 
-    // Update comment to include this reply
+    // Update the associated comment with the new reply
     await Comment.findByIdAndUpdate(commentId, {
       $push: { replies: savedReply._id },
       $inc: { numberOfReplies: 1 },
     });
 
+    // Populate the reply with user data for richer response
+    const populatedReply = await Reply.findById(savedReply._id)
+      .populate("userId", "userName profilePicture")
+      .exec();
+
+    // Send response
     res.status(200).json({
       success: true,
       message: "Reply created successfully",
-      savedReply,
+      savedReply: populatedReply, // Return populated reply
     });
   } catch (error) {
-    next(error);
+    next(error); // Handle errors
   }
 };
 

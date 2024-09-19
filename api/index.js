@@ -37,8 +37,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/replyQuestion", replyQuestionRoutes);
 app.use("/api/post", postRoutes);
-app.use("/api/comment", commentRouter);
 app.use("/api/reply", replyRoutes);
+app.use("/api/comment", commentRouter);
 
 app.use((error, req, res, next) => {
   const statusCode = error.status || 500;

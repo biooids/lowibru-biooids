@@ -12,11 +12,6 @@ const replySchema = new Schema(
       ref: "Comment",
       required: true,
     },
-    questionId: {
-      type: Schema.Types.ObjectId,
-      ref: "Question",
-      required: true,
-    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
