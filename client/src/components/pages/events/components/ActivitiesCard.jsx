@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Avatar, Button, Carousel } from "flowbite-react";
+
 import { Link } from "react-router-dom";
 import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
+import { MdInsertComment } from "react-icons/md";
 
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaShareAlt, FaSave, FaRegSave } from "react-icons/fa";
 import { FaMessage, FaRegMessage } from "react-icons/fa6";
 
-import { useSelector } from "react-redux";
-import { MdInsertComment } from "react-icons/md";
 import CommentComp from "./comments/CommentComp";
 import moment from "moment";
 
