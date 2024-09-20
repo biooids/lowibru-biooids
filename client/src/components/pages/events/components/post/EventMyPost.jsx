@@ -51,6 +51,12 @@ function EventMyPost() {
                     : false
                 }
                 fetchedLikes={post.numberOfLikes}
+                isSaved={
+                  currentUser
+                    ? post.saves.includes(currentUser.user._id)
+                    : false
+                }
+                fetchedSaves={post.numberOfSaves}
               />
             );
           })

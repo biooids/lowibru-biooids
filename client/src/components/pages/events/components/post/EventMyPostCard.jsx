@@ -3,7 +3,6 @@ import { Avatar, Button, Carousel } from "flowbite-react";
 import profilePic from "../../../../../assets/father.jpg";
 import { Link } from "react-router-dom";
 
-import { FaShareAlt } from "react-icons/fa";
 import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRecordVinyl } from "react-icons/fa";
@@ -11,6 +10,7 @@ import { FaRecordVinyl } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaMessage, FaRegMessage } from "react-icons/fa6";
 import { MdEditSquare } from "react-icons/md";
+import { FaShareAlt, FaSave, FaRegSave } from "react-icons/fa";
 
 import { RiDeleteBin2Fill } from "react-icons/ri";
 
@@ -34,6 +34,9 @@ function EventMyPostCard({
   onDeletePost,
   isLiked,
   fetchedLikes,
+
+  isSaved,
+  fetchedSaves,
 }) {
   const { currentUser } = useSelector((state) => state.user);
   const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
@@ -42,6 +45,9 @@ function EventMyPostCard({
   const [openComments, setOpenComments] = useState(false);
   const [numberOfComments, setNumberOfComments] = useState(0);
   const [comments, setComments] = useState([]);
+
+  const [numberOfSaves, setNumberOfSaves] = useState(fetchedSaves);
+  const [saved, setSaved] = useState(isSaved);
 
   const handleDelete = async () => {
     try {
@@ -114,6 +120,25 @@ function EventMyPostCard({
     getComments();
   }, [id]);
 
+  const handleSave = async () => {
+    try {
+      const res = await fetch(`/api/post/savePost/${id}`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success) {
+        const isSaved = data.updatedPost.saves.includes(currentUser.user._id);
+        setNumberOfSaves((prev) => (isSaved ? prev + 1 : prev - 1));
+        setSaved(isSaved);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <article className=" border-amber-700 pb-3 border-b-2">
       <article className="  lg:grid lg:grid-cols-2 gap-3 ">
@@ -131,7 +156,7 @@ function EventMyPostCard({
 
         <div className=" flex gap-3 flex-col  p-3 rounded-md justify-between">
           <div className="bg-slate-700  rounded-lg p-3 flex flex-col gap-3">
-            <h4 className="text-xl  line-clamp-2  font-bold break-all ">
+            <h4 className="text-xl line-clamp-2 font-bold break-all">
               {title}{" "}
             </h4>
             <p className="break-all h-[150px] overflow-y-auto border-2 p-1 rounded-lg">
@@ -151,23 +176,33 @@ function EventMyPostCard({
             </p>
           </div>
 
-          <div className="flex  justify-between items-center gap-1">
-            <div className="flex gap-1 justify-center items-center">
-              <Avatar
-                img={currentUser.user.profilePicture}
-                rounded
-                bordered
-                className="flex justify-start items-start"
-              />
+          {externalLink ? (
+            <a href={externalLink} target="_blank" rel="noopener noreferrer">
+              <Button className="w-full rounded-md text-white bg-slate-700 hover:bg-slate-800">
+                Visit Event
+              </Button>
+            </a>
+          ) : (
+            ""
+          )}
 
-              <p className="pl-1 pr-1 h-7 w-[170px] sm:w-auto bg-black line-clamp-1">
+          <div className="flex items-center gap-1">
+            <Avatar
+              img={currentUser.user.profilePicture}
+              rounded
+              bordered
+              className="flex justify-start items-start"
+            />
+            <div className="flex sm:flex-row flex-col gap-1 ">
+              <p className="pl-1 pr-1   black line-clamp-1">
                 {currentUser.user.userName}
               </p>
+              <p className="text-sm  dark:text-gray-500 ">
+                {moment(createdAt).fromNow()}
+              </p>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 ">
-              {moment(createdAt).fromNow()}
-            </p>
           </div>
+
           <div className="flex">
             <div className=" p-2 w-full flex justify-between items-center text-xl">
               {/* <span className="flex justify-center gap-1 items-center text-red-600 cursor-pointer">
@@ -181,6 +216,7 @@ function EventMyPostCard({
                 )}
                 <span>{numberOfLikes}</span>
               </span>
+
               <div className="flex justify-center gap-1 items-center cursor-pointer hover:text-amber-400">
                 {openComments ? (
                   <FaMessage onClick={handleOpenComments} />
@@ -189,6 +225,22 @@ function EventMyPostCard({
                 )}
                 <span>{numberOfComments}</span>
               </div>
+
+              <div className="flex justify-center gap-1 items-center ">
+                {saved ? (
+                  <FaSave
+                    onClick={handleSave}
+                    className="cursor-pointer hover:text-amber-400 "
+                  />
+                ) : (
+                  <FaRegSave
+                    onClick={handleSave}
+                    className="cursor-pointer hover:text-amber-400 "
+                  />
+                )}
+                <span>{numberOfSaves}</span>
+              </div>
+
               <Link to={`/events/post/updatepost/${id}`}>
                 <MdEditSquare className="hover:text-amber-400 cursor-pointer" />
               </Link>
