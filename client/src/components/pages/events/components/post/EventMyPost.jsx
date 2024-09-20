@@ -36,7 +36,7 @@ function EventMyPost() {
                 handleDeletePost={handleDeletePost}
                 category={post.category}
                 content={post.content}
-                createdAt={new Date(post.createdAt).toLocaleDateString("en-US")}
+                createdAt={post.createdAt}
                 images={post.images}
                 title={post.title}
                 ended={post.ended}

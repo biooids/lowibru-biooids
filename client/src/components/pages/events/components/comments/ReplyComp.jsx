@@ -30,7 +30,7 @@ function ReplyComp({ commentId, setNumberOfReplies }) {
         return;
       } else {
         setReplyContent("");
-        setReplies([...replies, data.savedReply]);
+        setReplies([data.savedReply, ...replies]);
         setNumberOfReplies((prevNumberOfReplies) => prevNumberOfReplies + 1);
       }
       console.log(data);
@@ -96,21 +96,23 @@ function ReplyComp({ commentId, setNumberOfReplies }) {
             Submit
           </Button>
         </form>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5">
           {replies.length > 0
             ? replies.map((reply) => (
                 <ReplySection
                   key={reply._id}
                   replyId={reply._id}
-                  userId={reply.userId}
                   replyContent={reply.replyContent}
                   isLiked={reply.likes.includes(userId)}
                   fetchedLikes={reply.numberOfLikes}
                   onDelete={handleReplyDelete}
                   replyReply={replyReply}
+                  userId={reply.userId._id}
+                  profilePicture={reply.userId.profilePicture}
+                  userName={reply.userId.userName}
                 />
               ))
-            : ""}
+            : "No Replies yet "}
         </div>
       </div>
     </div>

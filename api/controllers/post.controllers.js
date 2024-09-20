@@ -48,10 +48,12 @@ export const getPosts = async (req, res, next) => {
       }),
     };
 
-    const posts = await Post.find(filters).populate({
-      path: "userId",
-      select: "userName profilePicture",
-    });
+    const posts = await Post.find(filters)
+      .populate({
+        path: "userId",
+        select: "userName profilePicture",
+      })
+      .sort({ createdAt: -1 });
 
     const totalPosts = await Post.countDocuments(filters);
 

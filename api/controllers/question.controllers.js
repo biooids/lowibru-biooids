@@ -17,7 +17,6 @@ export const createQuestion = async (req, res, next) => {
     });
 
     const savedQuestion = await newQuestion.save();
-
     const populatedQuestion = await Question.findById(savedQuestion._id)
       .populate("userId", "userName profilePicture")
       .exec();

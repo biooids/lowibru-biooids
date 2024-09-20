@@ -151,7 +151,7 @@ function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await fetch(
+      const res = await fetch(
         `/api/post/updatePost/${postId}/${formData.userId._id}`,
         {
           method: "PUT",
@@ -161,8 +161,10 @@ function UpdatePost() {
           body: JSON.stringify(formData),
         }
       );
-      const res = await data.json();
-      console.log(res);
+      const data = await res.json();
+      if (data.success) {
+        navigate("/events/post/mypost");
+      }
     } catch (error) {
       console.log(error);
     }

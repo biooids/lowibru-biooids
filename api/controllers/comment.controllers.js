@@ -17,11 +17,15 @@ export const createComment = async (req, res, next) => {
       postId,
       userId,
     });
+
     const savedComment = await newComment.save();
+    const populatedComment = await Comment.findById(savedComment._id)
+      .populate("userId", "userName profilePicture")
+      .exec();
 
     res
       .status(200)
-      .json({ success: true, message: "comment created", savedComment });
+      .json({ success: true, message: "comment created", populatedComment });
   } catch (error) {
     next(error);
   }
@@ -29,8 +33,12 @@ export const createComment = async (req, res, next) => {
 
 export const getPostComments = async (req, res, next) => {
   try {
-    const comments = await Comment.find({ postId: req.params.postId });
-    const totalComments = comments.length; // Calculate the total number of comments
+    const comments = await Comment.find({ postId: req.params.postId })
+      .populate("userId", "userName profilePicture")
+      .sort({
+        createdAt: -1,
+      });
+    const totalComments = comments.length;
     res.status(200).json({
       success: true,
       message: "total comments found and comments",

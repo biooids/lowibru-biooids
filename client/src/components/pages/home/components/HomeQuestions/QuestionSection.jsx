@@ -137,7 +137,7 @@ function QuestionSection({
             </div>
             <div className="flex  flex-col gap-3 w-[80%] sm:w-[85%] ">
               <div className=" font-medium  text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between gap-1 rounded-lg ">
-                <p className="line-clamp-1 break-words h-7 bg-black pl-1 pr-1">
+                <p className="line-clamp-1 break-all h-7 bg-black pl-1 pr-1">
                   {userName}
                 </p>
                 <p className="text-sm">{createdAt}</p>
@@ -163,7 +163,7 @@ function QuestionSection({
               Replies : {numberOfReplies}
             </span>
             {currentUser && currentUser.user._id === userId ? (
-              <div className="flex justify-between">
+              <div className="flex gap-3">
                 <span
                   className="hover:underline cursor-pointer"
                   onClick={() => setIsEditing(true)}

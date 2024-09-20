@@ -3,12 +3,16 @@ import { Alert, Button, Modal, Textarea } from "flowbite-react";
 import { useSelector } from "react-redux";
 import CommentSection from "./CommentSection";
 
-function CommentComp({ postId }) {
+function CommentComp({
+  postId,
+  numberOfComments,
+  setNumberOfComments,
+  comments,
+  setComments,
+}) {
   const { currentUser } = useSelector((state) => state.user);
 
   const [comment, setComment] = useState("");
-  const [numberOfComments, setNumberOfComments] = useState(0);
-  const [comments, setComments] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +35,7 @@ function CommentComp({ postId }) {
       } else {
         console.log(data);
         setComment("");
-        setComments([...comments, data.savedComment]);
+        setComments([data.populatedComment, ...comments]);
 
         setNumberOfComments((prevNumberOfReplies) => prevNumberOfReplies + 1);
       }
@@ -39,27 +43,26 @@ function CommentComp({ postId }) {
       console.log(error);
     }
   };
-  const getComments = async () => {
-    try {
-      const res = await fetch(`/api/comment/getPostComments/${postId}`);
-      const data = await res.json();
+  // const getComments = async () => {
+  //   try {
+  //     const res = await fetch(`/api/comment/getPostComments/${postId}`);
+  //     const data = await res.json();
 
-      console.log(data);
+  //     console.log(data);
 
-      if (!data.success) {
-        console.log(data.message);
-        return;
-      } else {
-        setNumberOfComments(data.totalComments);
-        setComments(data.comments);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getComments();
-  }, [postId]);
+  //     if (!data.success) {
+  //       console.log(data.message);
+  //       return;
+  //     } else {
+  //       setComments(data.comments);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getComments();
+  // }, [postId]);
 
   const handleCommentDelete = (commentId) => {
     setComments((prevComments) =>
@@ -68,7 +71,7 @@ function CommentComp({ postId }) {
     setNumberOfComments((prevNumberOfReplies) => prevNumberOfReplies - 1);
   };
   return (
-    <div className="p-3">
+    <div className=" flex flex-col  gap-3">
       <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         {currentUser ? (
           <div>
@@ -77,7 +80,6 @@ function CommentComp({ postId }) {
         ) : (
           <Button>login or sign up</Button>
         )}
-        <p>total comments : {numberOfComments} </p>
         <Textarea
           onChange={(e) => setComment(e.target.value)}
           maxLength="200"
@@ -92,7 +94,7 @@ function CommentComp({ postId }) {
           Submit
         </Button>
       </form>
-      <div className="flex flex-col gap-3 p-5 border-2 border-slate-800 mt-3">
+      <div className="flex flex-col gap-5 w-full">
         {comments.length > 0
           ? comments.map((comment) => (
               <CommentSection
@@ -101,13 +103,15 @@ function CommentComp({ postId }) {
                 content={comment.content}
                 fetchedLikes={comment.numberOfLikes}
                 isLiked={comment.likes.includes(currentUser.user._id)}
-                userId={comment.userId}
+                userId={comment.userId._id}
+                profilePicture={comment.userId.profilePicture}
+                userName={comment.userId.userName}
                 onDelete={handleCommentDelete}
                 fetchedNumberOfReplies={comment.numberOfReplies}
-                // Pass the delete handler
+                createdAt={comment.createdAt}
               />
             ))
-          : ""}{" "}
+          : "No Comments yet "}{" "}
       </div>
     </div>
   );

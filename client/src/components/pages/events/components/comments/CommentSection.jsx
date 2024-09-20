@@ -4,6 +4,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ReplyComp from "./ReplyComp";
+import moment from "moment";
 
 function CommentSection({
   content,
@@ -13,6 +14,10 @@ function CommentSection({
   userId,
   onDelete,
   fetchedNumberOfReplies,
+
+  profilePicture,
+  userName,
+  createdAt,
 }) {
   const [showReplies, setShowReplies] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -106,7 +111,7 @@ function CommentSection({
     }
   };
   return (
-    <section className="p-2 border-2 border-slate-800">
+    <section className="p-3 bg-slate-950 rounded-lg  ">
       {isEditing ? (
         <div className="flex flex-col gap-3">
           <p>characters remaining: {200 - editedContent.length}</p>
@@ -129,9 +134,25 @@ function CommentSection({
           </form>
         </div>
       ) : (
-        <div>
-          <p>{realContent}</p>
-          <div className="flex justify-between w-[300px]">
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 ">
+            <div className="w-[40px] h-[40px]  rounded-full overflow-hidden ">
+              <img
+                src={profilePicture}
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <div className="flex  flex-col gap-3 w-[85%] ">
+              <div className=" font-medium  text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between gap-1 rounded-lg ">
+                <p className="break-all  bg-black pl-1 pr-1 line-clamp-1">
+                  {userName}
+                </p>
+                <p className="text-sm"> {moment(createdAt).fromNow()}</p>{" "}
+              </div>
+              <p className="break-all ">{realContent}</p>
+            </div>
+          </div>
+          <div className=" flex justify-around">
             <div className="flex justify-center items-center gap-2">
               {liked ? (
                 <FaHeart onClick={handleLike} className="cursor-pointer" />
@@ -164,7 +185,7 @@ function CommentSection({
                 </span>
               </div>
             ) : (
-              "you can reply"
+              ""
             )}
           </div>
           {showReplies ? (

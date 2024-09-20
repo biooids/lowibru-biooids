@@ -2,6 +2,7 @@ import { Button, Textarea } from "flowbite-react";
 import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 function ReplySection({
   replyId,
@@ -11,6 +12,10 @@ function ReplySection({
   userId,
   onDelete,
   replyReply,
+
+  profilePicture,
+  userName,
+  createdAt,
 }) {
   const { currentUser } = useSelector((state) => state.user);
 
@@ -27,7 +32,6 @@ function ReplySection({
         return;
       }
 
-      // Send the request to the server
       const res = await fetch(`/api/reply/likeReply/${replyId}`, {
         method: "PUT",
       });
@@ -100,27 +104,21 @@ function ReplySection({
     }
   };
 
-  // Function to render the content with user mentions in red
   const renderContentWithMentions = (content) => {
-    // Regular expression to match `@word` (no space) and `@` (with space)
     const regex = /(@\w+)|(@)(?=\s|$)/g;
 
-    // Split the content by the regex
     const parts = content.split(regex);
 
     return parts.map((part, index) => {
-      // Ensure `part` is a string before calling string methods
       if (typeof part === "string") {
         if (part.startsWith("@")) {
           if (part.length > 1 && part[1] !== " ") {
-            // If `@word` is matched, highlight `@word` in red
             return (
               <span key={index} style={{ color: "red" }}>
                 {part}
               </span>
             );
           } else {
-            // If `@` is matched alone, highlight `@` in red
             return (
               <span key={index} style={{ color: "red" }}>
                 {part}
@@ -131,14 +129,13 @@ function ReplySection({
           return part;
         }
       } else {
-        // If `part` is not a string, just return it
         return part;
       }
     });
   };
 
   return (
-    <div>
+    <div className="border-slate-800 border-2  p-1 rounded-lg">
       {isEditing ? (
         <div className="flex flex-col gap-3">
           <p>characters remaining: {200 - editedContent.length}</p>
@@ -161,9 +158,27 @@ function ReplySection({
           </form>
         </div>
       ) : (
-        <div>
-          <p>{renderContentWithMentions(realContent)}</p>
-          <div className="flex  gap-3 items-center">
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 ">
+            <div className="w-[30px] h-[30px]  rounded-full overflow-hidden ">
+              <img
+                src={profilePicture}
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <div className="flex  flex-col gap-3 w-[85%] ">
+              <div className=" text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row justify-between gap-1 rounded-lg ">
+                <p className="break-all  bg-black pl-1 pr-1 line-clamp-1 text-sm">
+                  {userName}
+                </p>
+                <p className="text-xs"> {moment(createdAt).fromNow()}</p>{" "}
+              </div>
+              <p className="break-all">
+                {renderContentWithMentions(realContent)}
+              </p>
+            </div>
+          </div>
+          <div className="flex   items-center justify-around">
             <div className="flex gap-1 items-center">
               {liked ? (
                 <FaHeart onClick={handleLike} className="cursor-pointer" />
@@ -174,7 +189,7 @@ function ReplySection({
             </div>
             <span
               className=" hover:underline cursor-pointer"
-              onClick={() => replyReply(userId)}
+              onClick={() => replyReply(userName)}
             >
               reply
             </span>
@@ -194,7 +209,7 @@ function ReplySection({
                 </span>
               </div>
             ) : (
-              "you can reply"
+              ""
             )}
           </div>
         </div>
