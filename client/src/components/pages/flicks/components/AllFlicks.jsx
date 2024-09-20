@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import AllFlicksCard from "./AllFlicksCard";
 import { Button } from "flowbite-react";
 
+import { FaArrowCircleDown } from "react-icons/fa";
+import { FaArrowCircleUp } from "react-icons/fa";
+
 function AllFlicks() {
   const flicksContainerRef = useRef(null);
 
@@ -26,13 +29,9 @@ function AllFlicks() {
   };
 
   return (
-    <section className="flex ">
-      <Button onClick={() => scrollTo("up")} className="h-fit">
-        Up
-      </Button>
-
+    <section className="flex justify-center items-center gap-5">
       <section
-        className="flicks-container bg-slate-950"
+        className="flicks-container w-[300px] sm:w-[450px] bg-slate-950 relative z-10"
         ref={flicksContainerRef}
       >
         <AllFlicksCard />
@@ -44,9 +43,16 @@ function AllFlicks() {
         <AllFlicksCard />
       </section>
 
-      <Button onClick={() => scrollTo("down")} className="h-fit">
-        Down
-      </Button>
+      <div className="sm:flex flex-col hidden gap-5">
+        <FaArrowCircleUp
+          className="text-5xl cursor-pointer"
+          onClick={() => scrollTo("up")}
+        />
+        <FaArrowCircleDown
+          className="text-5xl cursor-pointer   "
+          onClick={() => scrollTo("down")}
+        />
+      </div>
     </section>
   );
 }
