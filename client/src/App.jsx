@@ -35,6 +35,9 @@ import ScrollToTop from "./components/mainComp/ScrollToTop";
 import UpdatePost from "./components/pages/events/components/post/UpdatePost";
 import AllFlicks from "./components/pages/flicks/components/AllFlicks";
 import FlicksPage from "./components/pages/flicks/FlicksPage";
+import MyFlicks from "./components/pages/flicks/components/MyFlicks";
+import CreateFlick from "./components/pages/flicks/components/CreateFlick";
+import UpdateFlick from "./components/pages/flicks/components/UpdateFlick";
 
 function App() {
   return (
@@ -98,6 +101,10 @@ function App() {
           {/* flicks */}
           <Route path="flicks" element={<FlicksPage />}>
             <Route index element={<AllFlicks />} />
+
+            <Route path="myflicks" element={<MyFlicks />} />
+            <Route path="createflick" element={<CreateFlick />} />
+            {/* <Route path="updateflick" element={<UpdateFlick />} /> */}
           </Route>
         </Route>
       </Routes>
