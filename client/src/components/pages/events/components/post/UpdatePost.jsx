@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EventCreateCard from "./EventCreateCard";
 import {
   Alert,
   Avatar,
@@ -12,6 +11,10 @@ import {
   Textarea,
   TextInput,
 } from "flowbite-react";
+
+import { useSelector } from "react-redux";
+
+import EventCreateCard from "./EventCreateCard";
 import profilePic from "../../../../../assets/father.jpg";
 
 import { FaShareAlt } from "react-icons/fa";
@@ -31,6 +34,8 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function UpdatePost() {
+  const { currentUser } = useSelector((state) => state.user);
+
   const [file, setFile] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -361,19 +366,16 @@ function UpdatePost() {
             </div>
           </div>
 
-          <div className="flex gap-2 justify-center items-center w-fit">
+          <div className="flex items-center gap-1">
             <Avatar
-              img="/images/people/profile-picture-5.jpg"
+              img={currentUser.user.profilePicture}
               rounded
               bordered
               className="flex justify-start items-start"
             />
-            <div className=" font-medium dark:text-white flex justify-center items-center  gap-3">
-              <span>Jese Leos</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 ">
-                posted in August 2014
-              </span>
-            </div>
+            <p className="pl-1 pr-1   bg-black line-clamp-1 break-all">
+              {currentUser.user.userName}
+            </p>
           </div>
         </div>
       </form>
