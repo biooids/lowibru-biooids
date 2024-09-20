@@ -26,7 +26,7 @@ function EventMyPost() {
     );
   };
   return (
-    <section className=" flex flex-col gap-6 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
+    <section className=" flex flex-col gap-5 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
       {myPosts && myPosts.length > 0
         ? myPosts.map((post) => {
             return (

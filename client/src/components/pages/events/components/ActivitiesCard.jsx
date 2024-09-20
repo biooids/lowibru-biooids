@@ -174,7 +174,7 @@ function ActivitiesCard({
           </div>
         </div>
       </div>
-      <CommentComp postId={id} />
+      {/* <CommentComp postId={id} /> */}
     </article>
   );
 }
