@@ -6,23 +6,21 @@ function UpcomingEvents() {
   const { currentUser } = useSelector((state) => state.user);
 
   const [posts, setPosts] = useState(null);
-  const fetchUpcomingPosts = async () => {
+  const fetchPosts = async () => {
     try {
       const data = await fetch("/api/post/getPosts?category=upcoming");
       const res = await data.json();
       console.log(res.posts);
       setPosts(res.posts);
     } catch (error) {
-      console.log("Something went wrong", error);
+      console.log("some thing went wrong ", error);
     }
   };
-
   useEffect(() => {
-    fetchUpcomingPosts();
+    fetchPosts();
   }, []);
-
   return (
-    <section className=" flex flex-col gap-6 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
+    <section className=" flex flex-col gap-5 w-[320px]  m-auto sm:w-[450px] lg:w-auto">
       {posts && posts.length > 0 ? (
         posts.map((post) => (
           <UpcomingEventsCard
@@ -30,7 +28,7 @@ function UpcomingEvents() {
             id={post._id}
             category={post.category}
             content={post.content}
-            createdAt={new Date(post.createdAt).toLocaleDateString("en-US")}
+            createdAt={post.createdAt}
             images={post.images}
             title={post.title}
             ended={post.ended}
@@ -48,7 +46,7 @@ function UpcomingEvents() {
           />
         ))
       ) : (
-        <p> loading or no posts found</p>
+        <p> Posts found yet</p>
       )}
     </section>
   );
