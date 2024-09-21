@@ -8,7 +8,7 @@ import {
 } from "../controllers/flick.controllers.js";
 
 const router = express.Router();
-router.post("/create", verifyToken, createFlick);
+router.post("/createFlick", verifyToken, createFlick);
 router.get("/getFlicks", getFlicks);
 router.delete("/deleteFlick/:flickId/:userId", verifyToken, deleteFlick);
 

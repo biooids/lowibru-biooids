@@ -102,8 +102,8 @@ function App() {
           <Route path="flicks" element={<FlicksPage />}>
             <Route index element={<AllFlicks />} />
 
-            <Route path="myflicks" element={<MyFlicks />} />
             <Route path="createflick" element={<CreateFlick />} />
+            <Route path="myflicks" element={<MyFlicks />} />
             {/* <Route path="updateflick" element={<UpdateFlick />} /> */}
           </Route>
         </Route>

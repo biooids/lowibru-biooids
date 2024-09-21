@@ -5,13 +5,13 @@ export const createFlick = async (req, res, next) => {
 
   const { videoUrl } = req.body;
   if (!videoUrl) {
-    return next(errorHandler(400, "Please provide all required fields"));
+    next(errorHandler(400, "Please provide all required fields"));
+    return;
   }
   try {
     const newFlick = new Flick({
+      ...req.body,
       userId: req.user.id,
-
-      videoUrl,
     });
 
     const savedFlick = await newFlick.save();
