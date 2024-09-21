@@ -9,6 +9,7 @@ import postRoutes from "./routes/post.routes.js";
 import commentRouter from "./routes/comment.routes.js";
 import replyRoutes from "./routes/reply.routes.js";
 
+import flickRoutes from "./routes/flick.routes.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/api/replyQuestion", replyQuestionRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/reply", replyRoutes);
 app.use("/api/comment", commentRouter);
+app.use("/api/flick", flickRoutes);
 
 app.use((error, req, res, next) => {
   const statusCode = error.status || 500;

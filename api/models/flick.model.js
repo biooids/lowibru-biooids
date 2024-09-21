@@ -1,44 +1,41 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const postSchema = new Schema(
+const flicksSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
-      required: true,
-      unique: true,
     },
-    images: {
-      type: Array,
-      default: [
-        "https://firebasestorage.googleapis.com/v0/b/lowibru-biooids.appspot.com/o/1726428547275-post.jpeg?alt=media&token=103317e4-f928-4ca0-822e-08be7ae55985",
-      ],
-    },
-    category: {
+    description: {
       type: String,
-      default: "happened",
     },
-    schedule: {
+    thumbnail: {
       type: String,
       default: "",
     },
-    ended: {
-      type: Boolean,
-      default: false,
+    category: {
+      type: Array,
+      default: [],
     },
     slug: {
       type: String,
-      required: true,
       unique: true,
+    },
+    videoUrl: {
+      type: String,
+      required: true,
+    },
+    duration: {
+      type: Number,
+    },
+    views: {
+      type: Number,
+      default: 0,
     },
     externalLink: {
       type: String,
@@ -64,9 +61,14 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+
+    hashtags: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
 
-const Post = mongoose.model("Post", postSchema);
-export default Post;
+const Flick = mongoose.model("Flick", flicksSchema);
+export default Flick;
