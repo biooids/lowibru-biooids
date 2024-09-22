@@ -154,7 +154,7 @@ function SidebarComp() {
 
       {/* Bottom navigation for smaller screens */}
       <div className="fixed bottom-10 left-0 right-0 border-t-2 border-amber-500 sm:hidden flex justify-around items-center py-2 z-50 dark:bg-slate-900">
-        <Link className="flex flex-col justify-center items-center" to="events">
+        <Link className="flex flex-col justify-center items-center" to="/">
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>
         </Link>
@@ -165,10 +165,7 @@ function SidebarComp() {
           <MdMessage className="text-xl" />
           <span className="text-xs">Chat</span>
         </Link>
-        <Link
-          className="flex flex-col justify-center items-center"
-          to="lectures"
-        >
+        <Link className="flex flex-col justify-center items-center" to="events">
           <BiSolidCalendarEvent className="text-xl" />
           <span className="text-xs">Events</span>
         </Link>

@@ -10,15 +10,6 @@ function Events() {
           Explore activities going on and discover both live and upcoming events
           and join us in fostering a community of learning and growth.
         </p>
-
-        <p> You are watching events from: </p>
-        <Dropdown label="Dropdown button" dismissOnClick={false}>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Item>Sign out</Dropdown.Item>
-        </Dropdown>
-        <p>you can change the country above</p>
       </div>
       <Navbar className="sticky top-0 z-50 ">
         <Link

@@ -44,7 +44,10 @@ function HeaderComp() {
         <MdMessage />
       </Link>
 
-      <Link className="hover:bg-amber-900 h-fit p-1 text-xl rounded-lg border-2 border-amber-500">
+      <Link
+        to="events"
+        className="hover:bg-amber-900 h-fit p-1 text-xl rounded-lg border-2 border-amber-500"
+      >
         <BiSolidCalendarEvent />
       </Link>
 
