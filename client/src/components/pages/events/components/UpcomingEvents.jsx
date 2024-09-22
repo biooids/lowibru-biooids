@@ -43,6 +43,8 @@ function UpcomingEvents() {
               currentUser ? post.saves.includes(currentUser.user._id) : false
             }
             fetchedSaves={post.numberOfSaves}
+            userName={post.userId.userName}
+            profilePicture={post.userId.profilePicture}
           />
         ))
       ) : (

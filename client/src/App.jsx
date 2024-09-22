@@ -69,16 +69,20 @@ function App() {
             <Route index element={<Activities />} />
             <Route path="live" element={<LiveEvents />} />
             <Route path="upcoming" element={<UpcomingEvents />} />
-            <Route path="saved" element={<SavedEvents />} />
+            <Route element={<Authenticated />}>
+              <Route path="saved" element={<SavedEvents />} />
+            </Route>
 
-            <Route path="post" element={<PostEvents />}>
-              <Route index element={<EventCreate />} />
-              <Route path="mypost" element={<EventMyPost />} />
-              <Route path="updatepost/:postId" element={<UpdatePost />} />
-              <Route path="permission" element={<EventPermission />} />
-              {/* 
+            <Route element={<Authenticated />}>
+              <Route path="post" element={<PostEvents />}>
+                <Route index element={<EventCreate />} />
+                <Route path="mypost" element={<EventMyPost />} />
+                <Route path="updatepost/:postId" element={<UpdatePost />} />
+                <Route path="permission" element={<EventPermission />} />
+                {/* 
               <Route path="golive" element={<EventGolive />} />
               */}
+              </Route>
             </Route>
           </Route>
 
@@ -101,12 +105,15 @@ function App() {
           {/* flicks */}
           <Route path="flicks" element={<FlicksPage />}>
             <Route index element={<AllFlicks />} />
-
-            <Route path="createflick" element={<CreateFlick />} />
-            <Route path="myflicks" element={<MyFlicks />} />
+            <Route element={<Authenticated />}>
+              <Route path="createflick" element={<CreateFlick />} />
+              <Route path="myflicks" element={<MyFlicks />} />
+            </Route>
             {/* <Route path="updateflick" element={<UpdateFlick />} /> */}
           </Route>
         </Route>
+
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
   );

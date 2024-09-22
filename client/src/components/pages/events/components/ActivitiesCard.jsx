@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Avatar, Button, Carousel } from "flowbite-react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiLike } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { MdInsertComment } from "react-icons/md";
@@ -31,8 +31,12 @@ function ActivitiesCard({
 
   isSaved,
   fetchedSaves,
+
+  userName,
+  profilePicture,
 }) {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
   const [liked, setLiked] = useState(isLiked);
@@ -47,7 +51,7 @@ function ActivitiesCard({
   const handleLike = async () => {
     try {
       if (!currentUser) {
-        navigate("/sign-up");
+        navigate("/signup");
         return;
       }
 
@@ -69,6 +73,10 @@ function ActivitiesCard({
   };
 
   const handleSave = async () => {
+    if (!currentUser) {
+      navigate("/signup");
+      return;
+    }
     try {
       const res = await fetch(`/api/post/savePost/${id}`, {
         method: "PUT",
@@ -161,15 +169,13 @@ function ActivitiesCard({
 
           <div className="flex items-center gap-1">
             <Avatar
-              img={currentUser.user.profilePicture}
+              img={profilePicture}
               rounded
               bordered
               className="flex justify-start items-start"
             />
             <div className="flex sm:flex-row flex-col gap-1 ">
-              <p className="pl-1 pr-1   black line-clamp-1">
-                {currentUser.user.userName}
-              </p>
+              <p className="pl-1 pr-1   black line-clamp-1">{userName}</p>
               <p className="text-sm  dark:text-gray-500 ">
                 {moment(createdAt).fromNow()}
               </p>
