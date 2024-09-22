@@ -15,6 +15,8 @@ import { FaCode } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { TbAlpha } from "react-icons/tb";
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
+import { BiSolidCalendarEvent } from "react-icons/bi";
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -32,8 +34,8 @@ function SidebarComp() {
   } = currentUser?.user || {};
 
   return (
-    <div>
-      <Sidebar className=" sticky top-0  hidden md:block ">
+    <div className="mb-10">
+      <Sidebar className=" sticky top-0  hidden md:block h-fit  ">
         <div className=" border-b-2 border-amber-500 pb-2 w-full">
           {currentUser ? (
             <div>
@@ -44,7 +46,7 @@ function SidebarComp() {
                 bordered
                 className="pb-2"
               />
-              <div className="flex justify-center items-center flex-col gap-2 text-center">
+              <div className="flex justify-center items-center  gap-2 text-center">
                 <div className="flex gap-2 text-xl">
                   {isLeader ? (
                     <TbAlpha />
@@ -56,19 +58,8 @@ function SidebarComp() {
                     <FaRegUserCircle />
                   )}
                 </div>
-                <div className="text-xs">
-                  <p className="line-clamp-1">
-                    <span className="text-amber-500">First : </span> {firstName}
-                  </p>
-                  <p className="line-clamp-1">
-                    <span className="text-amber-500">Last : </span>
-                    {lastName}{" "}
-                  </p>
-                  <p className="line-clamp-1 ">
-                    {" "}
-                    <span className="text-amber-500">User : </span> {userName}{" "}
-                  </p>
-                </div>{" "}
+
+                <p className="line-clamp-1 text-xs ">{userName} </p>
               </div>
             </div>
           ) : (
@@ -90,9 +81,12 @@ function SidebarComp() {
               </Sidebar.Item>
             </Link>
 
-            <Sidebar.Item icon={FaHome} as={"div"}>
-              Home
-            </Sidebar.Item>
+            <Link to="/">
+              <Sidebar.Item icon={FaHome} as={"div"}>
+                Home
+              </Sidebar.Item>
+            </Link>
+
             <Sidebar.Item
               icon={MdMessage}
               label="4"
@@ -102,9 +96,9 @@ function SidebarComp() {
               Chat
             </Sidebar.Item>
 
-            <Link to="/events">
+            <Link to="events">
               <Sidebar.Item
-                icon={MdOutlineEvent}
+                icon={BiSolidCalendarEvent}
                 label="2"
                 labelColor="dark"
                 as={"div"}
@@ -114,7 +108,7 @@ function SidebarComp() {
             </Link>
             <Link to="flicks">
               <Sidebar.Item
-                icon={MdOutlineEvent}
+                icon={FaPlayCircle}
                 label="2"
                 labelColor="dark"
                 as={"div"}
@@ -122,6 +116,9 @@ function SidebarComp() {
                 Flicks
               </Sidebar.Item>
             </Link>
+          </Sidebar.ItemGroup>
+
+          <Sidebar.ItemGroup>
             <Link to="/lectures">
               <Sidebar.Item icon={MdMenuBook} as={"div"}>
                 Lectures
@@ -138,6 +135,7 @@ function SidebarComp() {
               </Sidebar.Item>
             </Link>
           </Sidebar.ItemGroup>
+
           <Sidebar.ItemGroup>
             <Sidebar.Item
               icon={MdNotificationsActive}
@@ -155,26 +153,32 @@ function SidebarComp() {
       </Sidebar>
 
       {/* Bottom navigation for smaller screens */}
-      <div className="fixed bottom-0 left-0 right-0 border-t-2 border-amber-500 sm:hidden flex justify-around items-center py-2 z-50">
-        <Link to="events">
+      <div className="fixed bottom-10 left-0 right-0 border-t-2 border-amber-500 sm:hidden flex justify-around items-center py-2 z-50 dark:bg-slate-900">
+        <Link className="flex flex-col justify-center items-center" to="events">
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>
         </Link>
-        <Link to="talents">
-          <MdOutlineEvent className="text-xl" />
-          <span className="text-xs">Talents</span>
+        <Link
+          className="flex flex-col justify-center items-center"
+          to="talents"
+        >
+          <MdMessage className="text-xl" />
+          <span className="text-xs">Chat</span>
         </Link>
-        <Link to="lectures">
+        <Link
+          className="flex flex-col justify-center items-center"
+          to="lectures"
+        >
+          <BiSolidCalendarEvent className="text-xl" />
+          <span className="text-xs">Events</span>
+        </Link>
+        <Link className="flex flex-col justify-center items-center" to="market">
+          <FaPlayCircle className="text-xl" />
+          <span className="text-xs">Flicks</span>
+        </Link>
+        <Link className="flex flex-col justify-center items-center" to="media">
           <MdMenuBook className="text-xl" />
           <span className="text-xs">Lectures</span>
-        </Link>
-        <Link to="market">
-          <FaStoreAlt className="text-xl" />
-          <span className="text-xs">Market</span>
-        </Link>
-        <Link to="media">
-          <MdOutlinePermMedia className="text-xl" />
-          <span className="text-xs">Media</span>
         </Link>
       </div>
     </div>

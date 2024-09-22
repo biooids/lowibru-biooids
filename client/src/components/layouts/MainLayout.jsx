@@ -16,12 +16,9 @@ function MainLayout() {
           <main className="min-h-screen ">
             <Outlet />
           </main>
-          <footer className="md:hidden">
-            <FooterComp />
-          </footer>
         </div>
       </div>
-      <footer className="hidden md:block">
+      <footer className="mt-10">
         <FooterComp />
       </footer>
     </>

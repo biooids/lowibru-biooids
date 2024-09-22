@@ -20,6 +20,16 @@ import { FaCode } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { TbAlpha } from "react-icons/tb";
 import { FaRegUserCircle } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
+
+import {
+  FaTv,
+  FaGlobe,
+  FaChurch,
+  FaYoutube,
+  FaFacebook,
+  FaInstagram,
+} from "react-icons/fa";
 
 import "./home.css";
 
@@ -47,7 +57,7 @@ function HomePage() {
   } = currentUser?.user || {};
   return (
     <section>
-      <section className=" border-b-2 border-slate-60 p-3 md:hidden ">
+      <section className=" border-b-2 border-amber-500 p-3 md:hidden ">
         {currentUser ? (
           <div>
             <Avatar
@@ -57,7 +67,7 @@ function HomePage() {
               bordered
               className="pb-2"
             />
-            <div className="flex justify-center items-center flex-col gap-2 text-center">
+            <div className="flex justify-center items-center  gap-2 text-center ">
               <div className="flex gap-2 text-xl">
                 {isLeader ? (
                   <TbAlpha />
@@ -69,19 +79,7 @@ function HomePage() {
                   <FaRegUserCircle />
                 )}
               </div>
-              <div className="text-xs">
-                <p className="line-clamp-1">
-                  <span className="text-amber-500">First : </span> {firstName}
-                </p>
-                <p className="line-clamp-1">
-                  <span className="text-amber-500">Last : </span>
-                  {lastName}{" "}
-                </p>
-                <p className="line-clamp-1 ">
-                  {" "}
-                  <span className="text-amber-500">User : </span> {userName}{" "}
-                </p>
-              </div>{" "}
+              <p className="line-clamp-1 text-xs">{userName}</p>
             </div>
           </div>
         ) : (
@@ -123,150 +121,55 @@ function HomePage() {
           </p>
         </div>
         <div>
-          <div className="flex justify-between h-full  flex-col">
+          <div className="flex justify-between   flex-col">
+            <h2 className="text-3xl mb-4">Members </h2>
+
             <div>
-              <ul className="text-3xl ">
+              <ul>
                 <li>Rwanda : 10k+</li>
                 <li>World : 100M+</li>
+                <li onClick={() => setIsOpen(true)}>
+                  {currentUser ? (
+                    <span className="flex gap-1  items-center">
+                      You Joined : <TiTick />
+                    </span>
+                  ) : (
+                    "Join Us"
+                  )}
+                </li>
               </ul>
             </div>
-
-            <Button onClick={() => setIsOpen(true)} className="w-full mt-8">
-              Join Us
-            </Button>
-          </div>
-
-          <div>
-            <Drawer open={isOpen} onClose={handleClose}>
-              <Drawer.Header title="JOIN US" titleIcon={HiEnvelope} />
-              <Drawer.Items>
-                <form>
-                  <div className="mb-4 mt-3">
-                    <Label htmlFor="email" className="mb-4 block">
-                      Your email (optional)
-                    </Label>
-                    <TextInput
-                      icon={HiMail}
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="name@company.com"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <Label htmlFor="subject" className="mb-4 block">
-                      Number
-                    </Label>
-                    <TextInput
-                      icon={FaPhoneAlt}
-                      type="number"
-                      id="subject"
-                      name="number"
-                      placeholder="Whatsapp can be better"
-                      required
-                    />
-                  </div>
-                  <div className="max-w-md mb-4">
-                    <div className="mb-4 block">
-                      <Label htmlFor="region" value=" Your Region " />
-                    </div>
-
-                    <CountryComp />
-                  </div>
-                  <div className="mb-4">
-                    <Label htmlFor="message" className="mb-4 block">
-                      Leave a message (optional)
-                    </Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Your message..."
-                      rows={4}
-                    />
-                  </div>
-
-                  <fieldset className="flex gap-3 mb-4">
-                    <legend className="mb-4">Your gender</legend>
-                    <div className="flex items-center gap-3 ">
-                      <Radio
-                        id="male"
-                        name="gender"
-                        value="male"
-                        defaultChecked
-                      />
-                      <Label htmlFor="male">male</Label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Radio id="female" name="gender" value="female" />
-                      <Label htmlFor="female">female</Label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Radio id="other" name="gender" value="other" />
-                      <Label htmlFor="spain">other</Label>
-                    </div>
-                  </fieldset>
-                  <div className="mb-4">
-                    <Button type="submit" className="w-full">
-                      Submit the Form
-                    </Button>
-                  </div>
-                </form>
-
-                <div className="flex flex-col">
-                  <div>
-                    <p> Have filling form question? </p>
-                    <p>Reach Us:</p>
-                  </div>
-                  <p className=" text-sm text-gray-500 dark:text-gray-400">
-                    <a
-                      href="mailto:ehwapyongm@gmail.com"
-                      className="hover:underline"
-                    >
-                      Email: ehwapyongm@gmail.com
-                    </a>
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    <a href="tel:2124567890" className="hover:underline">
-                      Phone: +250 790 931 024 (Whatsapp)
-                    </a>
-                  </p>
-                </div>
-              </Drawer.Items>
-            </Drawer>
           </div>
         </div>
       </section>
       <article className="h-56 sm:h-64 xl:h-80 2xl:h-96 bg-black w-full">
-        <Carousel slideInterval={1000}>
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-            alt="..."
-          />
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-            alt="..."
-          />
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-            alt="..."
-          />
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-            alt="..."
-          />
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
-            alt="..."
-          />
+        <Carousel slideInterval={3000} pauseOnHover>
+          <p className="text-center text-lg italic">
+            "The family is the school of love for the heart."
+          </p>
+          <p className="text-center text-lg italic">
+            "World peace can be achieved when each individual conquers his or
+            her own selfishness."
+          </p>
+          <p className="text-center text-lg italic">
+            "True love is a love that gives and forgets that it has given."
+          </p>
+          <p className="text-center text-lg italic">
+            "A life of true love means to live for the sake of others."
+          </p>
+          <p className="text-center text-lg italic">
+            "The purpose of life is to experience true love and pass that love
+            to future generations."
+          </p>
         </Carousel>
       </article>
 
-      <section className="bg-slate-800  p-3 sm:m-10 ml-2 mr-2 mt-10">
+      <section className="bg-slate-800 flex flex-col gap-3  p-3 sm:m-10 ml-2 mr-2 mt-10">
         <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 text-center ">
           About Us
         </h5>
 
-        <div className="sm:grid grid-cols-3 grid-rows-2 gap-3 flex flex-col">
+        <div className="grid   gap-3 about-us">
           <Card className="w-full">
             <div className="h-full">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
@@ -329,53 +232,62 @@ function HomePage() {
                 </li>
               </ul>
             </div>
-          </Card>{" "}
-          <div className="col-span-2 row-start-2 flex flex-col justify-between">
-            <div>
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
-                Cult or a new religion?
-              </h5>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                The internet is filled with many informations both wrong and
-                true ones We are not cult or new religion or moonies based in
-                Korea as many internet informations says If you take your time
-                and sit with one of our members, you will understand exactly who
-                we are. Offcoursse some people call them selves ex moonies but,
-                if you are curious about us, there are trusted sources you can
-                reach and have real unbiased information. there are centers in
-                every country that you can reach and we will welcome you as you
-                are.
-              </p>
-            </div>{" "}
-            <Button className="mt-3">Ask Us Questions</Button>
-            <div className="mt-3 flex flex-col gap-3">
-              <h6 className="text-lg underline">Go to the real Source below</h6>
-              <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
-                <li className="hover:underline">
-                  <a href="">Piece Tv</a>
-                </li>
-                <li className="hover:underline">
-                  <a href="">UPF Main Site</a>
-                </li>
-                <li className="hover:underline">
-                  <a href="">FFWPU World</a>
-                </li>
-                <li className="hover:underline">
-                  <a href="">Youtube</a>
-                </li>
-                <li className="hover:underline">
-                  <a href="">facebook</a>
-                </li>
-                <li className="hover:underline">
-                  <a href="">Instagram</a>
-                </li>
-              </ul>
-            </div>
+          </Card>
+        </div>
+        <div className="col-span-2 row-start-2 flex flex-col justify-between">
+          <div>
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
+              Cult or a new religion?
+            </h5>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+              The internet is filled with many informations both wrong and true
+              ones We are not cult or new religion or moonies based in Korea as
+              many internet informations says If you take your time and sit with
+              one of our members, you will understand exactly who we are.
+              Offcoursse some people call them selves ex moonies but, if you are
+              curious about us, there are trusted sources you can reach and have
+              real unbiased information. there are centers in every country that
+              you can reach and we will welcome you as you are.
+            </p>
           </div>
-          <div className="col-start-3 row-start-2 ">
-            <div className="w-full sm:h-full h-[300px]">
-              <img src={father} alt="" className="w-full h-full object-cover" />
-            </div>
+          <a href="#questions">
+            <Button className="mt-3">Ask a Questions</Button>
+          </a>
+          <div className="mt-3 flex flex-col gap-3">
+            <h6 className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-300 mb-4">
+              Go to the real Source below
+            </h6>
+            <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
+              <li className="hover:underline flex items-center">
+                <FaTv className="text-red-600 mr-2" />
+                <a href="https://piecetv.org">Piece TV</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaGlobe className="text-blue-600 mr-2" />
+                <a href="https://www.upf.org">UPF Main Site</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaChurch className="text-green-600 mr-2" />
+                <a href="https://www.ffwpu.org">FFWPU World</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaYoutube className="text-red-600 mr-2" />
+                <a href="https://www.youtube.com">YouTube</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaFacebook className="text-blue-600 mr-2" />
+                <a href="https://www.facebook.com">Facebook</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaInstagram className="text-pink-500 mr-2" />
+                <a href="https://www.instagram.com">Instagram</a>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -487,7 +399,10 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 sm:p-6 gap-3">
+      <section
+        className="sm:m-10 mt-10 ml-2 mr-2 flex flex-col lg:grid lg:grid-cols-2  bg-slate-800 sm:p-6 gap-3 "
+        id="questions"
+      >
         <section>
           <QuestionComp />
         </section>

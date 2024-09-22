@@ -17,3 +17,6 @@
   gap: 2rem;
   margin-top: 1rem;
 }
+.about-us {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
