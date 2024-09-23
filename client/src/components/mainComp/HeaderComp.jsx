@@ -51,7 +51,10 @@ function HeaderComp() {
         <BiSolidCalendarEvent />
       </Link>
 
-      <Link className="hover:bg-amber-900 h-fit p-1 text-xl rounded-lg border-2 border-amber-500">
+      <Link
+        to="notifications"
+        className="hover:bg-amber-900 h-fit p-1 text-xl rounded-lg border-2 border-amber-500"
+      >
         <MdNotificationsActive />
       </Link>
 
@@ -73,19 +76,17 @@ function HeaderComp() {
             <div className="flex h-full flex-col justify-between py-2">
               <Sidebar.Items>
                 <Sidebar.ItemGroup>
-                  <Link>
-                    <Sidebar.Item href="/e-commerce/products" icon={FaStoreAlt}>
-                      Market
-                    </Sidebar.Item>
+                  <Link to="market">
+                    <Sidebar.Item icon={FaStoreAlt}>Market</Sidebar.Item>
                   </Link>
 
-                  <Link>
+                  <Link to="media">
                     <Sidebar.Item href="/users/list" icon={MdOutlinePermMedia}>
                       Media
                     </Sidebar.Item>
                   </Link>
 
-                  <Link>
+                  <Link to="help">
                     <Sidebar.Item href="/authentication/sign-in" icon={MdHelp}>
                       Help
                     </Sidebar.Item>

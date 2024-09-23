@@ -22,6 +22,7 @@ import { FaCode } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { TbAlpha } from "react-icons/tb";
 import { FaRegUserCircle } from "react-icons/fa";
+import { IoWarningSharp } from "react-icons/io5";
 
 function MyProfile() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -103,10 +104,12 @@ function MyProfile() {
 
         <div className="flex  flex-col gap-3 lg:flex-row justify-between  sm:justify-around ">
           <div className="flex   justify-start items-start gap-3">
-            <div className="relative ">
-              <Avatar img={profilePicture} rounded bordered size="lg" />
-              <FaCamera className="absolute bottom-0 left-8 text-white" />
-            </div>
+            <Link to="/edit">
+              <div className="relative ">
+                <Avatar img={profilePicture} rounded bordered size="lg" />
+                <FaCamera className="absolute bottom-0 left-8 text-white" />
+              </div>
+            </Link>
             <div className="flex flex-col gap-1 flex-1">
               <div className="flex flex-col ">
                 <p className="line-clamp-1">{firstName}</p>
@@ -190,13 +193,12 @@ function MyProfile() {
       </section>
 
       <section className="flex gap-3 flex-col ">
+        <p className="text-2xl sm:text-3xl lg:text-4xl text-red-500 flex justify-center items-center gap-2 animate-bounce">
+          <IoWarningSharp className="text-4xl sm:text-5xl lg:text-6xl" />
+          <span>The below section is Under Construction</span>
+        </p>
         <div className="flex gap-3">
-          <Link to="">
-            <Button>All Posts</Button>
-          </Link>
-          <Link to="">
-            <Button>Talents</Button>
-          </Link>
+          <h2>User Posts</h2>
         </div>
         <AllOthersPosts />
       </section>

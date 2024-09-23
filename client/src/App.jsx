@@ -40,6 +40,7 @@ import CreateFlick from "./components/pages/flicks/components/CreateFlick";
 import UpdateFlick from "./components/pages/flicks/components/UpdateFlick";
 import NotFound from "./components/pages/404/NotFound";
 import Media from "./components/pages/media/Media";
+import Notifications from "./components/pages/notification/Notifications";
 
 function App() {
   return (
@@ -116,6 +117,8 @@ function App() {
 
           {/* media */}
           <Route path="media" element={<Media />} />
+          {/* Notifications */}
+          <Route path="notifications" element={<Notifications />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

@@ -8,9 +8,9 @@ function Edit() {
         <Link className="bg-white bg-opacity-5 p-2 " to=".">
           Edit Form
         </Link>
-        <Link className="bg-white bg-opacity-5 p-2 " to="editContacts">
+        {/* <Link className="bg-white bg-opacity-5 p-2 " to="editContacts">
           Edit Contacts
-        </Link>
+        </Link> */}
       </div>
       <Outlet />
     </div>

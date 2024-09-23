@@ -137,17 +137,21 @@ function SidebarComp() {
           </Sidebar.ItemGroup>
 
           <Sidebar.ItemGroup>
-            <Sidebar.Item
-              icon={MdNotificationsActive}
-              label="9+"
-              labelColor="dark"
-              as={"div"}
-            >
-              Notifications
-            </Sidebar.Item>
-            <Sidebar.Item icon={MdHelp} as={"div"}>
-              Help
-            </Sidebar.Item>
+            <Link to="notifications">
+              <Sidebar.Item
+                icon={MdNotificationsActive}
+                label="9+"
+                labelColor="dark"
+                as={"div"}
+              >
+                Notifications
+              </Sidebar.Item>
+            </Link>
+            <Link to="help">
+              <Sidebar.Item icon={MdHelp} as={"div"}>
+                Help
+              </Sidebar.Item>
+            </Link>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>
