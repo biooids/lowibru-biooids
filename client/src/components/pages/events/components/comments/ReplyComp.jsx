@@ -2,10 +2,11 @@ import { Label, TextInput, Button } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ReplySection from "./ReplySection";
+import { Link } from "react-router-dom";
 
 function ReplyComp({ commentId, setNumberOfReplies }) {
   const { currentUser } = useSelector((state) => state.user);
-  const userId = currentUser.user._id;
+  const userId = currentUser ? currentUser.user._id : "";
 
   const [replyContent, setReplyContent] = useState("");
   const [replies, setReplies] = useState([]);
@@ -69,8 +70,8 @@ function ReplyComp({ commentId, setNumberOfReplies }) {
     setReplyContent(`@${userId} `);
   };
   return (
-    <div className="p-3">
-      <div>
+    <div className="p-3 flex flex-col gap-3">
+      {currentUser ? (
         <form className="flex flex-col gap-3 mb-5" onSubmit={handleSubmit}>
           <div>
             <div className="mb-2  flex gap-3">
@@ -96,24 +97,29 @@ function ReplyComp({ commentId, setNumberOfReplies }) {
             Submit
           </Button>
         </form>
-        <div className="flex flex-col gap-5">
-          {replies.length > 0
-            ? replies.map((reply) => (
-                <ReplySection
-                  key={reply._id}
-                  replyId={reply._id}
-                  replyContent={reply.replyContent}
-                  isLiked={reply.likes.includes(userId)}
-                  fetchedLikes={reply.numberOfLikes}
-                  onDelete={handleReplyDelete}
-                  replyReply={replyReply}
-                  userId={reply.userId._id}
-                  profilePicture={reply.userId.profilePicture}
-                  userName={reply.userId.userName}
-                />
-              ))
-            : "No Replies yet "}
-        </div>
+      ) : (
+        <Link to="/signup">
+          <Button className="w-full">Log in or sign up to reply</Button>
+        </Link>
+      )}
+
+      <div className="flex flex-col gap-5">
+        {replies.length > 0
+          ? replies.map((reply) => (
+              <ReplySection
+                key={reply._id}
+                replyId={reply._id}
+                replyContent={reply.replyContent}
+                isLiked={reply.likes.includes(userId)}
+                fetchedLikes={reply.numberOfLikes}
+                onDelete={handleReplyDelete}
+                replyReply={replyReply}
+                userId={reply.userId._id}
+                profilePicture={reply.userId.profilePicture}
+                userName={reply.userId.userName}
+              />
+            ))
+          : "No Replies yet "}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import { verifyToken } from "../utils/verifyUser.js";
 const router = express.Router();
 
 router.post("/createReply", verifyToken, createReply);
-router.get("/getCommentReplies/:commentId", verifyToken, getCommentReplies);
+router.get("/getCommentReplies/:commentId", getCommentReplies);
 router.put("/likeReply/:replyId", verifyToken, likeReply);
 router.put("/editReply", verifyToken, editReply);
 router.delete("/deleteReply/:replyId", verifyToken, deleteReply);

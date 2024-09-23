@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 function ReplySection({
   replyId,
@@ -19,6 +20,8 @@ function ReplySection({
 }) {
   const { currentUser } = useSelector((state) => state.user);
 
+  const navigate = useNavigate();
+
   const [liked, setLiked] = useState(isLiked);
   const [numberOfLikes, setNumberOfLikes] = useState(fetchedLikes);
   const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +31,7 @@ function ReplySection({
   const handleLike = async () => {
     try {
       if (!currentUser) {
-        navigate("/sign-up");
+        navigate("/signup");
         return;
       }
 
@@ -193,7 +196,7 @@ function ReplySection({
             >
               reply
             </span>
-            {currentUser.user._id === userId ? (
+            {currentUser && currentUser.user._id === userId ? (
               <div className="flex gap-3">
                 <span
                   className=" hover:underline cursor-pointer"

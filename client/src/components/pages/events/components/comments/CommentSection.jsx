@@ -37,7 +37,7 @@ function CommentSection({
   const handleLike = async () => {
     try {
       if (!currentUser) {
-        navigate("/sign-up");
+        navigate("/signup");
         return;
       }
 
@@ -169,7 +169,7 @@ function CommentSection({
               Replies : {numberOfReplies}
             </span>
 
-            {currentUser.user._id === userId ? (
+            {currentUser && currentUser.user._id === userId ? (
               <div className="flex gap-3">
                 <span
                   className=" hover:underline cursor-pointer"
