@@ -43,6 +43,7 @@ function MyProfile() {
     shortDescription,
     emailOrPhone,
     externalLink,
+    country,
   } = currentUser?.user || {};
 
   const handleSignout = async () => {
@@ -179,6 +180,11 @@ function MyProfile() {
           <div className="flex flex-col">
             <span className="text-amber-500">Contacts :</span>
             <span>{emailOrPhone}</span>
+          </div>
+
+          <div className="flex flex-col">
+            <span className="text-amber-500">Country :</span>
+            <span>{country}</span>
           </div>
         </div>
       </section>

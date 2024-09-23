@@ -51,6 +51,7 @@ export const updateUser = async (req, res, next) => {
     shortDescription,
     externalLink,
     profilePicture,
+    country,
   } = req.body;
 
   console.log("data from req body", req.body);
@@ -60,6 +61,7 @@ export const updateUser = async (req, res, next) => {
   lastName = lastName?.trim();
   userName = userName?.trim();
   emailOrPhone = emailOrPhone?.trim();
+  country = country?.trim();
 
   // Ensure the correct user is updating the profile
   if (req.user.id !== req.params.userId) {
@@ -81,6 +83,7 @@ export const updateUser = async (req, res, next) => {
       shortDescription,
       externalLink,
       profilePicture,
+      country,
     };
 
     // Only hash password if provided

@@ -54,6 +54,7 @@ function EditProfile() {
     repeatPassword: "",
     shortDescription: "",
     externalLink: "",
+    country: "",
   });
 
   const [isValidLink, setIsValidLink] = useState(true);
@@ -383,6 +384,7 @@ function EditProfile() {
               />
             </div>
           </div>
+
           <div>
             <div className="mb-2 block">
               <Label htmlFor="userName" value=" User name*" />
@@ -398,6 +400,23 @@ function EditProfile() {
               value={formData.userName || " "}
             />
           </div>
+
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="country" value=" Country" />
+            </div>
+            <TextInput
+              onChange={handleChange}
+              id="country"
+              name="country"
+              type="text"
+              placeholder="country"
+              autoComplete="country"
+              shadow
+              value={formData.country || " "}
+            />
+          </div>
+
           <div>
             <div className="mb-2 block">
               <Label htmlFor="emailOrPhone" value="Email*" />

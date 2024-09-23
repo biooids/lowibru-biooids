@@ -2,16 +2,24 @@ import { Navbar } from "flowbite-react";
 import React from "react";
 import { Button } from "flowbite-react";
 import { HiAdjustments, HiUserCircle } from "react-icons/hi";
+import { IoWarningSharp } from "react-icons/io5";
+
 import { Link, Outlet } from "react-router-dom";
 import "./lectures.css";
 function Lectures() {
   return (
     <section className="">
       <div className="flex gap-3 mt-3 mb-3 flex-col p-3">
+        <p className="text-3xl text-red-500 flex justify-center items-center gap-3">
+          <IoWarningSharp />
+          <span>Under construction</span>
+        </p>
         <h2 className="text-3xl">Welcome to Lectures Section</h2>
-        <p>
-          Explore activities going on and discover both live and upcoming events
-          and join us in fostering a community of learning and growth.
+        <p className="text-xl  text-center leading-relaxed">
+          This is the hub for all your lecture content. Explore the available
+          lectures, access your personal collection, or upload new materials to
+          share with others. We're constantly working to improve your
+          experience, so stay tuned for more features!
         </p>
       </div>
 

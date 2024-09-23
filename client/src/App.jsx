@@ -38,6 +38,8 @@ import FlicksPage from "./components/pages/flicks/FlicksPage";
 import MyFlicks from "./components/pages/flicks/components/MyFlicks";
 import CreateFlick from "./components/pages/flicks/components/CreateFlick";
 import UpdateFlick from "./components/pages/flicks/components/UpdateFlick";
+import NotFound from "./components/pages/404/NotFound";
+import Media from "./components/pages/media/Media";
 
 function App() {
   return (
@@ -111,9 +113,12 @@ function App() {
             </Route>
             {/* <Route path="updateflick" element={<UpdateFlick />} /> */}
           </Route>
+
+          {/* media */}
+          <Route path="media" element={<Media />} />
         </Route>
 
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
