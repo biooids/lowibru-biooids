@@ -14,6 +14,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import cookieParser from "cookie-parser";
+import path from "path";
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +31,8 @@ mongoose
     );
   });
 
+const __dirname = path.resolve();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -41,6 +44,12 @@ app.use("/api/post", postRoutes);
 app.use("/api/reply", replyRoutes);
 app.use("/api/comment", commentRouter);
 app.use("/api/flick", flickRoutes);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+});
 
 app.use((error, req, res, next) => {
   const statusCode = error.status || 500;
