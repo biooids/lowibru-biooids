@@ -326,10 +326,10 @@ function SignUp() {
             </form>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
+        {/* <div className="flex flex-col gap-3">
           <p>Or register with Google if applicable</p>
           <OAuth />
-        </div>
+        </div> */}
       </section>
       <div>
         <Modal

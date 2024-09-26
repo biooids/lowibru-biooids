@@ -86,15 +86,16 @@ function SidebarComp() {
                 Home
               </Sidebar.Item>
             </Link>
-
-            <Sidebar.Item
-              icon={MdMessage}
-              label="4"
-              labelColor="dark"
-              as={"div"}
-            >
-              Chat
-            </Sidebar.Item>
+            <a href="https://lowibru.chat.biooids.com/" target="_blank">
+              <Sidebar.Item
+                icon={MdMessage}
+                label="4"
+                labelColor="dark"
+                as={"div"}
+              >
+                Chat
+              </Sidebar.Item>
+            </a>
 
             <Link to="events">
               <Sidebar.Item
@@ -162,13 +163,14 @@ function SidebarComp() {
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>
         </Link>
-        <Link
+        <a
           className="flex flex-col justify-center items-center"
-          to="talents"
+          href="https://lowibru.chat.biooids.com/"
+          target="_blank"
         >
           <MdMessage className="text-xl" />
           <span className="text-xs">Chat</span>
-        </Link>
+        </a>
         <Link className="flex flex-col justify-center items-center" to="events">
           <BiSolidCalendarEvent className="text-xl" />
           <span className="text-xs">Events</span>

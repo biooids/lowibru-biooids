@@ -1,7 +1,7 @@
 import { Button, Card } from "flowbite-react";
 import React from "react";
 
-import profilePic from "../../../../assets/father.jpg";
+import profilePic from "../../../../assets/candles.jpeg";
 function AllItemsCard() {
   return (
     <article>
