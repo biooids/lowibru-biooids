@@ -260,33 +260,47 @@ function HomePage() {
             <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 ">
               <li className="hover:underline flex items-center">
                 <FaTv className="text-red-600 mr-2" />
-                <a href="https://piecetv.org">Piece TV</a>
+                <a href="https://www.ipeacetv.com/" target="_blank">
+                  Peace TV
+                </a>
               </li>
 
               <li className="hover:underline flex items-center">
                 <FaGlobe className="text-blue-600 mr-2" />
-                <a href="https://www.upf.org">UPF Main Site</a>
+                <a href="https://www.upf.org/" target="_blank">
+                  UPF Main Site
+                </a>
               </li>
 
               <li className="hover:underline flex items-center">
                 <FaChurch className="text-green-600 mr-2" />
-                <a href="https://www.ffwpu.org">FFWPU World</a>
+                <a href="https://familyfed.org/">FFWPU World</a>
               </li>
 
               <li className="hover:underline flex items-center">
                 <FaYoutube className="text-red-600 mr-2" />
-                <a href="https://www.youtube.com">YouTube</a>
+                <a
+                  href="https://www.youtube.com/@FamilyFedMedia"
+                  target="_blank"
+                >
+                  YouTube
+                </a>
               </li>
 
               <li className="hover:underline flex items-center">
                 <FaFacebook className="text-blue-600 mr-2" />
-                <a href="https://www.facebook.com">Facebook</a>
+                <a
+                  href="https://web.facebook.com/groups/tplove4/"
+                  target="_blank"
+                >
+                  Facebook
+                </a>
               </li>
-
+              {/* 
               <li className="hover:underline flex items-center">
                 <FaInstagram className="text-pink-500 mr-2" />
                 <a href="https://www.instagram.com">Instagram</a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -363,38 +377,7 @@ function HomePage() {
           <LeadersComp
             title="National leader"
             leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          />
-          <LeadersComp
-            title="National leader"
-            leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          />
-          <LeadersComp
-            title="National leader"
-            leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          />
-          <LeadersComp
-            title="National leader"
-            leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          />
-          <LeadersComp
-            title="National leader"
-            leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          />
-          <LeadersComp
-            title="National leader"
-            leaderName="Wilonja Mukamba"
-            description=" Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
+            description=" Ce qui nous unit, c’est l’amour, et c’est la paix qui en fait la force."
           />
         </div>
       </section>

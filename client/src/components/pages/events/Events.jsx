@@ -20,12 +20,12 @@ function Events() {
           Activities
         </Link>
 
-        <Link
-          to="live"
+        <a
+          src="https://reuvi-biooids-test.vercel.app/"
           className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
         >
           Live
-        </Link>
+        </a>
         <Link
           to="upcoming"
           className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"

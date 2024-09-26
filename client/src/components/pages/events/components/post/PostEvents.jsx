@@ -52,12 +52,13 @@ function PostEvents() {
             >
               My Posts
             </Link>
-            <Link
-              to="golive"
+            <a
+              href="https://reuvi-biooids-test.vercel.app/"
+              target="_blank"
               className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
             >
               Go live
-            </Link>
+            </a>
             <Link
               to="permission"
               className="bg-slate-700 rounded-md  sm:p-2 py-2 sm:text-sm text-sm px-1"
