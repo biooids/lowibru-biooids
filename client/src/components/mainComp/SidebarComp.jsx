@@ -86,16 +86,6 @@ function SidebarComp() {
                 Home
               </Sidebar.Item>
             </Link>
-            <a href="https://lowibru.chat.biooids.com/" target="_blank">
-              <Sidebar.Item
-                icon={MdMessage}
-                label="4"
-                labelColor="dark"
-                as={"div"}
-              >
-                Chat
-              </Sidebar.Item>
-            </a>
 
             <Link to="events">
               <Sidebar.Item
@@ -135,6 +125,17 @@ function SidebarComp() {
                 Media
               </Sidebar.Item>
             </Link>
+
+            <a href="https://lowibru.chat.biooids.com/" target="_blank">
+              <Sidebar.Item
+                icon={MdMessage}
+                label="4"
+                labelColor="dark"
+                as={"div"}
+              >
+                Chat
+              </Sidebar.Item>
+            </a>
           </Sidebar.ItemGroup>
 
           <Sidebar.ItemGroup>
@@ -163,14 +164,7 @@ function SidebarComp() {
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>
         </Link>
-        <a
-          className="flex flex-col justify-center items-center"
-          href="https://lowibru.chat.biooids.com/"
-          target="_blank"
-        >
-          <MdMessage className="text-xl" />
-          <span className="text-xs">Chat</span>
-        </a>
+
         <Link className="flex flex-col justify-center items-center" to="events">
           <BiSolidCalendarEvent className="text-xl" />
           <span className="text-xs">Events</span>
@@ -186,6 +180,15 @@ function SidebarComp() {
           <MdMenuBook className="text-xl" />
           <span className="text-xs">Lectures</span>
         </Link>
+
+        <a
+          className="flex flex-col justify-center items-center"
+          href="https://lowibru.chat.biooids.com/"
+          target="_blank"
+        >
+          <MdMessage className="text-xl" />
+          <span className="text-xs">Chat</span>
+        </a>
       </div>
     </div>
   );

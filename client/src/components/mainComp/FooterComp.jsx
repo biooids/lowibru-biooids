@@ -10,6 +10,15 @@ import {
 } from "react-icons/bs";
 import logo from "../../assets/ffwpu.png";
 
+import {
+  FaTv,
+  FaGlobe,
+  FaChurch,
+  FaYoutube,
+  FaFacebook,
+  FaInstagram,
+} from "react-icons/fa";
+
 function FooterComp() {
   return (
     <Footer
@@ -54,24 +63,46 @@ function FooterComp() {
                 className="text-amber-500"
               />
               <Footer.LinkGroup col>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 1
-                </a>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 2
-                </a>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 3
-                </a>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 4
-                </a>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 5
-                </a>
-                <a href="#" className="hover:text-amber-500">
-                  Resource 6
-                </a>
+                {/* <ul className="flex flex-col gap-3 lg:flex-row justify-between text-gray-400 "> */}
+                <li className="hover:underline flex items-center">
+                  <FaTv className="text-red-600 mr-2" />
+                  <a href="https://www.ipeacetv.com/" target="_blank">
+                    Peace TV
+                  </a>
+                </li>
+
+                <li className="hover:underline flex items-center">
+                  <FaGlobe className="text-blue-600 mr-2" />
+                  <a href="https://www.upf.org/" target="_blank">
+                    UPF Main Site
+                  </a>
+                </li>
+
+                <li className="hover:underline flex items-center">
+                  <FaChurch className="text-green-600 mr-2" />
+                  <a href="https://familyfed.org/">FFWPU World</a>
+                </li>
+
+                <li className="hover:underline flex items-center">
+                  <FaYoutube className="text-red-600 mr-2" />
+                  <a
+                    href="https://www.youtube.com/@FamilyFedMedia"
+                    target="_blank"
+                  >
+                    YouTube
+                  </a>
+                </li>
+
+                <li className="hover:underline flex items-center">
+                  <FaFacebook className="text-blue-600 mr-2" />
+                  <a
+                    href="https://web.facebook.com/groups/tplove4/"
+                    target="_blank"
+                  >
+                    Facebook
+                  </a>
+                </li>
+                {/* </ul> */}
               </Footer.LinkGroup>
             </div>
             {/* Legal Section */}
@@ -92,12 +123,47 @@ function FooterComp() {
             year={new Date().getFullYear()}
             className="text-gray-500"
           />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="#" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsDribbble} />
+          <div>
+            <ul className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+              <li className="hover:underline flex items-center">
+                <FaTv className="text-red-600 mr-2" />
+                <a href="https://www.ipeacetv.com/" target="_blank">
+                  Peace TV
+                </a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaGlobe className="text-blue-600 mr-2" />
+                <a href="https://www.upf.org/" target="_blank">
+                  UPF Main Site
+                </a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaChurch className="text-green-600 mr-2" />
+                <a href="https://familyfed.org/">FFWPU World</a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaYoutube className="text-red-600 mr-2" />
+                <a
+                  href="https://www.youtube.com/@FamilyFedMedia"
+                  target="_blank"
+                >
+                  YouTube
+                </a>
+              </li>
+
+              <li className="hover:underline flex items-center">
+                <FaFacebook className="text-blue-600 mr-2" />
+                <a
+                  href="https://web.facebook.com/groups/tplove4/"
+                  target="_blank"
+                >
+                  Facebook
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

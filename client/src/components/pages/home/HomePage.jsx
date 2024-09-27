@@ -296,11 +296,6 @@ function HomePage() {
                   Facebook
                 </a>
               </li>
-              {/* 
-              <li className="hover:underline flex items-center">
-                <FaInstagram className="text-pink-500 mr-2" />
-                <a href="https://www.instagram.com">Instagram</a>
-              </li> */}
             </ul>
           </div>
         </div>

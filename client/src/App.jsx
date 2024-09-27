@@ -41,6 +41,8 @@ import UpdateFlick from "./components/pages/flicks/components/UpdateFlick";
 import NotFound from "./components/pages/404/NotFound";
 import Media from "./components/pages/media/Media";
 import Notifications from "./components/pages/notification/Notifications";
+import Terms from "./components/pages/terms/Terms";
+import Privacy from "./components/pages/privacy/Privacy";
 
 function App() {
   return (
@@ -119,6 +121,10 @@ function App() {
           <Route path="media" element={<Media />} />
           {/* Notifications */}
           <Route path="notifications" element={<Notifications />} />
+
+          {/* terms and privacy */}
+          <Route path="terms" element={<Terms />} />
+          <Route path="privacy" element={<Privacy />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
