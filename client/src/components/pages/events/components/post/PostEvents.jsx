@@ -9,32 +9,28 @@ function PostEvents() {
       <section className=" rounded-md">
         <div className="flex flex-col gap-3 p-2 bg-slate-700 rounded-lg mt-4">
           <div className="flex gap-3 ">
-            <h3 className="text-xl border-l-4 pl-3 justify-center">
-              Your details
-            </h3>
-            <span className=" text-sm flex justify-center items-center hover:underline cursor-pointer ">
-              Edit
-            </span>
+            <h3 className="text-xl border-l-4 pl-3 justify-center">Details</h3>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="flex flex-col justify-center items-start">
-              <Avatar img={profilePic} rounded bordered size="sm" />
-              <h4 className=" ">Hwapyong Maniragaba</h4>
-            </div>
-            <div className=" w-full justify-between gap-3 flex  flex-row text-xs sm:text-sm">
-              <div className="flex flex-col">
-                <span>role</span>
-                <span>Leader</span>
-              </div>
-              <div className="flex flex-col">
-                <span>number</span>
-                <span>(+250) 790 931 024</span>
-              </div>
-              <div className="flex flex-col">
-                <span>Email Adress</span>
-                <span>ehwapyongm@gmail.com</span>
-              </div>
-            </div>
+            <p>When creating an event, please follow these posting rules:</p>
+            <ul className="list-disc pl-5">
+              <li>You must upload an image before submitting your post.</li>
+              <li>Only a maximum of 6 images can be uploaded per event.</li>
+              <li>All images must be under 2MB in size.</li>
+              <li>Ensure your event description is clear and concise</li>
+              <li>
+                Offensive language, spam, or inappropriate content will result
+                in post removal.
+              </li>
+              <li>
+                Review your details before submission, as posts cannot be edited
+                after submission.
+              </li>
+              <li>
+                Ensure your event aligns with the community guidelines focused
+                on love, peace, and unity.
+              </li>
+            </ul>
           </div>
         </div>
         <Navbar className="mt-3 rounded-md ">
