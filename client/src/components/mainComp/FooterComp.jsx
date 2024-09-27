@@ -23,7 +23,7 @@ function FooterComp() {
   return (
     <Footer
       container
-      className="bg-gray-900 text-white border-t-2 border-amber-500 p-6"
+      className="bg-gray-900 text-white border-t-2 border-amber-500 p-6 pb-32"
     >
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
@@ -123,48 +123,6 @@ function FooterComp() {
             year={new Date().getFullYear()}
             className="text-gray-500"
           />
-          <div>
-            <ul className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-              <li className="hover:underline flex items-center">
-                <FaTv className="text-red-600 mr-2" />
-                <a href="https://www.ipeacetv.com/" target="_blank">
-                  Peace TV
-                </a>
-              </li>
-
-              <li className="hover:underline flex items-center">
-                <FaGlobe className="text-blue-600 mr-2" />
-                <a href="https://www.upf.org/" target="_blank">
-                  UPF Main Site
-                </a>
-              </li>
-
-              <li className="hover:underline flex items-center">
-                <FaChurch className="text-green-600 mr-2" />
-                <a href="https://familyfed.org/">FFWPU World</a>
-              </li>
-
-              <li className="hover:underline flex items-center">
-                <FaYoutube className="text-red-600 mr-2" />
-                <a
-                  href="https://www.youtube.com/@FamilyFedMedia"
-                  target="_blank"
-                >
-                  YouTube
-                </a>
-              </li>
-
-              <li className="hover:underline flex items-center">
-                <FaFacebook className="text-blue-600 mr-2" />
-                <a
-                  href="https://web.facebook.com/groups/tplove4/"
-                  target="_blank"
-                >
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </Footer>

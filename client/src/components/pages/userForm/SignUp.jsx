@@ -309,7 +309,7 @@ function SignUp() {
                   I agree with the&nbsp;
                 </Label>
                 <Link
-                  to="#"
+                  to="/terms"
                   className="text-cyan-600 hover:underline dark:text-cyan-500"
                 >
                   terms and conditions

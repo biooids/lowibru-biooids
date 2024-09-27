@@ -159,7 +159,7 @@ function SidebarComp() {
       </Sidebar>
 
       {/* Bottom navigation for smaller screens */}
-      <div className="fixed bottom-0 left-0 right-0 border-t-2 border-amber-500 sm:hidden flex justify-around items-center py-2 z-50 dark:bg-slate-900">
+      <div className="fixed bottom-0  rounded-lg bg-black bg-opacity-50  pt-3 pb-5 left-0 right-0  border-2 border-amber-500 md:hidden flex justify-around items-center  z-50 ">
         <Link className="flex flex-col justify-center items-center" to="/">
           <FaHome className="text-xl" />
           <span className="text-xs">Home</span>
